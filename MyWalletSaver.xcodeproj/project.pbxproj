@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B941B37865E0047197A /* AppDelegate.swift */; };
+		DAD71B971B37865E0047197A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B961B37865E0047197A /* FirstViewController.swift */; };
+		DAD71B991B37865E0047197A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B981B37865E0047197A /* SecondViewController.swift */; };
+		DAD71B9C1B37865E0047197A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9A1B37865E0047197A /* Main.storyboard */; };
+		DAD71B9E1B37865E0047197A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9D1B37865E0047197A /* Images.xcassets */; };
+		DAD71BA11B37865E0047197A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9F1B37865E0047197A /* LaunchScreen.xib */; };
+		DAD71BAD1B37865E0047197A /* MyWalletSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAD71BA71B37865E0047197A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAD71B871B37865E0047197A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAD71B8E1B37865E0047197A;
+			remoteInfo = MyWalletSaver;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DAD71B8F1B37865E0047197A /* MyWalletSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWalletSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD71B931B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAD71B941B37865E0047197A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAD71B961B37865E0047197A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		DAD71B981B37865E0047197A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		DAD71B9B1B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAD71B9D1B37865E0047197A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DAD71BA01B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWalletSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD71BAB1B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWalletSaverTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAD71B8C1B37865E0047197A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD71BA31B37865E0047197A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAD71B861B37865E0047197A = {
+			isa = PBXGroup;
+			children = (
+				DAD71B911B37865E0047197A /* MyWalletSaver */,
+				DAD71BA91B37865E0047197A /* MyWalletSaverTests */,
+				DAD71B901B37865E0047197A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAD71B901B37865E0047197A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAD71B8F1B37865E0047197A /* MyWalletSaver.app */,
+				DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAD71B911B37865E0047197A /* MyWalletSaver */ = {
+			isa = PBXGroup;
+			children = (
+				DAD71B941B37865E0047197A /* AppDelegate.swift */,
+				DAD71B961B37865E0047197A /* FirstViewController.swift */,
+				DAD71B981B37865E0047197A /* SecondViewController.swift */,
+				DAD71B9A1B37865E0047197A /* Main.storyboard */,
+				DAD71B9D1B37865E0047197A /* Images.xcassets */,
+				DAD71B9F1B37865E0047197A /* LaunchScreen.xib */,
+				DAD71B921B37865E0047197A /* Supporting Files */,
+			);
+			path = MyWalletSaver;
+			sourceTree = "<group>";
+		};
+		DAD71B921B37865E0047197A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAD71B931B37865E0047197A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAD71BA91B37865E0047197A /* MyWalletSaverTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */,
+				DAD71BAA1B37865E0047197A /* Supporting Files */,
+			);
+			path = MyWalletSaverTests;
+			sourceTree = "<group>";
+		};
+		DAD71BAA1B37865E0047197A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAD71BAB1B37865E0047197A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAD71B8E1B37865E0047197A /* MyWalletSaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaver" */;
+			buildPhases = (
+				DAD71B8B1B37865E0047197A /* Sources */,
+				DAD71B8C1B37865E0047197A /* Frameworks */,
+				DAD71B8D1B37865E0047197A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyWalletSaver;
+			productName = MyWalletSaver;
+			productReference = DAD71B8F1B37865E0047197A /* MyWalletSaver.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAD71BA51B37865E0047197A /* MyWalletSaverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaverTests" */;
+			buildPhases = (
+				DAD71BA21B37865E0047197A /* Sources */,
+				DAD71BA31B37865E0047197A /* Frameworks */,
+				DAD71BA41B37865E0047197A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAD71BA81B37865E0047197A /* PBXTargetDependency */,
+			);
+			name = MyWalletSaverTests;
+			productName = MyWalletSaverTests;
+			productReference = DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAD71B871B37865E0047197A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Dmitry Sokolov";
+				TargetAttributes = {
+					DAD71B8E1B37865E0047197A = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					DAD71BA51B37865E0047197A = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = DAD71B8E1B37865E0047197A;
+					};
+				};
+			};
+			buildConfigurationList = DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "MyWalletSaver" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAD71B861B37865E0047197A;
+			productRefGroup = DAD71B901B37865E0047197A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAD71B8E1B37865E0047197A /* MyWalletSaver */,
+				DAD71BA51B37865E0047197A /* MyWalletSaverTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAD71B8D1B37865E0047197A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD71B9C1B37865E0047197A /* Main.storyboard in Resources */,
+				DAD71BA11B37865E0047197A /* LaunchScreen.xib in Resources */,
+				DAD71B9E1B37865E0047197A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD71BA41B37865E0047197A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAD71B8B1B37865E0047197A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD71B991B37865E0047197A /* SecondViewController.swift in Sources */,
+				DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */,
+				DAD71B971B37865E0047197A /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD71BA21B37865E0047197A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD71BAD1B37865E0047197A /* MyWalletSaverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAD71BA81B37865E0047197A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAD71B8E1B37865E0047197A /* MyWalletSaver */;
+			targetProxy = DAD71BA71B37865E0047197A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DAD71B9A1B37865E0047197A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD71B9B1B37865E0047197A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DAD71B9F1B37865E0047197A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD71BA01B37865E0047197A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAD71BAE1B37865F0047197A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAD71BAF1B37865F0047197A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAD71BB11B37865F0047197A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MyWalletSaver/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DAD71BB21B37865F0047197A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MyWalletSaver/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DAD71BB41B37865F0047197A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
+			};
+			name = Debug;
+		};
+		DAD71BB51B37865F0047197A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "MyWalletSaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD71BAE1B37865F0047197A /* Debug */,
+				DAD71BAF1B37865F0047197A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD71BB11B37865F0047197A /* Debug */,
+				DAD71BB21B37865F0047197A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD71BB41B37865F0047197A /* Debug */,
+				DAD71BB51B37865F0047197A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAD71B871B37865E0047197A /* Project object */;
+}
