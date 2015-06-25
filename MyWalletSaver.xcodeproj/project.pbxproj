@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B941B37865E0047197A /* AppDelegate.swift */; };
-		DAD71B971B37865E0047197A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B961B37865E0047197A /* FirstViewController.swift */; };
-		DAD71B991B37865E0047197A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B981B37865E0047197A /* SecondViewController.swift */; };
+		DAD71B971B37865E0047197A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B961B37865E0047197A /* MainViewController.swift */; };
+		DAD71B991B37865E0047197A /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B981B37865E0047197A /* StatisticsViewController.swift */; };
 		DAD71B9C1B37865E0047197A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9A1B37865E0047197A /* Main.storyboard */; };
 		DAD71B9E1B37865E0047197A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9D1B37865E0047197A /* Images.xcassets */; };
 		DAD71BA11B37865E0047197A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAD71B9F1B37865E0047197A /* LaunchScreen.xib */; };
 		DAD71BAD1B37865E0047197A /* MyWalletSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */; };
+		DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAD71BB61B3789540047197A /* CoreDataWallet.xcdatamodeld */; };
+		DAD71BBA1B37EC130047197A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD71BB91B37EC130047197A /* CoreData.framework */; };
+		DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */; };
+		DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C71B3BC23300AE8D3B /* Operation.swift */; };
+		DAFAD9CE1B3BF68900AE8D3B /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9CD1B3BF68900AE8D3B /* Holder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,14 +35,19 @@
 		DAD71B8F1B37865E0047197A /* MyWalletSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWalletSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD71B931B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD71B941B37865E0047197A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DAD71B961B37865E0047197A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		DAD71B981B37865E0047197A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		DAD71B961B37865E0047197A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DAD71B981B37865E0047197A /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		DAD71B9B1B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DAD71B9D1B37865E0047197A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DAD71BA01B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWalletSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD71BAB1B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWalletSaverTests.swift; sourceTree = "<group>"; };
+		DAD71BB71B3789540047197A /* CoreDataWallet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataWallet.xcdatamodel; sourceTree = "<group>"; };
+		DAD71BB91B37EC130047197A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DAFAD9C71B3BC23300AE8D3B /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = ../Operation.swift; sourceTree = "<group>"; };
+		DAFAD9CD1B3BF68900AE8D3B /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD71BBA1B37EC130047197A /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +72,7 @@
 		DAD71B861B37865E0047197A = {
 			isa = PBXGroup;
 			children = (
+				DAD71BB91B37EC130047197A /* CoreData.framework */,
 				DAD71B911B37865E0047197A /* MyWalletSaver */,
 				DAD71BA91B37865E0047197A /* MyWalletSaverTests */,
 				DAD71B901B37865E0047197A /* Products */,
@@ -80,9 +92,10 @@
 			isa = PBXGroup;
 			children = (
 				DAD71B941B37865E0047197A /* AppDelegate.swift */,
-				DAD71B961B37865E0047197A /* FirstViewController.swift */,
-				DAD71B981B37865E0047197A /* SecondViewController.swift */,
+				DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */,
+				DAFAD9CC1B3BC25700AE8D3B /* ViewControllers */,
 				DAD71B9A1B37865E0047197A /* Main.storyboard */,
+				DAD71BB61B3789540047197A /* CoreDataWallet.xcdatamodeld */,
 				DAD71B9D1B37865E0047197A /* Images.xcassets */,
 				DAD71B9F1B37865E0047197A /* LaunchScreen.xib */,
 				DAD71B921B37865E0047197A /* Supporting Files */,
@@ -113,6 +126,25 @@
 				DAD71BAB1B37865E0047197A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				DAFAD9CD1B3BF68900AE8D3B /* Holder.swift */,
+				DAFAD9C71B3BC23300AE8D3B /* Operation.swift */,
+			);
+			name = "Core Data Models";
+			sourceTree = "<group>";
+		};
+		DAFAD9CC1B3BC25700AE8D3B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */,
+				DAD71B961B37865E0047197A /* MainViewController.swift */,
+				DAD71B981B37865E0047197A /* StatisticsViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +247,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAD71B991B37865E0047197A /* SecondViewController.swift in Sources */,
+				DAD71B991B37865E0047197A /* StatisticsViewController.swift in Sources */,
 				DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */,
-				DAD71B971B37865E0047197A /* FirstViewController.swift in Sources */,
+				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
+				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
+				DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */,
+				DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */,
+				DAFAD9CE1B3BF68900AE8D3B /* Holder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +449,7 @@
 				DAD71BB21B37865F0047197A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaverTests" */ = {
 			isa = XCConfigurationList;
@@ -421,8 +458,22 @@
 				DAD71BB51B37865F0047197A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DAD71BB61B3789540047197A /* CoreDataWallet.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DAD71BB71B3789540047197A /* CoreDataWallet.xcdatamodel */,
+			);
+			currentVersion = DAD71BB71B3789540047197A /* CoreDataWallet.xcdatamodel */;
+			path = CoreDataWallet.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DAD71B871B37865E0047197A /* Project object */;
 }

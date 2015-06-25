@@ -9,10 +9,13 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    @IBOutlet weak var rightButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.rightButton.addTarget(self, action: Selector("rightButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +24,9 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func rightButtonPressed(button: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

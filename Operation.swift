@@ -15,5 +15,12 @@ class Operation: NSManagedObject {
     @NSManaged var timestamp: NSTimeInterval
     @NSManaged var category: String
     @NSManaged var wallet: Holder
-
+    
+    
+    class func createInManager(manager: NSManagedObjectContext!) -> Operation {
+        let item = NSEntityDescription.insertNewObjectForEntityForName("Operation", inManagedObjectContext: manager) as! Operation
+        
+        return item
+    }
+    
 }
