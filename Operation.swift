@@ -14,6 +14,7 @@ class Operation: NSManagedObject {
     @NSManaged var amount: Double
     @NSManaged var timestamp: NSTimeInterval
     @NSManaged var category: String
+    @NSManaged var currency: String
     @NSManaged var wallet: Holder
     
     

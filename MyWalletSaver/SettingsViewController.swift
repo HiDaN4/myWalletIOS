@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var currencyPicker: UIPickerView = UIPickerView()
     var currentSymbol: String!
     
-    let currencies = ["$", "€", "£", "₽"]
+    let currencies = ["Dollar $", "Euro €", "Pound £", "Ruble ₽"]
     
     var didChange = false
     
@@ -47,9 +47,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewWillDisappear(animated)
         
         if didChange {
-            
+            let text = self.currencyField.text!
+            let lchar = Array(text).last!
             let details = [
-                "currency": self.currencyField.text!
+                "currency": String(lchar)
             ]
             holderDelegate?.setWalletValues(details)
         }
@@ -66,7 +67,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let toolbar = UIToolbar()
         toolbar.barStyle = UIBarStyle.Default
         toolbar.translucent = true
-        toolbar.tintColor = UIColor.greenColor()
+        toolbar.tintColor = UIColor.blueColor()
         toolbar.sizeToFit()
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelPicker:"))
@@ -110,7 +111,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         self.didChange = self.currentSymbol != currencies[index] ? true : false
         
-        self.currencyField.text = currencies[index]
+        let text = currencies[index]
+        let lchar = Array(text).last!
+        self.currencyField.text = String(lchar)
         
         self.currencyField.resignFirstResponder()
     }

@@ -12,6 +12,7 @@
     <entity name="Operation" representedClassName="MyWalletSaver.Operation" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Holder" inverseName="operations" inverseEntity="Holder" syncable="YES"/>
     </entity>
@@ -20,7 +21,7 @@
     </entity>
     <elements>
         <element name="Holder" positionX="-81" positionY="-297" width="128" height="150"/>
-        <element name="Operation" positionX="126" positionY="-261" width="128" height="105"/>
+        <element name="Operation" positionX="126" positionY="-261" width="128" height="120"/>
         <element name="Settings" positionX="160" positionY="-411" width="128" height="60"/>
     </elements>
 </model>

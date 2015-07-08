@@ -9,23 +9,22 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, RecentOperationTableViewCellDelegate {
     
-
     //MARK: - Properties
 
-    @IBOutlet weak var balanceLabel: UILabel!
-    @IBOutlet var currencyLabels: [UILabel]!
+    @IBOutlet weak var balanceLabel: UILabel?
+    @IBOutlet var currencyLabels: [UILabel]?
 
-    @IBOutlet weak var cashBalanceLabel: UILabel!
-    @IBOutlet weak var cardsBalanceLabel: UILabel!
-    @IBOutlet weak var sourceSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var cashBalanceLabel: UILabel?
+    @IBOutlet weak var cardsBalanceLabel: UILabel?
+    @IBOutlet weak var sourceSegmentedControl: UISegmentedControl?
 
-    @IBOutlet weak var inputField: UITextField!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var inputField: UITextField?
+    @IBOutlet weak var tableView: UITableView?
     
-    @IBOutlet weak var expenseButton: UIButton!
-    @IBOutlet weak var incomeButton: UIButton!
+    @IBOutlet weak var expenseButton: UIButton?
+    @IBOutlet weak var incomeButton: UIButton?
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
     
@@ -41,41 +40,84 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request = NSFetchRequest(entityName: "Holder")
+        self.configureWallets()
         
+        
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.inputField?.delegate = self
+        
+//        self.refreshControl = UIRefreshControl()
+//        
+//        self.refreshControl.backgroundColor = UIColor.greenColor()
+//        
+//        self.refreshControl.addTarget(self, action: Selector("reloadTV"), forControlEvents: UIControlEvents.ValueChanged)
+//        
+//        self.tableView.addSubview(refreshControl)
+        
+//        self.tableView.registerClass(RecentOperationTableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        self.tableView?.registerNib(UINib(nibName: "RecentOperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        
+        self.tableView?.rowHeight = 55
+        
+        self.tableView?.layoutMargins = UIEdgeInsetsZero
+
+        
+        self.sourceSegmentedControl?.hidden = true
+
+        self.tableView?.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+//        self.tableView?.backgroundColor = UIColor(red: 193.0/255.0, green: 189.0/255.0, blue: 183.0/255.0, alpha: 1)
+        
+        self.expenseButton?.backgroundColor = UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 127.0/255.0, alpha: 1)
+//        self.expenseButton?.layer.frame = CGRect(x: self.expenseButton.frame.origin.x, y: self.expenseButton?.frame.origin.y, width: 60, height: 60)
+        if let width = self.expenseButton?.frame.width {
+            self.expenseButton?.layer.cornerRadius = 0.5 * width
+        }
+        
+        if let width = self.incomeButton?.frame.width {
+            self.incomeButton?.layer.cornerRadius = 0.5 * width
+        }
+        
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    func configureWallets() {
+        
+        let request = NSFetchRequest(entityName: "Holder")
         if let results = managedObjectContext.executeFetchRequest(request, error: nil) as? [Holder] {
             
             if results.count > 1 {
                 holders = results
-//                swap(&holders[0], &holders[1])
                 
                 for holder in holders {
                     var items = holder.operations.allObjects as! [Operation]
                     
-//                    items.sort({ (op1 :Operation, op2: Operation) -> Bool in
-//                        return op1.timestamp < op2.timestamp
-//                    })
-                    
-//                    let items = nitems.sortedArrayUsingDescriptors([NSSortDescriptor(key: "timestamp", ascending: false)]) as! [Operation]
-                    
                     operations.extend(items)
                 }
-               
-                operations.sort({ (operation1: Operation, operation2: Operation) -> Bool in
-                    return operation1.timestamp > operation2.timestamp
-                })
-                
-                if operations.count > 10 {
-                    operations.removeRange(Range<Int>(start: 10, end: operations.count))
+                if operations.count > 2 {
+                    operations.sort({ (operation1: Operation, operation2: Operation) -> Bool in
+                        return operation1.timestamp > operation2.timestamp
+                    })
+                    
+                    if operations.count > 10 {
+                        operations.removeRange(Range<Int>(start: 10, end: operations.count))
+                    }
                 }
-                
-//                for item in results[0].expenses {
-//                    operations.append(item as! Operation)
-//                }
-//                
-//                for item in results[0].incomes {
-//                    operations.append(item as! Operation)
-//                }
                 
                 
             } else {
@@ -88,7 +130,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 hold.created = NSDate().timeIntervalSinceReferenceDate
                 hold.currency_smbl = "$"
                 
-               
+                
                 holders.append(hold)
                 
                 let cards_hold = NSEntityDescription.insertNewObjectForEntityForName("Holder", inManagedObjectContext: managedObjectContext) as! Holder
@@ -96,6 +138,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 cards_hold.name = "Debit"
                 cards_hold.unique_id = 2
                 cards_hold.created = NSDate().timeIntervalSinceReferenceDate
+                cards_hold.currency_smbl = "$"
                 
                 holders.append(cards_hold)
                 
@@ -107,53 +150,23 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.updateCurrencyLabels(holders[0].currency_smbl)
         self.showBalanceForAllHolders()
         
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        self.inputField.delegate = self
-        
-        self.refreshControl = UIRefreshControl()
-        
-        self.refreshControl.backgroundColor = UIColor.greenColor()
-        
-        self.refreshControl.addTarget(self, action: Selector("reloadTV"), forControlEvents: UIControlEvents.ValueChanged)
-        
-        self.tableView.addSubview(refreshControl)
-        
-        self.tableView.registerNib(UINib(nibName: "RecentOperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        
-        self.tableView.rowHeight = 55
-        
-        self.sourceSegmentedControl.hidden = true
-//
-        self.tableView.backgroundColor = UIColor(red: 43.0/255.0, green: 70.0/255.0, blue: 77.0/255.0, alpha: 1)
-//        self.tableView.
-        
-        self.expenseButton.backgroundColor = UIColor.redColor()
-//        self.expenseButton.layer.frame = CGRect(x: self.expenseButton.frame.origin.x, y: self.expenseButton.frame.origin.y, width: 60, height: 60)
-        self.expenseButton.layer.cornerRadius = 0.5 * self.expenseButton.frame.width
-        
-        self.incomeButton.backgroundColor = UIColor.greenColor()
-//        self.incomeButton.layer.frame = CGRect(x: self.incomeButton.frame.origin.x, y: self.incomeButton.frame.origin.y, width: 60, height: 60)
-        self.incomeButton.layer.cornerRadius = 0.5 * self.incomeButton.frame.width
-        
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    //MARK: - Table View Data Source
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return operations.count
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.expenseButton.backgroundColor = UIColor.redColor()
-//        self.expenseButton.layer.cornerRadius = 0.5 * self.expenseButton.frame.width
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
     
-    //MARK: - Table View
+    
+    // MARK: - Table View Delegate
     
     func reloadTV() {
         println("Reload")
@@ -162,88 +175,85 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return operations.count
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell") as! RecentOperationTableViewCell
+        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! RecentOperationTableViewCell
+        
+        cell.delegate = self
         
         let index = indexPath.row
         let operation = self.operations[index]
         let amount = self.operations[index].amount
-        let format = amount > 0 ? "+%.2f" : "%.2f"
+        let currency_symbol = operation.currency
+        let fraction = floor(amount) == amount && !amount.isInfinite ? "0" : "2"
+        let format = amount > 0 ? "\(currency_symbol)+%.\(fraction)f" : "\(currency_symbol)%.\(fraction)f"
 
         let date = NSDate(timeIntervalSinceReferenceDate: self.operations[index].timestamp)
         
         cell.configure(String(format: format, amount), walletName: operation.wallet.name, date: date)
+        cell.operation = operation
         
         cell.selectionStyle = .None
         
         return cell
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
+//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return true
+//    }
     
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            self.tableView.beginUpdates()
-            let operation = self.operations[indexPath.row]
-            
-            if operation.amount > 0 {
-                operation.wallet.totalIncome -= operation.amount
-            } else {
-                operation.wallet.totalExpense -= operation.amount
-            }
-
-            managedObjectContext.deleteObject(operation)
-            
-            managedObjectContext.processPendingChanges()
-            var error: NSError?
-            if !managedObjectContext.save(&error) {
-                println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
-            }
-            
-            self.showBalanceForAllHolders()
-            
-            self.operations.removeAtIndex(indexPath.row)
-            
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
-            self.tableView.endUpdates()
-            
-        }
-    }
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == UITableViewCellEditingStyle.Delete {
+//            self.tableView.beginUpdates()
+//            let operation = self.operations[indexPath.row]
+//            
+//            if operation.amount > 0 {
+//                operation.wallet.totalIncome -= operation.amount
+//            } else {
+//                operation.wallet.totalExpense -= operation.amount
+//            }
+//
+//            managedObjectContext.deleteObject(operation)
+//            
+//            managedObjectContext.processPendingChanges()
+//            var error: NSError?
+//            if !managedObjectContext.save(&error) {
+//                println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
+//            }
+//            
+//            self.showBalanceForAllHolders()
+//            
+//            self.operations.removeAtIndex(indexPath.row)
+//            
+//            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            
+//            self.tableView.endUpdates()
+//            
+//        }
+//    }
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Share") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            
-            println("\(action.style.rawValue)")
-            
-        }
-        
-        shareAction.backgroundColor = UIColor.blueColor()
-        
-        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            
-            self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
-        }
-        
-        return [deleteAction, shareAction]
-    }
+//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    
+//        var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Share") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+//            
+//            println("\(action.style.rawValue)")
+//            
+//        }
+//        
+//        shareAction.backgroundColor = UIColor.blueColor()
+//        
+//        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+//            
+//            self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+//        }
+//        
+//        return [deleteAction]
+//    }
     
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 55
+        return tableView.rowHeight
     }
     
     
@@ -251,29 +261,29 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     @IBAction func incomeButtonPressed(sender: AnyObject) {
         println("Income pressed")
-//        self.inputField.resignFirstResponder()
         if self.checkInput() {
-            createRecordInCoreData((inputField.text as NSString).doubleValue)
-            inputField.text = ""
+            createRecordInCoreData((inputField!.text as NSString).doubleValue)
+            inputField!.text = ""
         }
     }
     
     
     @IBAction func expenseButtonPressed(sender: AnyObject) {
         println("Expense pressed")
-//        self.inputField.resignFirstResponder()
         if self.checkInput() {
-            createRecordInCoreData(0 - (inputField.text as NSString).doubleValue)
-            inputField.text = ""
+            createRecordInCoreData(0 - (inputField!.text as NSString).doubleValue)
+            inputField!.text = ""
         }
     }
     
     
     
-//    func textFieldShouldReturn(textField: UITextField) -> Bool {
-//        self.view.endEditing(true)
-//        return false
-//    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        
+        self.tapped()
+        return false
+    }
     
     
     @IBAction func rightButtonPressed(sender: AnyObject) {
@@ -290,15 +300,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         let touch = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         touch.numberOfTouchesRequired = 1
         
-        self.tableView.addGestureRecognizer(touch)
+        self.tableView?.addGestureRecognizer(touch)
         
         let sender = sender as! UITextField
         
         println("\(sender.frame.height)")
         
-        self.sourceSegmentedControl.hidden = false
+        self.sourceSegmentedControl?.hidden = false
         
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layer.frame.offset(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
         })
         
@@ -329,10 +339,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func checkInput() -> Bool {
         
         let empty = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-        let digits = NSCharacterSet.decimalDigitCharacterSet()
-        let text = self.inputField.text
-        if text.stringByTrimmingCharactersInSet(empty) == "" || text.stringByTrimmingCharactersInSet(digits) != "" || text == "0" {
-            self.inputField.text = "0"
+        let ddigits = NSCharacterSet(charactersInString: "1234567890.")
+        let text = self.inputField!.text
+        if text.stringByTrimmingCharactersInSet(empty) == "" || text.stringByTrimmingCharactersInSet(ddigits) != "" || text == "0" {
+            self.inputField!.text = "0"
             return false
         }
         
@@ -346,27 +356,35 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func showBalanceForAllHolders() {
         
         var value: Double = 0
+        var fraction: String = ""
+        var format: String = ""
+        
         for wallet in holders {
             value += wallet.totalIncome + wallet.totalExpense
         }
         
-        var format = value > 0 ? "+%.2f" : "%.2f"
-        self.balanceLabel.text = String(format: format, value)
+        fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
+        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        self.balanceLabel?.text = String(format: format, value)
         
         value = holders[0].totalIncome + holders[0].totalExpense
-        format = value > 0 ? "+%.2f" : "%.2f"
-        self.cashBalanceLabel.text = String(format: format, value)
+        fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
+        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        self.cashBalanceLabel?.text = String(format: format, value)
         
         value = holders[1].totalIncome + holders[1].totalExpense
-        format = value > 0 ? "+%.2f" : "%.2f"
-        self.cardsBalanceLabel.text = String(format: format, value)
+        fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
+        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        self.cardsBalanceLabel?.text = String(format: format, value)
     }
     
     
     func updateCurrencyLabels(symbol: String) {
         
-        for clabel in currencyLabels {
-            clabel.text = symbol
+        if let labels = currencyLabels {
+            for clabel in labels {
+                clabel.text = symbol
+            }
         }
         
     }
@@ -374,7 +392,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     func createRecordInCoreData(amount: Double) {
         
-        let current_wallet = holders[self.sourceSegmentedControl.selectedSegmentIndex]
+        let current_wallet = holders[self.sourceSegmentedControl!.selectedSegmentIndex]
         
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Operation", inManagedObjectContext: managedObjectContext) as! Operation
         
@@ -384,7 +402,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         newItem.wallet = current_wallet
         
-        println("Control: \(self.sourceSegmentedControl.selectedSegmentIndex)")
+        newItem.currency = current_wallet.currency_smbl
+        
+        println("Control: \(self.sourceSegmentedControl!.selectedSegmentIndex)")
         
         var operations_ = current_wallet.operations.mutableCopy() as! NSMutableSet
         operations_.addObject(newItem)
@@ -405,35 +425,36 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         managedObjectContext.save(&error)
         
-        var value: Double = 0
-        for wallet in holders {
-            value += wallet.totalIncome + wallet.totalExpense
-        }
+//        var value: Double = 0
+//        for wallet in holders {
+//            value += wallet.totalIncome + wallet.totalExpense
+//        }
         
-        let format = value > 0 ? "+%.2f" : "%.2f"
-        
-        self.balanceLabel.text = String(format: format, value)
+//        let format = value > 0 ? "+%.2f" : "%.2f"
+//        
+//        self.balanceLabel.text = String(format: format, value)
         
         self.showBalanceForAllHolders()
         
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
         
     }
     
     
     
     func tapped() {
-        self.tableView.gestureRecognizers?.removeLast()
+        self.tableView?.gestureRecognizers?.removeLast()
         
-        self.sourceSegmentedControl.hidden = true
+        self.sourceSegmentedControl?.hidden = true
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.view.layer.frame.offset(dx: 0, dy: CGFloat(30*6 + 20))
         })
         
         
-        self.inputField.resignFirstResponder()
+        self.inputField?.resignFirstResponder()
     }
     
+    // MARK: - Custom Delegates
     
     func setWalletValues(details: [String : String]?) {
         if let dict = details {
@@ -453,6 +474,39 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 
             } // end if let newCurrency
         }
+    }
+    
+    func deleteItem(item: Operation) {
+        let operation = item
+        if operation.amount > 0 {
+            operation.wallet.totalIncome -= operation.amount
+        } else {
+            operation.wallet.totalExpense -= operation.amount
+        }
+        
+        managedObjectContext.deleteObject(operation)
+        
+        managedObjectContext.processPendingChanges()
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
+        }
+        
+        self.showBalanceForAllHolders()
+        
+        let index = (self.operations as NSArray).indexOfObject(operation)
+        
+        if index == NSNotFound { return }
+        
+        
+        self.operations.removeAtIndex(index)
+        
+        self.tableView?.beginUpdates()
+        let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        self.tableView?.endUpdates()
+        
+        
     }
     
 
