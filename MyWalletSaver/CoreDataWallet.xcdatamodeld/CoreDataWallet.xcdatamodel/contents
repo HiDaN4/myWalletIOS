@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Holder" representedClassName="MyWalletSaver.Holder" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="currency_smbl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalExpense" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="totalIncome" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="unique_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Operation" syncable="YES"/>
-        <relationship name="incomes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Operation" syncable="YES"/>
+        <relationship name="operations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Operation" inverseName="wallet" inverseEntity="Operation" syncable="YES"/>
     </entity>
     <entity name="Operation" representedClassName="MyWalletSaver.Operation" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Holder" syncable="YES"/>
+        <relationship name="wallet" maxCount="1" deletionRule="Nullify" destinationEntity="Holder" inverseName="operations" inverseEntity="Holder" syncable="YES"/>
     </entity>
     <entity name="Settings" syncable="YES">
         <attribute name="mainWallet_id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
