@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol RecentOperationTableViewCellDelegate {
+protocol OperationTableViewCellDelegate {
     func deleteItem(item: Operation)
 }
 
@@ -23,7 +23,7 @@ class RecentOperationTableViewCell: UITableViewCell {
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
     
-    var delegate: RecentOperationTableViewCellDelegate?
+    var delegate: OperationTableViewCellDelegate?
     var operation: Operation?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

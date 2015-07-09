@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, RecentOperationTableViewCellDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate {
     
     //MARK: - Properties
 
@@ -58,7 +58,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
 //        self.tableView.registerClass(RecentOperationTableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        self.tableView?.registerNib(UINib(nibName: "RecentOperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
         self.tableView?.rowHeight = 55
         
@@ -100,15 +100,24 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func configureWallets() {
         
         let request = NSFetchRequest(entityName: "Holder")
+        
         if let results = managedObjectContext.executeFetchRequest(request, error: nil) as? [Holder] {
             
             if results.count > 1 {
                 holders = results
                 
+                if holders[0].name != "Cash" {
+                    swap(&holders[0], &holders[1])
+                }
+                
                 for holder in holders {
                     var items = holder.operations.allObjects as! [Operation]
                     
                     operations.extend(items)
+                    
+                    for x in operations {
+                        println("\(x.timestamp) - \(x.amount)")
+                    }
                 }
                 if operations.count > 2 {
                     operations.sort({ (operation1: Operation, operation2: Operation) -> Bool in
@@ -151,6 +160,16 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.updateCurrencyLabels(holders[0].currency_smbl)
         self.showBalanceForAllHolders()
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.showBalanceForAllHolders()
+        
+        self.operations = self.operations.filter {$0.timestamp != 0}
+        
+        self.tableView?.reloadData()
     }
     
     //MARK: - Table View Data Source
