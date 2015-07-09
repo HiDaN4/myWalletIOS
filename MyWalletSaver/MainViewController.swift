@@ -71,6 +71,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        self.tableView?.backgroundColor = UIColor(red: 193.0/255.0, green: 189.0/255.0, blue: 183.0/255.0, alpha: 1)
         
         self.expenseButton?.backgroundColor = UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 127.0/255.0, alpha: 1)
+        self.incomeButton?.backgroundColor = UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1)
 //        self.expenseButton?.layer.frame = CGRect(x: self.expenseButton.frame.origin.x, y: self.expenseButton?.frame.origin.y, width: 60, height: 60)
         if let width = self.expenseButton?.frame.width {
             self.expenseButton?.layer.cornerRadius = 0.5 * width
@@ -84,15 +85,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//    }
 
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//        // Dispose of any resources that can be recreated.
+//    }
     
     
     

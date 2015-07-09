@@ -14,9 +14,9 @@ protocol HolderDelegate {
 
 class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton?
 
-    @IBOutlet weak var currencyField: UITextField!
+    @IBOutlet weak var currencyField: UITextField?
     
     var holderDelegate: HolderDelegate?
     
@@ -34,7 +34,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         self.configureView()
         
-        self.rightButton.addTarget(self, action: Selector("rightButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.rightButton?.addTarget(self, action: Selector("rightButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
     }
 
@@ -47,7 +47,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewWillDisappear(animated)
         
         if didChange {
-            let text = self.currencyField.text!
+            let text = self.currencyField!.text!
             let lchar = Array(text).last!
             let details = [
                 "currency": String(lchar)
@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.currencyPicker.delegate = self
         self.currencyPicker.dataSource = self
         
-        self.currencyField.inputView = self.currencyPicker
+        self.currencyField?.inputView = self.currencyPicker
         
         let toolbar = UIToolbar()
         toolbar.barStyle = UIBarStyle.Default
@@ -77,9 +77,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         toolbar.setItems([cancelButton, space, doneButton], animated: false)
         toolbar.userInteractionEnabled = true
         
-        self.currencyField.inputAccessoryView = toolbar
+        self.currencyField?.inputAccessoryView = toolbar
         
-        self.currencyField.text = self.currentSymbol
+        self.currencyField?.text = self.currentSymbol
     }
     
     func rightButtonPressed(button: UIButton) {
@@ -113,14 +113,14 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         let text = currencies[index]
         let lchar = Array(text).last!
-        self.currencyField.text = String(lchar)
+        self.currencyField?.text = String(lchar)
         
-        self.currencyField.resignFirstResponder()
+        self.currencyField?.resignFirstResponder()
     }
     
     
     func cancelPicker(sender: AnyObject!) {
-        self.currencyField.resignFirstResponder()
+        self.currencyField?.resignFirstResponder()
     }
     
     /*
