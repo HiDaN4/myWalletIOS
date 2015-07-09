@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Main-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="MainViewController" customModule="MyWalletSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="MainViewController" customModule="WalletTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -63,7 +63,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Balance:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-E6-E5x">
-                                        <rect key="frame" x="236" y="8" width="100.5" height="19"/>
+                                        <rect key="frame" x="236" y="8" width="101" height="19"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -84,7 +84,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hm2-Xx-NJu">
-                                        <rect key="frame" x="66" y="38" width="15" height="23"/>
+                                        <rect key="frame" x="66" y="40" width="15" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="lWZ-Dv-RZM"/>
                                         </constraints>
@@ -108,13 +108,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Kh-f6-jEn">
-                                        <rect key="frame" x="324" y="40" width="39.5" height="19"/>
+                                        <rect key="frame" x="324" y="40" width="40" height="19"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000000000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poh-oj-f7W">
-                                        <rect key="frame" x="77" y="38" width="98" height="23"/>
+                                        <rect key="frame" x="77" y="38" width="98" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="98" id="6jK-zY-Y60"/>
                                         </constraints>
@@ -141,10 +141,10 @@
                                 <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Qei-E6-E5x" secondAttribute="centerX" constant="207" id="5NW-8d-rhc"/>
-                                    <constraint firstItem="HF3-dq-guJ" firstAttribute="firstBaseline" secondItem="qJu-RT-ZNB" secondAttribute="firstBaseline" id="5yQ-gf-Ma3"/>
+                                    <constraint firstItem="HF3-dq-guJ" firstAttribute="baseline" secondItem="qJu-RT-ZNB" secondAttribute="baseline" id="5yQ-gf-Ma3"/>
                                     <constraint firstAttribute="centerX" secondItem="9Kh-f6-jEn" secondAttribute="centerX" constant="-148.5" id="63v-rG-3Rn"/>
                                     <constraint firstItem="yWv-bt-9XT" firstAttribute="top" secondItem="Qei-E6-E5x" secondAttribute="top" id="8ST-nS-FIq"/>
-                                    <constraint firstItem="HF3-dq-guJ" firstAttribute="firstBaseline" secondItem="9Kh-f6-jEn" secondAttribute="firstBaseline" id="8rZ-Mh-4X9"/>
+                                    <constraint firstItem="HF3-dq-guJ" firstAttribute="baseline" secondItem="9Kh-f6-jEn" secondAttribute="baseline" id="8rZ-Mh-4X9"/>
                                     <constraint firstItem="wz7-MB-aAP" firstAttribute="leading" secondItem="yWv-bt-9XT" secondAttribute="trailing" constant="-4" id="Bn1-bU-Rav"/>
                                     <constraint firstAttribute="bottom" secondItem="9Kh-f6-jEn" secondAttribute="bottom" constant="31" id="FXY-36-CvF"/>
                                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="9Kh-f6-jEn" secondAttribute="trailing" priority="750" constant="204" id="GIg-cK-INA"/>
@@ -157,7 +157,7 @@
                                     <constraint firstAttribute="centerY" secondItem="G6z-e9-XLS" secondAttribute="centerY" constant="-35.5" id="Ww1-7a-QeR"/>
                                     <constraint firstAttribute="centerY" secondItem="Qei-E6-E5x" secondAttribute="centerY" constant="30" id="Xxg-6Z-hgD"/>
                                     <constraint firstItem="wz7-MB-aAP" firstAttribute="leading" secondItem="yWv-bt-9XT" secondAttribute="trailing" constant="-5" id="Y0D-ke-uhk"/>
-                                    <constraint firstItem="poh-oj-f7W" firstAttribute="firstBaseline" secondItem="Hm2-Xx-NJu" secondAttribute="firstBaseline" id="Yn5-yb-bnv"/>
+                                    <constraint firstItem="poh-oj-f7W" firstAttribute="baseline" secondItem="Hm2-Xx-NJu" secondAttribute="baseline" id="Yn5-yb-bnv"/>
                                     <constraint firstItem="9Kh-f6-jEn" firstAttribute="centerY" secondItem="Hm2-Xx-NJu" secondAttribute="centerY" id="aHh-7d-k0H"/>
                                     <constraint firstItem="qJu-RT-ZNB" firstAttribute="leading" secondItem="HF3-dq-guJ" secondAttribute="trailing" constant="-5" id="b3A-Mp-aAD"/>
                                     <constraint firstAttribute="bottom" secondItem="9Kh-f6-jEn" secondAttribute="bottom" constant="36" id="cDO-Kv-GXI"/>
@@ -208,19 +208,6 @@
                                             <action selector="didPressField:" destination="9pv-A4-QxB" eventType="editingDidBegin" id="fB1-B4-tn0"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYN-SF-oap">
-                                        <rect key="frame" x="520" y="2" width="60" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="wfQ-py-IKw"/>
-                                        </constraints>
-                                        <state key="normal" title="Expense">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="expenseButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6Wl-QN-JJ2"/>
-                                        </connections>
-                                    </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cXB-cB-Thp">
                                         <rect key="frame" x="8" y="56" width="140" height="29"/>
                                         <constraints>
@@ -236,9 +223,10 @@
                                         </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6w-Aj-ltE">
-                                        <rect key="frame" x="443" y="2" width="60" height="60"/>
+                                        <rect key="frame" x="443" y="3" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="5Pu-OR-nRz"/>
+                                            <constraint firstAttribute="height" constant="60" id="d4E-oC-siJ"/>
                                             <constraint firstAttribute="width" constant="60" id="wJB-Hj-tZr"/>
                                         </constraints>
                                         <state key="normal" title="Income">
@@ -254,6 +242,20 @@
                                             <action selector="incomeButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="WNx-WX-i5D"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYN-SF-oap">
+                                        <rect key="frame" x="520" y="3" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Uvf-Ur-GGh"/>
+                                            <constraint firstAttribute="width" constant="60" id="wfQ-py-IKw"/>
+                                        </constraints>
+                                        <state key="normal" title="Expense">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="expenseButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6Wl-QN-JJ2"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -261,20 +263,21 @@
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="18" id="EQz-gq-Qqd"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="leading" secondItem="R6w-Aj-ltE" secondAttribute="trailing" constant="17" id="IT8-4h-csp"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="R6w-Aj-ltE" secondAttribute="top" id="Qt3-jx-XB7"/>
-                                    <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="firstBaseline" id="Srj-GZ-y6y"/>
+                                    <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="Srj-GZ-y6y"/>
                                     <constraint firstAttribute="height" constant="90" id="UaX-z4-ouP"/>
-                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="2" id="VS7-Vj-RBP"/>
+                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="3" id="VS7-Vj-RBP"/>
                                     <constraint firstAttribute="height" constant="107" id="VwG-2P-7zQ"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leadingMargin" id="ff0-Lk-5no"/>
                                     <constraint firstAttribute="trailing" secondItem="SYN-SF-oap" secondAttribute="trailing" constant="20" id="j6q-Bc-xwI"/>
-                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="o2x-Vb-VZh" secondAttribute="baseline" id="jSf-z6-lxK"/>
-                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="SYN-SF-oap" secondAttribute="firstBaseline" id="qAg-7b-vkR"/>
+                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="o2x-Vb-VZh" secondAttribute="baseline" constant="1" id="jSf-z6-lxK"/>
+                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="SYN-SF-oap" secondAttribute="bottom" constant="-24.5" id="qAg-7b-vkR"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="trailing" secondItem="o2x-Vb-VZh" secondAttribute="trailing" id="xgc-nj-KkO"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="top" secondItem="o2x-Vb-VZh" secondAttribute="bottom" constant="8" symbolic="YES" id="yom-Aw-aDm"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="VwG-2P-7zQ"/>
+                                        <exclude reference="qAg-7b-vkR"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -363,13 +366,13 @@
         <!--History-->
         <scene sceneID="bPa-T2-4Kz">
             <objects>
-                <tableViewController id="hAu-qN-ldD" customClass="HistoryTableViewController" customModule="MyWalletSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="hAu-qN-ldD" customClass="HistoryTableViewController" customModule="WalletTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7PL-N9-enl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lzC-cg-VtK" customClass="RecentOperationTableViewCell" customModule="MyWalletSaver" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lzC-cg-VtK" customClass="RecentOperationTableViewCell" customModule="WalletTracker" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lzC-cg-VtK" id="0nZ-KL-40W">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -390,7 +393,7 @@
         <!--Settings View Controller-->
         <scene sceneID="rUN-Cw-ugB">
             <objects>
-                <viewController storyboardIdentifier="SettingsVC" id="6P1-3l-vqA" customClass="SettingsViewController" customModule="MyWalletSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" id="6P1-3l-vqA" customClass="SettingsViewController" customModule="WalletTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Um-Z5-apy"/>
                         <viewControllerLayoutGuide type="bottom" id="PZ5-B8-YJL"/>

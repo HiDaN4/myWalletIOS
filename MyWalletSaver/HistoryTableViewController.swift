@@ -127,6 +127,8 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         cell.delegate = self
         cell.operation = operation
         
+//        cell.setFontColor(UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1))
+        
         cell.selectionStyle = .None
 
         return cell

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AA1B91B42EF3600B315C6 /* Holder.swift */; };
 		DA8AA1BC1B43287F00B315C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */; };
-		DABB451D1B41BCD50045D0B5 /* RecentOperationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB451B1B41BCD50045D0B5 /* RecentOperationTableViewCell.swift */; };
+		DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */; };
 		DABB451E1B41BCD50045D0B5 /* OperationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */; };
 		DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B941B37865E0047197A /* AppDelegate.swift */; };
 		DAD71B971B37865E0047197A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B961B37865E0047197A /* MainViewController.swift */; };
@@ -37,16 +37,16 @@
 /* Begin PBXFileReference section */
 		DA8AA1B91B42EF3600B315C6 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		DABB451B1B41BCD50045D0B5 /* RecentOperationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentOperationTableViewCell.swift; sourceTree = "<group>"; };
+		DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationTableViewCell.swift; sourceTree = "<group>"; };
 		DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationTableViewCell.xib; sourceTree = "<group>"; };
-		DAD71B8F1B37865E0047197A /* MyWalletSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWalletSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD71B8F1B37865E0047197A /* WalletTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD71B931B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD71B941B37865E0047197A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAD71B961B37865E0047197A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DAD71B9B1B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DAD71B9D1B37865E0047197A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DAD71BA01B37865E0047197A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWalletSaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD71BA61B37865E0047197A /* WalletTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalletTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD71BAB1B37865E0047197A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWalletSaverTests.swift; sourceTree = "<group>"; };
 		DAD71BB71B3789540047197A /* CoreDataWallet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataWallet.xcdatamodel; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 		DAD71B901B37865E0047197A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAD71B8F1B37865E0047197A /* MyWalletSaver.app */,
-				DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */,
+				DAD71B8F1B37865E0047197A /* WalletTracker.app */,
+				DAD71BA61B37865E0047197A /* WalletTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +140,7 @@
 		DAE3E4EB1B4EB1E00044C00E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */,
 				DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */,
 			);
 			name = Views;
@@ -157,10 +158,9 @@
 		DAFAD9CC1B3BC25700AE8D3B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				DAD71B961B37865E0047197A /* MainViewController.swift */,
 				DAE3E4E91B4EB1D60044C00E /* HistoryTableViewController.swift */,
 				DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */,
-				DAD71B961B37865E0047197A /* MainViewController.swift */,
-				DABB451B1B41BCD50045D0B5 /* RecentOperationTableViewCell.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -168,9 +168,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DAD71B8E1B37865E0047197A /* MyWalletSaver */ = {
+		DAD71B8E1B37865E0047197A /* WalletTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaver" */;
+			buildConfigurationList = DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "WalletTracker" */;
 			buildPhases = (
 				DAD71B8B1B37865E0047197A /* Sources */,
 				DAD71B8C1B37865E0047197A /* Frameworks */,
@@ -180,14 +180,14 @@
 			);
 			dependencies = (
 			);
-			name = MyWalletSaver;
+			name = WalletTracker;
 			productName = MyWalletSaver;
-			productReference = DAD71B8F1B37865E0047197A /* MyWalletSaver.app */;
+			productReference = DAD71B8F1B37865E0047197A /* WalletTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DAD71BA51B37865E0047197A /* MyWalletSaverTests */ = {
+		DAD71BA51B37865E0047197A /* WalletTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaverTests" */;
+			buildConfigurationList = DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "WalletTrackerTests" */;
 			buildPhases = (
 				DAD71BA21B37865E0047197A /* Sources */,
 				DAD71BA31B37865E0047197A /* Frameworks */,
@@ -198,9 +198,9 @@
 			dependencies = (
 				DAD71BA81B37865E0047197A /* PBXTargetDependency */,
 			);
-			name = MyWalletSaverTests;
+			name = WalletTrackerTests;
 			productName = MyWalletSaverTests;
-			productReference = DAD71BA61B37865E0047197A /* MyWalletSaverTests.xctest */;
+			productReference = DAD71BA61B37865E0047197A /* WalletTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -214,6 +214,7 @@
 				TargetAttributes = {
 					DAD71B8E1B37865E0047197A = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = YFURRB9247;
 					};
 					DAD71BA51B37865E0047197A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -221,7 +222,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "MyWalletSaver" */;
+			buildConfigurationList = DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "WalletTracker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -234,8 +235,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DAD71B8E1B37865E0047197A /* MyWalletSaver */,
-				DAD71BA51B37865E0047197A /* MyWalletSaverTests */,
+				DAD71B8E1B37865E0047197A /* WalletTracker */,
+				DAD71BA51B37865E0047197A /* WalletTrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,7 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */,
-				DABB451D1B41BCD50045D0B5 /* RecentOperationTableViewCell.swift in Sources */,
+				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
 				DAE3E4EA1B4EB1D60044C00E /* HistoryTableViewController.swift in Sources */,
@@ -290,7 +291,7 @@
 /* Begin PBXTargetDependency section */
 		DAD71BA81B37865E0047197A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAD71B8E1B37865E0047197A /* MyWalletSaver */;
+			target = DAD71B8E1B37865E0047197A /* WalletTracker */;
 			targetProxy = DAD71BA71B37865E0047197A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -400,10 +401,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MyWalletSaver/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WalletTracker;
 			};
 			name = Debug;
 		};
@@ -411,10 +413,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MyWalletSaver/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WalletTracker;
 			};
 			name = Release;
 		};
@@ -432,7 +435,7 @@
 				);
 				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WalletTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
 			};
 			name = Debug;
@@ -447,7 +450,7 @@
 				);
 				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WalletTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
 			};
 			name = Release;
@@ -455,7 +458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "MyWalletSaver" */ = {
+		DAD71B8A1B37865E0047197A /* Build configuration list for PBXProject "WalletTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAD71BAE1B37865F0047197A /* Debug */,
@@ -464,7 +467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaver" */ = {
+		DAD71BB01B37865F0047197A /* Build configuration list for PBXNativeTarget "WalletTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAD71BB11B37865F0047197A /* Debug */,
@@ -473,7 +476,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "MyWalletSaverTests" */ = {
+		DAD71BB31B37865F0047197A /* Build configuration list for PBXNativeTarget "WalletTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAD71BB41B37865F0047197A /* Debug */,

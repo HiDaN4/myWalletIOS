@@ -62,7 +62,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.tableView?.rowHeight = 55
         
-        self.tableView?.layoutMargins = UIEdgeInsetsZero
+        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
+            self.tableView?.layoutMargins = UIEdgeInsetsZero
+        }
 
         
         self.sourceSegmentedControl?.hidden = true
@@ -114,10 +116,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                     var items = holder.operations.allObjects as! [Operation]
                     
                     operations.extend(items)
-                    
-                    for x in operations {
-                        println("\(x.timestamp) - \(x.amount)")
-                    }
                 }
                 if operations.count > 2 {
                     operations.sort({ (operation1: Operation, operation2: Operation) -> Bool in
@@ -169,7 +167,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.operations = self.operations.filter {$0.timestamp != 0}
         
-        self.tableView?.reloadData()
+       // self.tableView?.reloadData()
     }
     
     //MARK: - Table View Data Source

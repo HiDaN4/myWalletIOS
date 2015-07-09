@@ -71,10 +71,17 @@ class RecentOperationTableViewCell: UITableViewCell {
         
         self.timestampLabel?.text = timestamp
         
-        self.layoutMargins = UIEdgeInsetsZero
+//        self.layoutMargins = UIEdgeInsetsZero
         
     }
     
+    
+    func setFontColor(color: UIColor) {
+        
+        self.amountLabel?.tintColor = color
+        self.fromWalletLabel?.tintColor = color
+        self.timestampLabel?.tintColor = color
+    }
     
     
     func handlePan(recognizer: UIPanGestureRecognizer) {
