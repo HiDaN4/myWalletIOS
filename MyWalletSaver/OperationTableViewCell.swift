@@ -12,7 +12,7 @@ protocol OperationTableViewCellDelegate {
     func deleteItem(item: Operation)
 }
 
-class RecentOperationTableViewCell: UITableViewCell {
+class OperationTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel?
     @IBOutlet weak var fromWalletLabel: UILabel?
     @IBOutlet weak var timestampLabel: UILabel?
@@ -22,6 +22,7 @@ class RecentOperationTableViewCell: UITableViewCell {
     
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
+    var canBeDeleted = true
     
     var delegate: OperationTableViewCellDelegate?
     var operation: Operation?
@@ -53,12 +54,9 @@ class RecentOperationTableViewCell: UITableViewCell {
     
     func configure(amount: String, walletName: String, date: NSDate) {
 //        self.backgroundColor = UIColor(red: 193.0/255.0, green: 189.0/255.0, blue: 183.0/255.0, alpha: 1)
-        self.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+        //self.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+        self.backgroundColor = UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1)
             //UIColor(red: 43.0/255.0, green: 70.0/255.0, blue: 77.0/255.0, alpha: 1)
-        
-//        self.amountLabel.textColor = UIColor.whiteColor()
-//        self.fromWalletLabel.textColor = UIColor.whiteColor()
-//        self.timestampLabel.textColor = UIColor.whiteColor()
         
         self.amountLabel?.text = amount
         self.fromWalletLabel?.text = walletName
@@ -71,16 +69,18 @@ class RecentOperationTableViewCell: UITableViewCell {
         
         self.timestampLabel?.text = timestamp
         
-//        self.layoutMargins = UIEdgeInsetsZero
+        if self.respondsToSelector(Selector("setLayoutMargins:")) == true {
+            self.layoutMargins = UIEdgeInsetsZero
+        }
         
     }
     
     
     func setFontColor(color: UIColor) {
         
-        self.amountLabel?.tintColor = color
-        self.fromWalletLabel?.tintColor = color
-        self.timestampLabel?.tintColor = color
+        self.amountLabel?.textColor = color
+        self.fromWalletLabel?.textColor = color
+        self.timestampLabel?.textColor = color
     }
     
     
@@ -94,7 +94,7 @@ class RecentOperationTableViewCell: UITableViewCell {
             let translation = recognizer.translationInView(self)
             center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
             
-            deleteOnDragRelease = frame.origin.x < -frame.size.width / 2.0
+            deleteOnDragRelease = frame.origin.x < -frame.size.width / 2.0 && canBeDeleted
             
         }
         

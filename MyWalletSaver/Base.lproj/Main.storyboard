@@ -39,7 +39,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.40784313725490196" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="u7v-tU-44F" firstAttribute="centerY" secondItem="eR5-YZ-B4y" secondAttribute="centerY" id="249-HA-gRc"/>
                                     <constraint firstAttribute="height" constant="66" id="6hf-f1-NlV"/>
@@ -138,7 +138,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Qei-E6-E5x" secondAttribute="centerX" constant="207" id="5NW-8d-rhc"/>
                                     <constraint firstItem="HF3-dq-guJ" firstAttribute="baseline" secondItem="qJu-RT-ZNB" secondAttribute="baseline" id="5yQ-gf-Ma3"/>
@@ -222,17 +222,23 @@
                                             <action selector="sourceChosen:" destination="9pv-A4-QxB" eventType="valueChanged" id="MAk-K5-Ol4"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6w-Aj-ltE">
-                                        <rect key="frame" x="443" y="3" width="60" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6w-Aj-ltE" customClass="CustomPushButton" customModule="WalletTracker" customModuleProvider="target">
+                                        <rect key="frame" x="443" y="12" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="5Pu-OR-nRz"/>
                                             <constraint firstAttribute="height" constant="60" id="d4E-oC-siJ"/>
                                             <constraint firstAttribute="width" constant="60" id="wJB-Hj-tZr"/>
                                         </constraints>
-                                        <state key="normal" title="Income">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isPlus" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" red="0.13333333333333333" green="0.82352941176470584" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="5Pu-OR-nRz"/>
@@ -242,22 +248,28 @@
                                             <action selector="incomeButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="WNx-WX-i5D"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYN-SF-oap">
-                                        <rect key="frame" x="520" y="3" width="60" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYN-SF-oap" customClass="CustomPushButton" customModule="WalletTracker" customModuleProvider="target">
+                                        <rect key="frame" x="520" y="12" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Uvf-Ur-GGh"/>
                                             <constraint firstAttribute="width" constant="60" id="wfQ-py-IKw"/>
                                         </constraints>
-                                        <state key="normal" title="Expense">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isPlus" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" red="0.97647058823529409" green="0.23921568627450979" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="expenseButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6Wl-QN-JJ2"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="5y0-4c-dxY"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="18" id="EQz-gq-Qqd"/>
@@ -265,11 +277,11 @@
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="R6w-Aj-ltE" secondAttribute="top" id="Qt3-jx-XB7"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="Srj-GZ-y6y"/>
                                     <constraint firstAttribute="height" constant="90" id="UaX-z4-ouP"/>
-                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="3" id="VS7-Vj-RBP"/>
+                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="12" id="VS7-Vj-RBP"/>
                                     <constraint firstAttribute="height" constant="107" id="VwG-2P-7zQ"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leadingMargin" id="ff0-Lk-5no"/>
                                     <constraint firstAttribute="trailing" secondItem="SYN-SF-oap" secondAttribute="trailing" constant="20" id="j6q-Bc-xwI"/>
-                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="o2x-Vb-VZh" secondAttribute="baseline" constant="1" id="jSf-z6-lxK"/>
+                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="o2x-Vb-VZh" secondAttribute="baseline" constant="-11" id="jSf-z6-lxK"/>
                                     <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="SYN-SF-oap" secondAttribute="bottom" constant="-24.5" id="qAg-7b-vkR"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="trailing" secondItem="o2x-Vb-VZh" secondAttribute="trailing" id="xgc-nj-KkO"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="top" secondItem="o2x-Vb-VZh" secondAttribute="bottom" constant="8" symbolic="YES" id="yom-Aw-aDm"/>
@@ -299,7 +311,7 @@
                                 </variation>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16865840000000001" green="0.27500943700000002" blue="0.3028922033" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Enr-Mi-1kR" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="83G-ih-sx2"/>
                             <constraint firstItem="dim-MX-1q5" firstAttribute="leading" secondItem="kDO-AV-8gM" secondAttribute="leading" id="AcK-Z7-fvw"/>
@@ -377,6 +389,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lzC-cg-VtK" id="0nZ-KL-40W">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>

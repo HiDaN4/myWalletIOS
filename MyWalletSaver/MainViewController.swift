@@ -69,23 +69,28 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.sourceSegmentedControl?.hidden = true
 
-        self.tableView?.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
-//        self.tableView?.backgroundColor = UIColor(red: 193.0/255.0, green: 189.0/255.0, blue: 183.0/255.0, alpha: 1)
+//        self.tableView?.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
         
-        self.expenseButton?.backgroundColor = UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 127.0/255.0, alpha: 1)
-        self.incomeButton?.backgroundColor = UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1)
+        self.tableView?.backgroundColor = UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1)
+        
+//        self.expenseButton?.backgroundColor = UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 127.0/255.0, alpha: 1)
+//        self.incomeButton?.backgroundColor = UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1)
 //        self.expenseButton?.layer.frame = CGRect(x: self.expenseButton.frame.origin.x, y: self.expenseButton?.frame.origin.y, width: 60, height: 60)
-        if let width = self.expenseButton?.frame.width {
-            self.expenseButton?.layer.cornerRadius = 0.5 * width
-        }
-        
-        if let width = self.incomeButton?.frame.width {
-            self.incomeButton?.layer.cornerRadius = 0.5 * width
-        }
+//        if let width = self.expenseButton?.frame.width {
+//            self.expenseButton?.layer.cornerRadius = 0.5 * width
+//        }
+//        
+//        if let width = self.incomeButton?.frame.width {
+//            self.incomeButton?.layer.cornerRadius = 0.5 * width
+//        }
         
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
     
 //    override func viewWillAppear(animated: Bool) {
 //        super.viewWillAppear(animated)
@@ -194,7 +199,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! RecentOperationTableViewCell
+        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! OperationTableViewCell
         
         cell.delegate = self
         
@@ -211,6 +216,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         cell.operation = operation
         
         cell.selectionStyle = .None
+        
+        cell.setFontColor(UIColor.whiteColor())
         
         return cell
     }
@@ -268,6 +275,14 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        
 //        return [deleteAction]
 //    }
+    
+    
+    
+    // iOS 7
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return tableView.rowHeight
+    }
+    
     
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -334,7 +349,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     }
     
     
-    
+    // is not used
     @IBAction func sourceChosen(sender: AnyObject) {
         let sender = sender as! UISegmentedControl
         
@@ -486,6 +501,13 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 }
                 
                 managedObjectContext.save(nil)
+                
+//                for var i = 0; i < self.operations.count; ++i {
+//                    if let cell = self.tableView?.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? OperationTableViewCell {
+//                        cell.canBeDeleted = false
+//                    }
+//                    
+//                }
                 
                 self.updateCurrencyLabels(newCurrency)
                 self.showBalanceForAllHolders()

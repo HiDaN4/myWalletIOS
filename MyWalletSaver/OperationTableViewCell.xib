@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="55" id="KGk-i7-Jjw" customClass="RecentOperationTableViewCell" customModule="WalletTracker" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="55" id="KGk-i7-Jjw" customClass="OperationTableViewCell" customModule="WalletTracker" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -16,16 +16,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1G-Kj-HEC">
-                        <rect key="frame" x="1" y="18" width="85" height="21"/>
+                        <rect key="frame" x="8" y="14" width="85" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="85" id="jVI-ju-qww"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMc-T2-8hS">
-                        <rect key="frame" x="1" y="39" width="130" height="12"/>
+                        <rect key="frame" x="8" y="36" width="130" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="130" id="sG2-3k-Oj8"/>
                             <constraint firstAttribute="height" constant="12" id="yDa-sR-UJt"/>
@@ -46,12 +46,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="0nw-WU-KqG" secondAttribute="trailing" constant="-7" id="DaX-IT-cKb"/>
-                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-7" id="OFW-4c-p2U"/>
+                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="OFW-4c-p2U"/>
                     <constraint firstItem="VMc-T2-8hS" firstAttribute="leading" secondItem="O1G-Kj-HEC" secondAttribute="leading" id="OrC-OT-QEz"/>
-                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="eCX-AO-d7d"/>
+                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="eCX-AO-d7d"/>
                     <constraint firstItem="0nw-WU-KqG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="21" id="rOu-aH-DiD"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="VMc-T2-8hS" secondAttribute="bottom" constant="-4.5" id="sdB-KI-01d"/>
-                    <constraint firstItem="VMc-T2-8hS" firstAttribute="top" secondItem="O1G-Kj-HEC" secondAttribute="bottom" id="usR-aT-MXT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="VMc-T2-8hS" secondAttribute="bottom" constant="-1.5" id="sdB-KI-01d"/>
+                    <constraint firstItem="VMc-T2-8hS" firstAttribute="top" secondItem="O1G-Kj-HEC" secondAttribute="bottom" constant="1" id="usR-aT-MXT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

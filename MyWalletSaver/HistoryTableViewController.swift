@@ -32,6 +32,10 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         
         self.tableView.rowHeight = 55
         
+//        if self.tableView.respondsToSelector(Selector("setLayoutMargins:")) == true {
+//            self.tableView.layoutMargins = UIEdgeInsetsZero
+//        }
+        
 //        configureOperations()
 
         // Uncomment the following line to preserve selection between presentations
@@ -91,7 +95,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
             
         } else {
             let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-            let doneButton = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+            let doneButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
             alert.addAction(doneButton)
             
             self.presentViewController(alert, animated: true, completion: nil)
@@ -100,6 +104,11 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     }
 
     // MARK: - Table view data source
+    
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return tableView.rowHeight
+    }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.rowHeight
@@ -117,7 +126,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RecentOperationTableViewCell        // Configure the cell...
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! OperationTableViewCell
         
         let row = indexPath.row
         let operation = self.allOperations[row]
