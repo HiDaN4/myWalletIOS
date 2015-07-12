@@ -397,17 +397,17 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         }
         
         fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
-        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        format = value > 0 ? "%.\(fraction)f" : "%.\(fraction)f"
         self.balanceLabel?.text = String(format: format, value)
         
         value = holders[0].totalIncome + holders[0].totalExpense
         fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
-        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        format = value > 0 ? "%.\(fraction)f" : "%.\(fraction)f"
         self.cashBalanceLabel?.text = String(format: format, value)
         
         value = holders[1].totalIncome + holders[1].totalExpense
         fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
-        format = value > 0 ? "+%.\(fraction)f" : "%.\(fraction)f"
+        format = value > 0 ? "%.\(fraction)f" : "%.\(fraction)f"
         self.cardsBalanceLabel?.text = String(format: format, value)
     }
     
