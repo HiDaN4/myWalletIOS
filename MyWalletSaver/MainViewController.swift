@@ -88,10 +88,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
-    
 //    override func viewWillAppear(animated: Bool) {
 //        super.viewWillAppear(animated)
 //
@@ -199,9 +195,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! OperationTableViewCell
-        
-        cell.delegate = self
+        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! DraggableOperationTableViewCell
         
         let index = indexPath.row
         let operation = self.operations[index]
@@ -213,6 +207,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         let date = NSDate(timeIntervalSinceReferenceDate: self.operations[index].timestamp)
         
         cell.configure(String(format: format, amount), walletName: operation.wallet.name, date: date)
+        
+        cell.delegate = self
         cell.operation = operation
         
         cell.selectionStyle = .None

@@ -126,7 +126,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! OperationTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DraggableOperationTableViewCell
         
         let row = indexPath.row
         let operation = self.allOperations[row]
