@@ -28,7 +28,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
 //        self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
         
-        self.tableView.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+//        self.tableView.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
         
         self.tableView.rowHeight = 55
         

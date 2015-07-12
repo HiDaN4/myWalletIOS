@@ -23,6 +23,7 @@ class OperationTableViewCell: UITableViewCell {
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
     var canBeDeleted = true
+    var onDeleteView: UIView?
     
     var delegate: OperationTableViewCellDelegate?
     var operation: Operation?
@@ -88,6 +89,16 @@ class OperationTableViewCell: UITableViewCell {
         
         if recognizer.state == UIGestureRecognizerState.Began {
             originalCenter = center
+            println("Begin")
+            println("\(self.onDeleteView?.description)")
+            if self.onDeleteView == nil {
+            self.onDeleteView = UIView(frame: CGRect(x: self.frame.origin.x + self.frame.width, y: self.frame.origin.y, width: 0, height: self.frame.size.height))
+                
+                self.onDeleteView?.backgroundColor = UIColor(red: 249.0/255.0, green: 61.0/255.0, blue: 0, alpha: 1)
+                
+            }
+            
+            self.addSubview(onDeleteView!)
         }
         
         if recognizer.state == UIGestureRecognizerState.Changed {
@@ -95,6 +106,9 @@ class OperationTableViewCell: UITableViewCell {
             center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
             
             deleteOnDragRelease = frame.origin.x < -frame.size.width / 2.0 && canBeDeleted
+            self.onDeleteView?.frame.size.width = translation.x
+            self.onDeleteView?.frame.origin.x = self.bounds.width
+
             
         }
         
@@ -105,12 +119,16 @@ class OperationTableViewCell: UITableViewCell {
             if !deleteOnDragRelease {
                 UIView.animateWithDuration(0.3) {
                     self.frame = originalFrame
+                    self.onDeleteView?.frame.size.width = 0
                     }
+
             } else {
                 if delegate != nil && operation != nil {
                     delegate!.deleteItem(operation!)
                 }
+                self.subviews.last?.removeFromSuperview()
             }
+            
         }
         
     }
@@ -133,3 +151,4 @@ class OperationTableViewCell: UITableViewCell {
     
     
 }
+
