@@ -73,30 +73,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.tableView?.backgroundColor = UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1)
         
-//        self.expenseButton?.backgroundColor = UIColor(red: 255.0/255.0, green: 114.0/255.0, blue: 127.0/255.0, alpha: 1)
-//        self.incomeButton?.backgroundColor = UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1)
-//        self.expenseButton?.layer.frame = CGRect(x: self.expenseButton.frame.origin.x, y: self.expenseButton?.frame.origin.y, width: 60, height: 60)
-//        if let width = self.expenseButton?.frame.width {
-//            self.expenseButton?.layer.cornerRadius = 0.5 * width
-//        }
-//        
-//        if let width = self.incomeButton?.frame.width {
-//            self.incomeButton?.layer.cornerRadius = 0.5 * width
-//        }
-        
         // Do any additional setup after loading the view, typically from a nib.
         
     }
-    
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//    }
-
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
     
     
     
@@ -213,7 +192,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         cell.selectionStyle = .None
         
-        cell.setFontColor(UIColor.whiteColor())
+        cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
+        cell.setLabelColor(UIColor.whiteColor())
         
         return cell
     }
@@ -454,15 +434,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         managedObjectContext.save(&error)
         
-//        var value: Double = 0
-//        for wallet in holders {
-//            value += wallet.totalIncome + wallet.totalExpense
-//        }
-        
-//        let format = value > 0 ? "+%.2f" : "%.2f"
-//        
-//        self.balanceLabel.text = String(format: format, value)
-        
         self.showBalanceForAllHolders()
         
         self.tableView?.reloadData()
@@ -536,6 +507,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         
         self.operations.removeAtIndex(index)
+        
         
         self.tableView?.beginUpdates()
         let indexPath = NSIndexPath(forRow: index, inSection: 0)

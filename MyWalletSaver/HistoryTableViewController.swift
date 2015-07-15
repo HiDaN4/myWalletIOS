@@ -16,6 +16,8 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     var allOperations: [Operation] = [Operation]()
     
     let reuseIdentifier = "Cell"
+    
+    static let months = [1: "January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12: "December"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,6 +104,23 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
             self.presentViewController(alert, animated: true, completion: nil)
             
         }
+        
+        self.allOperations = filter(self.allOperations) {!$0.fault}
+        
+    }
+    
+    
+    func getCurrentMonth() -> String {
+        
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        let components = calendar.components(NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
+        
+        let monthNum: Int = components.month
+        
+        return HistoryTableViewController.months[monthNum]!
+        
     }
 
     // MARK: - Table view data source
@@ -113,11 +133,21 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.rowHeight
     }
+    
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25.0
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return getCurrentMonth()
+    }
+    
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
@@ -131,11 +161,20 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         let row = indexPath.row
         let operation = self.allOperations[row]
         
+//        println("Operations::")
+//        println(self.allOperations.count)
+//        
+//        for op in self.allOperations {
+//            println(op)
+//        }
+        
         cell.configure("\(operation.currency)\(operation.amount)", walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
         cell.delegate = self
         cell.operation = operation
         
+        cell.setCellColor(UIColor.clearColor())
+        cell.setLabelColor(UIColor.whiteColor())
 //        cell.setFontColor(UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1))
         
         cell.selectionStyle = .None
