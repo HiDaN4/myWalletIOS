@@ -161,12 +161,6 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         let row = indexPath.row
         let operation = self.allOperations[row]
         
-//        println("Operations::")
-//        println(self.allOperations.count)
-//        
-//        for op in self.allOperations {
-//            println(op)
-//        }
         
         cell.configure("\(operation.currency)\(operation.amount)", walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
@@ -175,8 +169,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         
         cell.setCellColor(UIColor.clearColor())
         cell.setLabelColor(UIColor.whiteColor())
-//        cell.setFontColor(UIColor(red: 152.0/255.0, green: 196.0/255.0, blue: 11.0/255.0, alpha: 1))
-        
+
         cell.selectionStyle = .None
 
         return cell

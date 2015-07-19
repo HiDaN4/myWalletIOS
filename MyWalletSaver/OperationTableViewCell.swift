@@ -66,7 +66,7 @@ class DraggableTableViewCell : OperationTableViewCell {
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
     
-    var onDeleteView: UIView?
+    private var onDeleteView: UIView?
     var swipeLeftLabel: UILabel?
     
     var activeFullSwipeLeftColor: UIColor?
@@ -167,8 +167,8 @@ class DraggableTableViewCell : OperationTableViewCell {
                 self.swipeLeftLabel?.frame.size.height = self.onDeleteView!.frame.height
                 self.swipeLeftLabel?.frame.size.width = abs(self.onDeleteView!.frame.width)
                 
-                //                self.onDeleteView?.layoutIfNeeded()
-                //                self.swipeLeftLabel?.layoutIfNeeded()
+//                self.onDeleteView?.layoutIfNeeded()
+//                self.swipeLeftLabel?.layoutIfNeeded()
                 
             }
             
