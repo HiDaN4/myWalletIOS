@@ -12,11 +12,18 @@ protocol HolderDelegate {
     func setWalletValues(details: [String: String]?)
 }
 
-class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+
+class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var rightButton: UIButton?
 
     @IBOutlet weak var currencyField: UITextField?
+    
+    @IBOutlet weak var tableView: UITableView?
+    
+    let reuseIdentifier = "Cell"
+    
     
     var holderDelegate: HolderDelegate?
     
@@ -27,6 +34,8 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var didChange = false
     
+    let dataToPresent = [["GENERAL", "Week Start", "Currency", "Passcode", "Decimals"], ["DATA", "Delete All Data"], ["INFO", "Help", "About"], ["ASD", "sdfs", "ae332", "gvsre1", "t234sc"], ["421", "gzd", "dsdawe", "4231"]]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +45,10 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         self.rightButton?.addTarget(self, action: Selector("rightButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
+        
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,8 +95,54 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.currencyField?.text = self.currentSymbol
     }
     
+    
+    
     func rightButtonPressed(button: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    // MARK: - Table View Methods
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.dataToPresent.count
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataToPresent[section].count - 1
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.dataToPresent[section][0]
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor(r: 43, g: 70, b: 85, a: 1)
+        
+        header.textLabel.textColor = UIColor.whiteColor()
+        
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! UITableViewCell
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        let text = self.dataToPresent[section][row+1]
+        cell.textLabel?.text = text
+        
+        cell.textLabel?.textColor = UIColor.whiteColor()
+        
+        let bview = UIView(frame: CGRect(origin: cell.frame.origin, size: cell.frame.size))
+        bview.backgroundColor = UIColor(r: 43, g: 70, b: 85, a: 1)
+        cell.selectedBackgroundView = bview
+        
+        return cell
     }
     
     

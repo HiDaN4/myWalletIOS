@@ -65,37 +65,72 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
     
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
-    var canBeDeleted = true
+//    var canBeDeleted = true
+    
     var onDeleteView: UIView?
+    var swipeLeftLabel: UILabel?
+    
+    var activeFullSwipeLeftColor: UIColor?
+    var inactiveSwipeLeftColor: UIColor?
+    
+    var textOnSwipe: String = "Action" {
+        didSet {
+            self.swipeLeftLabel?.text = textOnSwipe
+        }
+    }
     
     var delegate: OperationTableViewCellDelegate?
     var operation: Operation?
     
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        var recognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        var recognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
         recognizer.delegate = self
         addGestureRecognizer(recognizer)
     }
     
+    private func createCView() {
+        
+        self.onDeleteView = UIView(frame: CGRectMake(self.frame.origin.x + self.frame.width, 0, 0, self.frame.height))
+        
+        if let color = self.inactiveSwipeLeftColor {
+            self.onDeleteView?.backgroundColor = color
+        } else {
+            self.inactiveSwipeLeftColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1)
+            self.onDeleteView?.backgroundColor = self.inactiveSwipeLeftColor
+        }
+        
+        if self.activeFullSwipeLeftColor == nil {
+            self.activeFullSwipeLeftColor = UIColor(red: 249.0/255.0, green: 61.0/255.0, blue: 0, alpha: 1)
+        }
+        
+        
+        self.swipeLeftLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: self.onDeleteView!.frame.height))
+        self.swipeLeftLabel?.adjustsFontSizeToFitWidth = true
+        
+        self.swipeLeftLabel?.textColor = UIColor.whiteColor()
+        self.swipeLeftLabel?.textAlignment = NSTextAlignment.Center
+        self.swipeLeftLabel?.font = UIFont(name: "Avenir", size: 15.0)
+        self.swipeLeftLabel?.text = self.textOnSwipe
+        
+        
+        self.addSubview(onDeleteView!)
+        self.onDeleteView!.addSubview(self.swipeLeftLabel!)
+
+    }
     
     
-    func handlePan(recognizer: UIPanGestureRecognizer) {
+    
+    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         
         if recognizer.state == UIGestureRecognizerState.Began {
             originalCenter = center
-            println("Begin")
-            println("\(self.onDeleteView?.description)")
+            
             if self.onDeleteView == nil {
-                println("Creating: \(frame.origin.y)")
-                self.onDeleteView = UIView(frame: CGRectMake(self.frame.origin.x + self.frame.width, 0, 0, self.frame.height))
-                
-                self.onDeleteView?.backgroundColor = UIColor(red: 249.0/255.0, green: 61.0/255.0, blue: 0, alpha: 1)
-                
-                self.addSubview(onDeleteView!)
-                
+                self.createCView()
             }
             
             
@@ -103,12 +138,30 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
         
         if recognizer.state == UIGestureRecognizerState.Changed {
             let translation = recognizer.translationInView(self)
-            center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
             
-            deleteOnDragRelease = frame.origin.x < -frame.size.width / 2.0
-            self.onDeleteView?.frame.size.width = translation.x
-            self.onDeleteView?.frame.origin.x = self.bounds.width
+            if abs(translation.x) < self.bounds.width / 3.0  {
+                center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
             
+                deleteOnDragRelease = frame.origin.x < -frame.size.width / 4.0
+                
+                self.onDeleteView?.frame.size.width = translation.x
+                self.onDeleteView?.frame.origin.x = self.bounds.width
+                
+                if deleteOnDragRelease {
+                    self.onDeleteView?.backgroundColor = self.activeFullSwipeLeftColor
+                } else {
+                    self.onDeleteView?.backgroundColor = self.inactiveSwipeLeftColor
+                }
+                
+                self.swipeLeftLabel?.frame.size.height = self.onDeleteView!.frame.height
+                self.swipeLeftLabel?.frame.size.width = abs(self.onDeleteView!.frame.width)
+
+//                self.onDeleteView?.layoutIfNeeded()
+//                self.swipeLeftLabel?.layoutIfNeeded()
+                
+//                println("View2: \(self.onDeleteView?.frame)")
+//                println("Label: \(self.swipeRightLabel?.frame)")
+            }
             
         }
         
@@ -126,6 +179,8 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
                 if delegate != nil && operation != nil {
                     delegate!.deleteItem(operation!)
                 }
+                self.swipeLeftLabel?.removeFromSuperview()
+                self.swipeLeftLabel = nil
                 self.onDeleteView?.removeFromSuperview()
                 self.onDeleteView = nil
             }

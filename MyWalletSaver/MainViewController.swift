@@ -195,6 +195,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
         cell.setLabelColor(UIColor.whiteColor())
         
+        cell.textOnSwipe = "Remove"
+        
         return cell
     }
     
@@ -468,13 +470,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 }
                 
                 managedObjectContext.save(nil)
-                
-//                for var i = 0; i < self.operations.count; ++i {
-//                    if let cell = self.tableView?.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? OperationTableViewCell {
-//                        cell.canBeDeleted = false
-//                    }
-//                    
-//                }
                 
                 self.updateCurrencyLabels(newCurrency)
                 self.showBalanceForAllHolders()
