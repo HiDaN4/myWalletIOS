@@ -61,11 +61,10 @@ class OperationTableViewCell: UITableViewCell {
 }
 
 
-class DraggableOperationTableViewCell: OperationTableViewCell {
+class DraggableTableViewCell : OperationTableViewCell {
     
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false
-//    var canBeDeleted = true
     
     var onDeleteView: UIView?
     var swipeLeftLabel: UILabel?
@@ -79,10 +78,6 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
         }
     }
     
-    var delegate: OperationTableViewCellDelegate?
-    var operation: Operation?
-    
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -91,6 +86,20 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
         recognizer.delegate = self
         addGestureRecognizer(recognizer)
     }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        var recognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+        recognizer.delegate = self
+        addGestureRecognizer(recognizer)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    
+    
     
     private func createCView() {
         
@@ -119,8 +128,10 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
         
         self.addSubview(onDeleteView!)
         self.onDeleteView!.addSubview(self.swipeLeftLabel!)
-
+        
     }
+    
+    
     
     
     
@@ -141,7 +152,7 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
             
             if abs(translation.x) < self.bounds.width / 3.0  {
                 center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
-            
+                
                 deleteOnDragRelease = frame.origin.x < -frame.size.width / 4.0
                 
                 self.onDeleteView?.frame.size.width = translation.x
@@ -155,12 +166,10 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
                 
                 self.swipeLeftLabel?.frame.size.height = self.onDeleteView!.frame.height
                 self.swipeLeftLabel?.frame.size.width = abs(self.onDeleteView!.frame.width)
-
-//                self.onDeleteView?.layoutIfNeeded()
-//                self.swipeLeftLabel?.layoutIfNeeded()
                 
-//                println("View2: \(self.onDeleteView?.frame)")
-//                println("Label: \(self.swipeRightLabel?.frame)")
+                //                self.onDeleteView?.layoutIfNeeded()
+                //                self.swipeLeftLabel?.layoutIfNeeded()
+                
             }
             
         }
@@ -176,18 +185,23 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
                 }
                 
             } else {
-                if delegate != nil && operation != nil {
-                    delegate!.deleteItem(operation!)
-                }
-                self.swipeLeftLabel?.removeFromSuperview()
-                self.swipeLeftLabel = nil
-                self.onDeleteView?.removeFromSuperview()
-                self.onDeleteView = nil
+                self.onDeleteCell()
             }
         }
         
     }
-
+    
+    
+    
+    
+    func onDeleteCell() {
+        self.swipeLeftLabel?.removeFromSuperview()
+        self.swipeLeftLabel = nil
+        self.onDeleteView?.removeFromSuperview()
+        self.onDeleteView = nil
+    }
+    
+    
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
@@ -203,6 +217,34 @@ class DraggableOperationTableViewCell: OperationTableViewCell {
         return false
     }
     
+}
+
+
+
+
+
+class DraggableOperationTableViewCell: DraggableTableViewCell {
+    
+    var delegate: OperationTableViewCellDelegate?
+    var operation: Operation?
+    
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    
+    override func onDeleteCell() {
+        super.onDeleteCell()
+        
+        if delegate != nil && operation != nil {
+            delegate!.deleteItem(operation!)
+        }
+    }
+    
     
 }
+
 
