@@ -90,6 +90,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         // Do any additional setup after loading the view, typically from a nib.
         
+        UITabBar.appearance().barTintColor = self.view.backgroundColor
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+        
     }
     
     
@@ -336,9 +339,28 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         changeAppearanceOfCategoryButtons(hidden: false)
         
+        if let buttons = self.categoryButtons {
+            var i: CGFloat = 0
+            for button in buttons {
+                button.frame.origin.x = 0 - button.frame.width - i
+                i += 8 + button.frame.width
+            }
+        }
+        
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layer.frame.offset(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
+            
         })
+        
+        UIView.animateWithDuration(0.7) {
+            if let buttons = self.categoryButtons {
+                var i: CGFloat = 0
+                for button in buttons {
+                    button.frame.origin.x = 10 + i
+                    i += 8 + button.frame.width
+                }
+            }
+        }
         
         
     }

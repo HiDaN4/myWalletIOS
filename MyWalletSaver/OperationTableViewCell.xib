@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1G-Kj-HEC">
-                        <rect key="frame" x="70" y="14" width="85" height="21"/>
+                        <rect key="frame" x="65" y="14" width="85" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="85" id="jVI-ju-qww"/>
                         </constraints>
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMc-T2-8hS">
-                        <rect key="frame" x="70" y="36" width="130" height="12"/>
+                        <rect key="frame" x="65" y="36" width="130" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="130" id="sG2-3k-Oj8"/>
                             <constraint firstAttribute="height" constant="12" id="yDa-sR-UJt"/>
@@ -45,12 +45,12 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yok-F3-WmR">
                         <rect key="frame" x="56" y="0.0" width="1" height="55"/>
-                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="1" id="MC4-sy-RSA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vNb-Gt-XbU" userLabel="categoryImage">
@@ -61,7 +61,7 @@
                     <constraint firstItem="Yok-F3-WmR" firstAttribute="leading" secondItem="vNb-Gt-XbU" secondAttribute="trailing" constant="1" id="CZf-CB-UYY"/>
                     <constraint firstAttribute="trailingMargin" secondItem="0nw-WU-KqG" secondAttribute="trailing" constant="-7" id="DaX-IT-cKb"/>
                     <constraint firstItem="Yok-F3-WmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="M6U-ol-ABD"/>
-                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="62" id="OFW-4c-p2U"/>
+                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="57" id="OFW-4c-p2U"/>
                     <constraint firstItem="VMc-T2-8hS" firstAttribute="leading" secondItem="O1G-Kj-HEC" secondAttribute="leading" id="OrC-OT-QEz"/>
                     <constraint firstItem="Yok-F3-WmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="SBY-ZA-tN1"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Yok-F3-WmR" secondAttribute="bottom" constant="-8" id="TsX-eV-2r8"/>
