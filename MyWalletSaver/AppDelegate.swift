@@ -13,11 +13,16 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var textures: [String: UIImage] = [String: UIImage]()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         application.statusBarStyle = UIStatusBarStyle.LightContent
+        
+        self.loadTextures()
+        
         return true
     }
 
@@ -107,6 +112,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    
+    private func loadTextures() {
+        self.textures["Food"] = UIImage(named: "foodCategoryButton")
+        self.textures["Entertainment"] = UIImage(named: "entertainmentCategoryButton")
+        self.textures["General"] = UIImage(named: "generalCategoryButton")
+        
     }
 
 

@@ -11,6 +11,7 @@ import CoreData
 
 class HistoryTableViewController: UITableViewController, OperationTableViewCellDelegate {
     
+    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
     
     var allOperations: [Operation] = [Operation]()
@@ -162,7 +163,7 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         let operation = self.allOperations[row]
         
         
-        cell.configure("\(operation.currency)\(operation.amount)", walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
+        cell.configure("\(operation.currency)\(operation.amount)", categoryImage: self.appDelegate.textures[operation.category], walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
         cell.delegate = self
         cell.operation = operation

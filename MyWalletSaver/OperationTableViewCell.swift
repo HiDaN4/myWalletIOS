@@ -16,6 +16,8 @@ class OperationTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel?
     @IBOutlet weak var fromWalletLabel: UILabel?
     @IBOutlet weak var timestampLabel: UILabel?
+    @IBOutlet weak var categoryImageView: UIImageView?
+    
     
     let calendar = NSCalendar.currentCalendar()
     let dateFormatter = NSDateFormatter()
@@ -27,7 +29,7 @@ class OperationTableViewCell: UITableViewCell {
     }
     
     
-    func configure(amount: String, walletName: String, date: NSDate) {
+    func configure(amount: String, categoryImage: UIImage?, walletName: String, date: NSDate) {
         
         self.amountLabel?.text = amount
         self.fromWalletLabel?.text = walletName
@@ -39,6 +41,8 @@ class OperationTableViewCell: UITableViewCell {
         let timestamp = dateFormatter.stringFromDate(date)
         
         self.timestampLabel?.text = timestamp
+        
+        self.categoryImageView?.image = categoryImage
         
         if self.respondsToSelector(Selector("setLayoutMargins:")) == true {
             self.layoutMargins = UIEdgeInsetsZero

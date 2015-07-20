@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1G-Kj-HEC">
-                        <rect key="frame" x="8" y="14" width="85" height="21"/>
+                        <rect key="frame" x="70" y="14" width="85" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="85" id="jVI-ju-qww"/>
                         </constraints>
@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMc-T2-8hS">
-                        <rect key="frame" x="8" y="36" width="130" height="12"/>
+                        <rect key="frame" x="70" y="36" width="130" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="130" id="sG2-3k-Oj8"/>
                             <constraint firstAttribute="height" constant="12" id="yDa-sR-UJt"/>
@@ -43,19 +43,48 @@
                         <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yok-F3-WmR">
+                        <rect key="frame" x="56" y="0.0" width="1" height="55"/>
+                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="MC4-sy-RSA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vNb-Gt-XbU" userLabel="categoryImage">
+                        <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Yok-F3-WmR" firstAttribute="leading" secondItem="vNb-Gt-XbU" secondAttribute="trailing" constant="1" id="CZf-CB-UYY"/>
                     <constraint firstAttribute="trailingMargin" secondItem="0nw-WU-KqG" secondAttribute="trailing" constant="-7" id="DaX-IT-cKb"/>
-                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="OFW-4c-p2U"/>
+                    <constraint firstItem="Yok-F3-WmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="M6U-ol-ABD"/>
+                    <constraint firstItem="O1G-Kj-HEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="62" id="OFW-4c-p2U"/>
                     <constraint firstItem="VMc-T2-8hS" firstAttribute="leading" secondItem="O1G-Kj-HEC" secondAttribute="leading" id="OrC-OT-QEz"/>
+                    <constraint firstItem="Yok-F3-WmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="SBY-ZA-tN1"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Yok-F3-WmR" secondAttribute="bottom" constant="-8" id="TsX-eV-2r8"/>
                     <constraint firstItem="O1G-Kj-HEC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="eCX-AO-d7d"/>
+                    <constraint firstItem="vNb-Gt-XbU" firstAttribute="top" secondItem="Yok-F3-WmR" secondAttribute="top" id="j5e-aX-rqD"/>
                     <constraint firstItem="0nw-WU-KqG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="21" id="rOu-aH-DiD"/>
                     <constraint firstAttribute="bottomMargin" secondItem="VMc-T2-8hS" secondAttribute="bottom" constant="-1.5" id="sdB-KI-01d"/>
                     <constraint firstItem="VMc-T2-8hS" firstAttribute="top" secondItem="O1G-Kj-HEC" secondAttribute="bottom" constant="1" id="usR-aT-MXT"/>
+                    <constraint firstItem="vNb-Gt-XbU" firstAttribute="bottom" secondItem="Yok-F3-WmR" secondAttribute="bottom" id="vPP-Yj-8ek"/>
+                    <constraint firstItem="Yok-F3-WmR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="48" id="vV8-MO-cVj"/>
+                    <constraint firstItem="vNb-Gt-XbU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wl3-Gd-Iey"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Yok-F3-WmR" secondAttribute="bottom" constant="8" id="yjK-35-85g"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="M6U-ol-ABD"/>
+                        <exclude reference="yjK-35-85g"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="amountLabel" destination="O1G-Kj-HEC" id="ZcY-fr-1gq"/>
+                <outlet property="categoryImageView" destination="vNb-Gt-XbU" id="hFa-r4-i8i"/>
                 <outlet property="fromWalletLabel" destination="0nw-WU-KqG" id="nRB-dY-D3y"/>
                 <outlet property="timestampLabel" destination="VMc-T2-8hS" id="dqo-r7-wa7"/>
             </connections>

@@ -31,7 +31,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     var currentCategory: CustomCirclularButton?
     
     
-    
+    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
     
     var holders: [Holder]!
@@ -200,7 +200,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 
         let date = NSDate(timeIntervalSinceReferenceDate: self.operations[index].timestamp)
         
-        cell.configure(String(format: format, amount), walletName: operation.wallet.name, date: date)
+        cell.configure(String(format: format, amount), categoryImage: self.appDelegate.textures[operation.category], walletName: operation.wallet.name, date: date)
         
         cell.delegate = self
         cell.operation = operation
