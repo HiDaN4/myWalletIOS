@@ -12,6 +12,9 @@ import UIKit
 
 class CustomCirclularButton: UIButton {
     
+    @IBInspectable var strokeColor: UIColor = UIColor(red: 151.0/255.0, green: 151.0/255.0, blue: 151.0/255.0, alpha: 1)
+    
+    
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
@@ -20,7 +23,7 @@ class CustomCirclularButton: UIButton {
         UIColor.clearColor().setFill()
         path.fill()
         
-        UIColor(red: 151.0/255.0, green: 151.0/255.0, blue: 151.0/255.0, alpha: 1).setStroke()
+        self.strokeColor.setStroke()
         
         path.lineWidth = 1.0
         

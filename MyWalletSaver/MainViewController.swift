@@ -26,6 +26,12 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBOutlet weak var expenseButton: UIButton?
     @IBOutlet weak var incomeButton: UIButton?
     
+    
+    @IBOutlet var categoryButtons: [CustomCirclularButton]?
+    var currentCategory: CustomCirclularButton?
+    
+    
+    
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
     
     var holders: [Holder]!
@@ -41,6 +47,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         super.viewDidLoad()
         
         self.configureWallets()
+        
+        if let buttons = self.categoryButtons {
+            var i = 500
+            self.currentCategory = buttons[0]
+            for button in buttons {
+                button.tag = i++
+                button.addTarget(self, action: Selector("categoryButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            }
+        }
         
         
         self.tableView?.delegate = self
@@ -319,12 +334,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.sourceSegmentedControl?.hidden = false
         
+        changeAppearanceOfCategoryButtons(hidden: false)
+        
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layer.frame.offset(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
         })
         
         
     }
+    
     
     
     // is not used
@@ -340,6 +358,32 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             break
         default:
             break
+        }
+    }
+    
+    
+    
+    func categoryButtonPressed(button: UIButton?) {
+        if let pressedButton = button as? CustomCirclularButton {
+            
+            if pressedButton.strokeColor != UIColor.greenColor() {
+                
+                self.currentCategory?.strokeColor = pressedButton.strokeColor
+                self.currentCategory?.setNeedsDisplay()
+                
+//                if let buttons = self.categoryButtons {
+//                    for cbutton in buttons {
+//                        if cbutton != pressedButton {
+//                            cbutton.strokeColor = UIColor.whiteColor()
+//                            cbutton.setNeedsDisplay()
+//                        }
+//                    }
+//                }
+                
+                self.currentCategory = pressedButton
+                pressedButton.strokeColor = UIColor.greenColor()
+                pressedButton.setNeedsDisplay()
+            }
         }
     }
 
@@ -426,6 +470,22 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             current_wallet.totalExpense += amount
         }
         
+        var category = ""
+        if let tag = self.currentCategory?.tag {
+            switch tag {
+            case 500:
+                category = "Food"
+            case 501:
+                category = "Entertainment"
+            case 502:
+                category = "General"
+            default:
+                break
+            }
+        }
+        
+        newItem.category = category
+        
         self.operations.insert(newItem, atIndex: 0)
         
         if self.operations.count == 11 {
@@ -447,6 +507,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func tapped() {
         self.tableView?.gestureRecognizers?.removeLast()
         
+        changeAppearanceOfCategoryButtons(hidden: true)
+        
         self.sourceSegmentedControl?.hidden = true
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.view.layer.frame.offset(dx: 0, dy: CGFloat(30*6 + 20))
@@ -455,6 +517,21 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.inputField?.resignFirstResponder()
     }
+    
+    
+    
+    
+    func changeAppearanceOfCategoryButtons(#hidden: Bool) {
+        
+        if let buttons = self.categoryButtons {
+            for button in buttons {
+                button.hidden = hidden
+            }
+        }
+        
+    }
+    
+    
     
     // MARK: - Custom Delegates
     

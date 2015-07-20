@@ -164,7 +164,7 @@ class DraggableTableViewCell : OperationTableViewCell {
                     self.onDeleteView?.backgroundColor = self.inactiveSwipeLeftColor
                 }
                 
-                self.swipeLeftLabel?.frame.size.height = self.onDeleteView!.frame.height
+//                self.swipeLeftLabel?.frame.size.height = self.onDeleteView!.frame.height
                 self.swipeLeftLabel?.frame.size.width = abs(self.onDeleteView!.frame.width)
                 
 //                self.onDeleteView?.layoutIfNeeded()

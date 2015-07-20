@@ -109,7 +109,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Kh-f6-jEn">
-                                        <rect key="frame" x="341.5" y="40" width="37" height="19"/>
+                                        <rect key="frame" x="342" y="40" width="37" height="19"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -124,7 +124,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000000000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJu-RT-ZNB">
-                                        <rect key="frame" x="390.5" y="40" width="98" height="19"/>
+                                        <rect key="frame" x="391" y="40" width="98" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="98" id="hlD-9h-iUG"/>
                                         </constraints>
@@ -196,10 +196,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQq-AB-yJ9" userLabel="footer">
-                                <rect key="frame" x="0.0" y="462" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="412" width="600" height="140"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o2x-Vb-VZh">
-                                        <rect key="frame" x="8" y="18" width="140" height="30"/>
+                                        <rect key="frame" x="8" y="68" width="140" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="liC-zT-ZBU"/>
                                         </constraints>
@@ -210,7 +210,7 @@
                                         </connections>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cXB-cB-Thp">
-                                        <rect key="frame" x="8" y="56" width="140" height="29"/>
+                                        <rect key="frame" x="8" y="106" width="140" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="5QR-Dz-Soj"/>
                                         </constraints>
@@ -224,7 +224,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6w-Aj-ltE" customClass="CustomPushButton" customModule="WalletTracker" customModuleProvider="target">
-                                        <rect key="frame" x="443" y="12" width="60" height="60"/>
+                                        <rect key="frame" x="443" y="62" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="5Pu-OR-nRz"/>
                                             <constraint firstAttribute="height" constant="60" id="d4E-oC-siJ"/>
@@ -250,7 +250,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYN-SF-oap" customClass="CustomPushButton" customModule="WalletTracker" customModuleProvider="target">
-                                        <rect key="frame" x="520" y="12" width="60" height="60"/>
+                                        <rect key="frame" x="520" y="62" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Uvf-Ur-GGh"/>
                                             <constraint firstAttribute="width" constant="60" id="wfQ-py-IKw"/>
@@ -269,16 +269,47 @@
                                             <action selector="expenseButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6Wl-QN-JJ2"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-ev-qad" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                        <rect key="frame" x="14" y="5" width="55" height="55"/>
+                                        <state key="normal" image="foodCategoryButton">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                                <color key="value" red="0.37741966519999998" green="1" blue="0.1816769731" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eG2-5e-2Q9" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                        <rect key="frame" x="77" y="5" width="55" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="55" id="ZVa-xe-D8S"/>
+                                        </constraints>
+                                        <state key="normal" image="entertainmentCategoryButton">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzr-dC-jxD" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                        <rect key="frame" x="140" y="5" width="55" height="55"/>
+                                        <state key="normal" image="generalCategoryButton">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Lee-ev-qad" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leading" constant="14" id="2cu-jo-2mo"/>
+                                    <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="Lee-ev-qad" secondAttribute="bottom" constant="8" symbolic="YES" id="3gB-VB-qXk"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="leading" secondItem="Lee-ev-qad" secondAttribute="trailing" constant="8" symbolic="YES" id="55a-Z7-pq3"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="5y0-4c-dxY"/>
-                                    <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="18" id="EQz-gq-Qqd"/>
+                                    <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="68" id="EQz-gq-Qqd"/>
+                                    <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="eG2-5e-2Q9" secondAttribute="bottom" constant="8" symbolic="YES" id="Gu8-Vd-o4P"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="leading" secondItem="R6w-Aj-ltE" secondAttribute="trailing" constant="17" id="IT8-4h-csp"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="5" id="Nel-7b-wu3"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="R6w-Aj-ltE" secondAttribute="top" id="Qt3-jx-XB7"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="Srj-GZ-y6y"/>
-                                    <constraint firstAttribute="height" constant="90" id="UaX-z4-ouP"/>
-                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="12" id="VS7-Vj-RBP"/>
+                                    <constraint firstAttribute="height" constant="140" id="UaX-z4-ouP"/>
+                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="62" id="VS7-Vj-RBP"/>
                                     <constraint firstAttribute="height" constant="107" id="VwG-2P-7zQ"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leadingMargin" id="ff0-Lk-5no"/>
                                     <constraint firstAttribute="trailing" secondItem="SYN-SF-oap" secondAttribute="trailing" constant="20" id="j6q-Bc-xwI"/>
@@ -295,7 +326,7 @@
                                 </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dim-MX-1q5">
-                                <rect key="frame" x="0.0" y="159" width="600" height="303"/>
+                                <rect key="frame" x="0.0" y="159" width="600" height="252"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="298" id="96Q-PQ-k2N"/>
@@ -334,7 +365,7 @@
                             <constraint firstAttribute="bottom" secondItem="kDO-AV-8gM" secondAttribute="bottom" constant="436" id="fdx-j2-YJJ"/>
                             <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" constant="1" id="g3F-fR-1gW"/>
                             <constraint firstItem="dim-MX-1q5" firstAttribute="trailing" secondItem="kDO-AV-8gM" secondAttribute="trailing" id="i01-tK-zPE"/>
-                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" id="jG5-hq-fCw"/>
+                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" constant="1" id="jG5-hq-fCw"/>
                             <constraint firstItem="OQq-AB-yJ9" firstAttribute="trailing" secondItem="dim-MX-1q5" secondAttribute="trailing" id="jNM-kK-vtu"/>
                             <constraint firstItem="OQq-AB-yJ9" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" constant="1" id="lCL-WT-dHK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Enr-Mi-1kR" secondAttribute="trailing" constant="-16" id="rG1-St-NLR"/>
@@ -370,6 +401,9 @@
                         <outletCollection property="currencyLabels" destination="yWv-bt-9XT" collectionClass="NSMutableArray" id="IrY-Ue-Jcd"/>
                         <outletCollection property="currencyLabels" destination="Hm2-Xx-NJu" collectionClass="NSMutableArray" id="xXv-DI-laU"/>
                         <outletCollection property="currencyLabels" destination="HF3-dq-guJ" collectionClass="NSMutableArray" id="Rhg-f2-OQD"/>
+                        <outletCollection property="categoryButtons" destination="Lee-ev-qad" collectionClass="NSMutableArray" id="DMc-Tu-fcZ"/>
+                        <outletCollection property="categoryButtons" destination="eG2-5e-2Q9" collectionClass="NSMutableArray" id="vKj-ag-ASY"/>
+                        <outletCollection property="categoryButtons" destination="rzr-dC-jxD" collectionClass="NSMutableArray" id="HzF-n9-o1T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -555,7 +589,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="entertainmentCategoryButton" width="55" height="55"/>
         <image name="first" width="30" height="30"/>
+        <image name="foodCategoryButton" width="55" height="55"/>
+        <image name="generalCategoryButton" width="55" height="55"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>
