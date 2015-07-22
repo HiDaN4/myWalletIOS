@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class HistoryTableViewController: UITableViewController, OperationTableViewCellDelegate {
+class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
     
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
@@ -19,9 +21,24 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     let reuseIdentifier = "Cell"
     
     static let months = [1: "January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12: "December"]
+    
+    @IBOutlet weak var periodLabel: UILabel?
+    
+    @IBOutlet weak var totalExpenseLabel: UILabel?
+    @IBOutlet weak var totalIncomeLabel: UILabel?
+    
+    var totalExpense: Double = 0.0
+    var totalIncome: Double = 0.0
+    
+    
+    @IBOutlet var currencySymbolLabel: [UILabel]?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         self.tableView.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         
@@ -29,11 +46,14 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
 //        self.edgesForExtendedLayout = UIRectEdge.None
 //        self.extendedLayoutIncludesOpaqueBars = false
 //        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.contentInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
+//        self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
+            self.tableView?.layoutMargins = UIEdgeInsetsZero
+        }
         
 //        self.tableView.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
         
-        self.tableView.rowHeight = 55
+//        self.tableView.rowHeight = 55
         
 //        if self.tableView.respondsToSelector(Selector("setLayoutMargins:")) == true {
 //            self.tableView.layoutMargins = UIEdgeInsetsZero
@@ -52,7 +72,12 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        let day_month = self.getCurrentDate()
+        self.updatePeriodLabel(period: "1 \(day_month.1) - \(day_month.0) \(day_month.1)")
+        
         self.configureOperations()
+        self.updateAmountLabels()
+        
         self.tableView.reloadData()
     }
 
@@ -67,6 +92,8 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
     // MARK: - Functions
     
     func configureOperations() {
+        
+        self.allOperations = filter(self.allOperations) {!$0.fault}
         
         let request = NSFetchRequest(entityName: "Operation")
         
@@ -84,16 +111,22 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
                 
                 if self.allOperations.count == 0 {
                     self.allOperations.extend(results)
-                    return
+                } else {
+                
+                    for var count = results.count - 1; count >= 0; --count {
+                        self.allOperations.insert(results[count], atIndex: 0)
+                    }
                 }
                 
-                for var count = results.count - 1; count >= 0; --count {
-                    self.allOperations.insert(results[count], atIndex: 0)
+            }
+            
+            if let symbols = self.currencySymbolLabel {
+                let lastCurrency = self.allOperations.first?.currency
+                if lastCurrency != symbols[0].text {
+                    for symbol in symbols {
+                        symbol.text = lastCurrency
+                    }
                 }
-                
-//                self.allOperations.extend(results)
-//                self.allOperations.sort {$0.timestamp>$1.timestamp}
-                
             }
             
             
@@ -106,64 +139,131 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
             
         }
         
-        self.allOperations = filter(self.allOperations) {!$0.fault}
+        var income = 0.0
+        var expense = 0.0
+        for operation in self.allOperations {
+            let amount = operation.amount
+            let symbol = operation.currency
+            if symbol != self.currencySymbolLabel?[0].text { continue }
+            
+            if amount > 0 {
+                income += amount
+            } else {
+                expense += amount
+            }
+        }
+
+        self.totalIncome = income
+        self.totalExpense = expense
         
     }
     
     
-    func getCurrentMonth() -> String {
+    
+    
+    func addAmount(#amount: Double, inout toVariable: Double) {
+        toVariable += amount
+    }
+    
+    
+    
+    
+    func getCurrentDate() -> (Int, String) {
         
         
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
-        
+        let components = calendar.components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
+        let dayNum = components.day
         let monthNum: Int = components.month
         
-        return HistoryTableViewController.months[monthNum]!
+        return (dayNum, HistoryViewController.months[monthNum]!)
         
+    }
+    
+    
+    func updateAmountLabels() {
+        var value: Double = 0
+        var fraction: String = ""
+        var format: String = ""
+        
+        value = self.totalIncome
+        
+        fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
+        format = value > 0 ? "%.\(fraction)f" : "%.\(fraction)f"
+        self.totalIncomeLabel?.text = String(format: format, value)
+        
+        value = self.totalExpense
+        fraction = floor(value) == value && !value.isInfinite ? "0" : "2"
+        format = value > 0 ? "%.\(fraction)f" : "%.\(fraction)f"
+        
+        self.totalExpenseLabel?.text = String(format: format, value)
+    }
+    
+    
+    
+    func updatePeriodLabel(#period: String) {
+        
+        self.periodLabel?.text = "Period: " + period
     }
 
     // MARK: - Table view data source
     
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.rowHeight
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.rowHeight
     }
     
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25.0
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 25.0
+//    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        
+        header.contentView.backgroundColor = tableView.backgroundColor
+        
+//        let line = UILabel(frame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y + header.frame.height - 1, width: header.frame.width, height: 1))
+//        
+//        line.backgroundColor = UIColor.whiteColor()
+//        
+//        header.addSubview(line)
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return getCurrentMonth()
-    }
+//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return " " + getCurrentMonth()
+//    }
     
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return self.allOperations.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DraggableOperationTableViewCell
         
         let row = indexPath.row
         let operation = self.allOperations[row]
+        let amount = operation.amount
+        let currency_symbol = operation.currency
         
+        let fraction = floor(amount) == amount && !amount.isInfinite ? "0" : "2"
+        let format = amount > 0 ? "\(currency_symbol)+%.\(fraction)f" : "\(currency_symbol)%.\(fraction)f"
+
         
-        cell.configure("\(operation.currency)\(operation.amount)", categoryImage: self.appDelegate.textures[operation.category], walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
+        cell.configure(String(format: format, amount), categoryImage: self.appDelegate.textures[operation.category], walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
         cell.delegate = self
         cell.operation = operation
@@ -172,17 +272,28 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         cell.setLabelColor(UIColor.whiteColor())
 
         cell.selectionStyle = .None
+        
+        cell.textOnSwipe = "Remove"
 
         return cell
     }
     
     func deleteItem(item: Operation) {
         let operation = item
-        if operation.amount > 0 {
-            operation.wallet.totalIncome -= operation.amount
-        } else {
-            operation.wallet.totalExpense -= operation.amount
+        
+        if let clabels = self.currencySymbolLabel {
+            if operation.currency == clabels.first?.text {
+                if operation.amount > 0 {
+                    operation.wallet.totalIncome -= operation.amount
+                    self.addAmount(amount: -operation.amount, toVariable: &self.totalIncome)
+                } else {
+                    operation.wallet.totalExpense -= operation.amount
+                    self.addAmount(amount: -operation.amount, toVariable: &self.totalExpense)
+                }
+            }
         }
+        
+        
         
         managedObjectContext.deleteObject(operation)
         
@@ -204,6 +315,11 @@ class HistoryTableViewController: UITableViewController, OperationTableViewCellD
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         self.tableView?.endUpdates()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("DeleteItemFromTableNotification", object: nil, userInfo: ["operation": operation])
+        
+        self.updateAmountLabels()
+        
     }
 
 

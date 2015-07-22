@@ -93,6 +93,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         UITabBar.appearance().barTintColor = self.view.backgroundColor
         UITabBar.appearance().tintColor = UIColor.whiteColor()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleDeleteItem:"), name: "DeleteItemFromTableNotification", object: nil)
+        
     }
     
     
@@ -272,6 +274,25 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        return [deleteAction]
 //    }
     
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 1
+//    }
+//    
+//    
+//    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//        
+//        header.contentView.backgroundColor = tableView.backgroundColor
+//        
+//        let line = UILabel(frame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y + header.frame.height, width: header.frame.width, height: 1))
+//        
+//        line.backgroundColor = UIColor.whiteColor()
+//        
+//        header.addSubview(line)
+//    }
+//    
+    
+    
     
     
     // iOS 7
@@ -284,6 +305,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.rowHeight
     }
+    
     
     
     //MARK: - Buttons
@@ -352,7 +374,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             
         })
         
-        UIView.animateWithDuration(0.7) {
+        UIView.animateWithDuration(0.5) {
             if let buttons = self.categoryButtons {
                 var i: CGFloat = 0
                 for button in buttons {
@@ -486,24 +508,27 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         var operations_ = current_wallet.operations.mutableCopy() as! NSMutableSet
         operations_.addObject(newItem)
         
+        var category = ""
         if amount > 0 {
             current_wallet.totalIncome += amount
+            category = "Salary"
         } else {
             current_wallet.totalExpense += amount
-        }
-        
-        var category = ""
-        if let tag = self.currentCategory?.tag {
-            switch tag {
-            case 500:
-                category = "Food"
-            case 501:
-                category = "Entertainment"
-            case 502:
-                category = "General"
-            default:
-                break
+            
+            if let tag = self.currentCategory?.tag {
+                switch tag {
+                case 500:
+                    category = "Food"
+                case 501:
+                    category = "Entertainment"
+                case 502:
+                    category = "General"
+                default:
+                    break
+                }
             }
+
+            
         }
         
         newItem.category = category
@@ -579,10 +604,16 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     func deleteItem(item: Operation) {
         let operation = item
-        if operation.amount > 0 {
-            operation.wallet.totalIncome -= operation.amount
-        } else {
-            operation.wallet.totalExpense -= operation.amount
+        
+        if let clabels = self.currencyLabels {
+            if operation.currency == clabels.first?.text {
+                if operation.amount > 0 {
+                    operation.wallet.totalIncome -= operation.amount
+                } else {
+                    operation.wallet.totalExpense -= operation.amount
+                }
+
+            }
         }
         
         managedObjectContext.deleteObject(operation)
@@ -595,19 +626,35 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.showBalanceForAllHolders()
         
-        let index = (self.operations as NSArray).indexOfObject(operation)
+        self.deleteItemFromTable(operation)
+        
+    }
+    
+    
+    
+    
+    
+    func handleDeleteItem(notification: NSNotification) {
+        if let operation = notification.userInfo?["operation"] as? Operation {
+            self.deleteItemFromTable(operation)
+        }
+    }
+    
+    
+    
+    
+    func deleteItemFromTable(item: Operation) {
+        
+        let index = (self.operations as NSArray).indexOfObject(item)
         
         if index == NSNotFound { return }
         
-        
         self.operations.removeAtIndex(index)
-        
         
         self.tableView?.beginUpdates()
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         self.tableView?.endUpdates()
-        
         
     }
     

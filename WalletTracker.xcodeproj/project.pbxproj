@@ -20,7 +20,7 @@
 		DAD71BAD1B37865E0047197A /* MyWalletSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */; };
 		DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAD71BB61B3789540047197A /* CoreDataWallet.xcdatamodeld */; };
 		DAD71BBA1B37EC130047197A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD71BB91B37EC130047197A /* CoreData.framework */; };
-		DAE3E4EA1B4EB1D60044C00E /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3E4E91B4EB1D60044C00E /* HistoryTableViewController.swift */; };
+		DAE3E4EA1B4EB1D60044C00E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */; };
 		DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */; };
 		DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */; };
 		DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C71B3BC23300AE8D3B /* Operation.swift */; };
@@ -54,7 +54,7 @@
 		DAD71BAC1B37865E0047197A /* MyWalletSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWalletSaverTests.swift; sourceTree = "<group>"; };
 		DAD71BB71B3789540047197A /* CoreDataWallet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataWallet.xcdatamodel; sourceTree = "<group>"; };
 		DAD71BB91B37EC130047197A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		DAE3E4E91B4EB1D60044C00E /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAFAD9C71B3BC23300AE8D3B /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = ../Operation.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				DAD71B961B37865E0047197A /* MainViewController.swift */,
-				DAE3E4E91B4EB1D60044C00E /* HistoryTableViewController.swift */,
+				DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */,
 				DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */,
 			);
 			name = ViewControllers;
@@ -279,7 +279,7 @@
 				DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
-				DAE3E4EA1B4EB1D60044C00E /* HistoryTableViewController.swift in Sources */,
+				DAE3E4EA1B4EB1D60044C00E /* HistoryViewController.swift in Sources */,
 				DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */,
 				DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */,
 				DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */,

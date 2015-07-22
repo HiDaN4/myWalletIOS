@@ -116,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     private func loadTextures() {
+        self.textures["Salary"] = UIImage(named: "salaryImage")
         self.textures["Food"] = UIImage(named: "foodCategoryButton")
         self.textures["Entertainment"] = UIImage(named: "entertainmentCategoryButton")
         self.textures["General"] = UIImage(named: "generalCategoryButton")

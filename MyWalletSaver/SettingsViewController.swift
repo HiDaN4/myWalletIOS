@@ -34,7 +34,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var didChange = false
     
-    let dataToPresent = [["GENERAL", "Week Start", "Currency", "Passcode", "Decimals"], ["DATA", "Delete All Data"], ["INFO", "Help", "About"], ["ASD", "sdfs", "ae332", "gvsre1", "t234sc"], ["421", "gzd", "dsdawe", "4231"]]
+    let dataToPresent = [["GENERAL", "Week Start", "Currency", "Passcode"], ["DATA", "Delete All Data"], ["INFO", "About"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
