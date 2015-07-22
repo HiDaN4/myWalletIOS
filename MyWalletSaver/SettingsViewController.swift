@@ -9,6 +9,7 @@
 import UIKit
 
 protocol HolderDelegate {
+    var currentCurrency: String {get}
     func setWalletValues(details: [String: String]?)
 }
 
@@ -49,6 +50,12 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,6 +150,44 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         cell.selectedBackgroundView = bview
         
         return cell
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cellData = self.dataToPresent[indexPath.section][indexPath.row + 1]
+        
+        var vc: UIViewController?
+        
+        switch cellData {
+            case "Currency":
+                if let detailTableVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailTableVC") as? DetailTableViewController {
+                    
+                    detailTableVC.dataToPresent = self.currencies
+                    detailTableVC.holderDelegate = self.holderDelegate
+                    
+                    vc = detailTableVC
+            }
+            
+            case "Passcode":
+                if let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailVC") as? DetailViewController {
+                    detailVC.textToShow = "Passcode"
+                    
+                    vc = detailVC
+            }
+            
+            case "About":
+                if let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailVC") as? DetailViewController {
+                    detailVC.textToShow = "Created By Independed Developer: Dmitry Sokolov\n\n Folow:\n\n @nazik78"
+                    vc = detailVC
+            }
+        default:
+            break
+        }
+        if vc != nil {
+            self.navigationController?.pushViewController(vc!, animated: true)
+        }
+        
     }
     
     

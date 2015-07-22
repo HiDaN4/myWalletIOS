@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */; };
+		DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */; };
 		DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8516F91B5A59150043F8FC /* CExtensions.swift */; };
 		DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AA1B91B42EF3600B315C6 /* Holder.swift */; };
 		DA8AA1BC1B43287F00B315C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA8516F91B5A59150043F8FC /* CExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CExtensions.swift; sourceTree = "<group>"; };
 		DA8AA1B91B42EF3600B315C6 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -164,9 +168,11 @@
 		DAFAD9CC1B3BC25700AE8D3B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */,
 				DAD71B961B37865E0047197A /* MainViewController.swift */,
 				DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */,
 				DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */,
+				DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -274,7 +280,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */,
+				DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */,
 				DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */,
+				DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */,
 				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,
 				DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,

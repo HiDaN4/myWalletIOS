@@ -30,6 +30,16 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBOutlet var categoryButtons: [CustomCirclularButton]?
     var currentCategory: CustomCirclularButton?
     
+    var currentCurrency: String {
+        get {
+            if let clabelText = self.currencyLabels?.first?.text {
+                return clabelText
+            } else {
+                return "$"
+            }
+        }
+    }
+    
     
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
@@ -340,10 +350,13 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBAction func rightButtonPressed(sender: AnyObject) {
         let settings = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsVC") as? SettingsViewController
         
-        if let vs = settings {
-            vs.holderDelegate = self
-            vs.currentSymbol = holders[0].currency_smbl
-            self.presentViewController(vs, animated: true, completion: nil)
+        
+        
+        if let vc = settings {
+            vc.holderDelegate = self
+            vc.currentSymbol = holders[0].currency_smbl
+            let navCont: UINavigationController = UINavigationController(rootViewController: vc)
+            self.presentViewController(navCont, animated: true, completion: nil)
         }
     }
     
