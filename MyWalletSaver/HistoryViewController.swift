@@ -30,6 +30,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     var totalExpense: Double = 0.0
     var totalIncome: Double = 0.0
     
+    var date: NSTimeInterval = 0.0
+    
     
     @IBOutlet var currencySymbolLabel: [UILabel]?
     
@@ -72,10 +74,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let day_month = self.getCurrentDate()
-        self.updatePeriodLabel(period: "1 \(day_month.1) - \(day_month.0) \(day_month.1)")
+        let day_month_interval = self.getCurrentDate()
+        self.updatePeriodLabel(period: "1 \(day_month_interval.1) - \(day_month_interval.0) \(day_month_interval.1)")
         
-        self.configureOperations()
+        self.configureOperations(fromDate: day_month_interval.2)
         self.updateAmountLabels()
         
         self.tableView.reloadData()
@@ -91,7 +93,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Functions
     
-    func configureOperations() {
+    func configureOperations(#fromDate: NSDate?) {
         
         self.allOperations = filter(self.allOperations) {!$0.fault}
         
@@ -100,7 +102,20 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
         
         request.sortDescriptors = [sortDescriptor]
-        let predicate = NSPredicate(format: "NOT(SELF in %@)", allOperations)
+        
+        var predicate: NSPredicate?
+        
+        let firstPredicate = NSPredicate(format: "NOT(SELF in %@)", allOperations)
+        
+        if let date = fromDate {
+            let thPredicate = NSPredicate(format: "timestamp >= %@", date)
+            
+            predicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [firstPredicate, thPredicate])
+            
+        } else {
+            predicate = firstPredicate
+        }
+        
         
         request.predicate = predicate
         
@@ -168,16 +183,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    func getCurrentDate() -> (Int, String) {
+    func getCurrentDate() -> (Int, String, NSDate?) {
         
         
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
+        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
         let dayNum = components.day
         let monthNum: Int = components.month
+        let startOfMonth = calendar.dateFromComponents(components)
         
-        return (dayNum, HistoryViewController.months[monthNum]!)
+        return (dayNum, HistoryViewController.months[monthNum]!, startOfMonth)
         
     }
     

@@ -15,7 +15,7 @@ protocol HolderDelegate {
 
 
 
-class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var rightButton: UIButton?
 
@@ -28,21 +28,18 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var holderDelegate: HolderDelegate?
     
-    var currencyPicker: UIPickerView = UIPickerView()
     var currentSymbol: String!
-    
-    let currencies = ["Dollar $", "Euro €", "Pound £", "Ruble ₽"]
     
     var didChange = false
     
-    let dataToPresent = [["GENERAL", "Week Start", "Currency", "Passcode"], ["DATA", "Delete All Data"], ["INFO", "About"]]
+    let dataToPresent = [["GENERAL", "Currency", "Passcode"], ["DATA", "Delete All Data"], ["INFO", "About"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        self.currencyField.delegate = self
         
-        self.configureView()
+//        self.configureView()
         
         self.rightButton?.addTarget(self, action: Selector("rightButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
         // Do any additional setup after loading the view.
@@ -63,44 +60,44 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if didChange {
-            let text = self.currencyField!.text!
-            let lchar = Array(text).last!
-            let details = [
-                "currency": String(lchar)
-            ]
-            holderDelegate?.setWalletValues(details)
-        }
-    }
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        if didChange {
+//            let text = self.currencyField!.text!
+//            let lchar = Array(text).last!
+//            let details = [
+//                "currency": String(lchar)
+//            ]
+//            holderDelegate?.setWalletValues(details)
+//        }
+//    }
     
     
-    func configureView() {
-        
-        self.currencyPicker.delegate = self
-        self.currencyPicker.dataSource = self
-        
-        self.currencyField?.inputView = self.currencyPicker
-        
-        let toolbar = UIToolbar()
-        toolbar.barStyle = UIBarStyle.Default
-        toolbar.translucent = true
-        toolbar.tintColor = UIColor.blueColor()
-        toolbar.sizeToFit()
-        
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelPicker:"))
-        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("donePicker:"))
-        
-        toolbar.setItems([cancelButton, space, doneButton], animated: false)
-        toolbar.userInteractionEnabled = true
-        
-        self.currencyField?.inputAccessoryView = toolbar
-        
-        self.currencyField?.text = self.currentSymbol
-    }
+//    func configureView() {
+//        
+//        self.currencyPicker.delegate = self
+//        self.currencyPicker.dataSource = self
+//        
+//        self.currencyField?.inputView = self.currencyPicker
+//        
+//        let toolbar = UIToolbar()
+//        toolbar.barStyle = UIBarStyle.Default
+//        toolbar.translucent = true
+//        toolbar.tintColor = UIColor.blueColor()
+//        toolbar.sizeToFit()
+//        
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelPicker:"))
+//        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("donePicker:"))
+//        
+//        toolbar.setItems([cancelButton, space, doneButton], animated: false)
+//        toolbar.userInteractionEnabled = true
+//        
+//        self.currencyField?.inputAccessoryView = toolbar
+//        
+//        self.currencyField?.text = self.currentSymbol
+//    }
     
     
     
@@ -163,7 +160,9 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             case "Currency":
                 if let detailTableVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailTableVC") as? DetailTableViewController {
                     
-                    detailTableVC.dataToPresent = self.currencies
+                    let currencies = ["Dollar $", "Euro €", "Pound £", "Ruble ₽"]
+                    
+                    detailTableVC.dataToPresent = currencies
                     detailTableVC.holderDelegate = self.holderDelegate
                     
                     vc = detailTableVC
@@ -181,6 +180,24 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                     detailVC.textToShow = "Created By Independed Developer: Dmitry Sokolov\n\n Folow:\n\n @nazik78"
                     vc = detailVC
             }
+            
+            case "Delete All Data":
+            let alert = UIAlertController(title: "Warrning!", message: "Are you sure you want to delete all data?", preferredStyle: UIAlertControllerStyle.Alert)
+            let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                if let delegate = self.holderDelegate {
+                    delegate.setWalletValues(["deleteAll": "Yes"])
+                }
+                
+                
+            })
+            
+            let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil)
+            
+            
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         default:
             break
         }
@@ -194,38 +211,38 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     // MARK: - Picker Methods
     
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return currencies.count
-    }
-    
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return currencies[row]
-    }
+//    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//    
+//    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return currencies.count
+//    }
+//    
+//    
+//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+//        return currencies[row]
+//    }
     
     
     // MARK: - Function Helpers
     
-    func donePicker(sender: AnyObject!) {
-        let index = self.currencyPicker.selectedRowInComponent(0)
-        
-        self.didChange = self.currentSymbol != currencies[index] ? true : false
-        
-        let text = currencies[index]
-        let lchar = Array(text).last!
-        self.currencyField?.text = String(lchar)
-        
-        self.currencyField?.resignFirstResponder()
-    }
-    
-    
-    func cancelPicker(sender: AnyObject!) {
-        self.currencyField?.resignFirstResponder()
-    }
+//    func donePicker(sender: AnyObject!) {
+//        let index = self.currencyPicker.selectedRowInComponent(0)
+//        
+//        self.didChange = self.currentSymbol != currencies[index] ? true : false
+//        
+//        let text = currencies[index]
+//        let lchar = Array(text).last!
+//        self.currencyField?.text = String(lchar)
+//        
+//        self.currencyField?.resignFirstResponder()
+//    }
+//    
+//    
+//    func cancelPicker(sender: AnyObject!) {
+//        self.currencyField?.resignFirstResponder()
+//    }
     
     /*
     // MARK: - Navigation

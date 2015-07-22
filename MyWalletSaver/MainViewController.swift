@@ -166,14 +166,14 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         }
         
         self.updateCurrencyLabels(holders[0].currency_smbl)
-        self.showBalanceForAllHolders()
+        self.updateBalanceForAllHolders()
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.showBalanceForAllHolders()
+        self.updateBalanceForAllHolders()
         
         self.operations = self.operations.filter {$0.timestamp != 0}
         
@@ -465,7 +465,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     
-    func showBalanceForAllHolders() {
+    func updateBalanceForAllHolders() {
         
         var value: Double = 0
         var fraction: String = ""
@@ -556,7 +556,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         managedObjectContext.save(&error)
         
-        self.showBalanceForAllHolders()
+        self.updateBalanceForAllHolders()
         
         self.tableView?.reloadData()
         
@@ -609,9 +609,13 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 managedObjectContext.save(nil)
                 
                 self.updateCurrencyLabels(newCurrency)
-                self.showBalanceForAllHolders()
+                self.updateBalanceForAllHolders()
                 
             } // end if let newCurrency
+            
+            if let delete = dict["deleteAll"] {
+                self.deleteAllItems()
+            }
         }
     }
     
@@ -637,9 +641,33 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
         }
         
-        self.showBalanceForAllHolders()
+        self.updateBalanceForAllHolders()
         
         self.deleteItemFromTable(operation)
+        
+    }
+    
+    func deleteAllItems() {
+        for operation in self.operations {
+            managedObjectContext.deleteObject(operation)
+            
+        }
+        
+        self.operations.removeAll(keepCapacity: false)
+        
+        for holder in self.holders {
+            holder.totalIncome = 0.0
+            holder.totalExpense = 0.0
+        }
+        
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Error saving Core Data after deleting all records: \(error?.localizedDescription)")
+        }
+        
+        self.updateBalanceForAllHolders()
+        
+        self.tableView?.reloadData()
         
     }
     
