@@ -12,6 +12,7 @@ import CoreData
 class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate {
     
     //MARK: - Properties
+    @IBOutlet weak var balanceInfoView: UIView?
 
     @IBOutlet weak var balanceLabel: UILabel?
     @IBOutlet var currencyLabels: [UILabel]?
@@ -104,6 +105,14 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         UITabBar.appearance().tintColor = UIColor.whiteColor()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleDeleteItem:"), name: "DeleteItemFromTableNotification", object: nil)
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        
+        swipeRecognizer.direction = UISwipeGestureRecognizerDirection.Down
+        
+        self.balanceInfoView?.addGestureRecognizer(swipeRecognizer)
+        
+        self.setLabelsAlpha(0)
         
     }
     
@@ -589,6 +598,68 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             }
         }
         
+    }
+    
+    
+    func setLabelsAlpha(alpha: CGFloat) {
+        
+        self.balanceLabel?.alpha = alpha
+        
+        if let labels = self.currencyLabels {
+            for clabel in labels {
+                clabel.alpha = alpha
+            }
+        }
+        
+        self.cashBalanceLabel?.alpha = alpha
+        self.cardsBalanceLabel?.alpha = alpha
+        
+    }
+    
+    
+    // MARK: - Gesture Handling
+    
+    func handleSwipe(sender: UISwipeGestureRecognizer?) {
+        
+        if self.balanceLabel?.alpha == 0.0 {
+            
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.setLabelsAlpha(1)
+            })
+        } else {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.setLabelsAlpha(0)
+            })
+        }
+        
+        
+        return
+        if let swipe = sender {
+            
+            UIGraphicsBeginImageContextWithOptions(self.balanceInfoView!.bounds.size, true, 1)
+            
+            self.view.drawViewHierarchyInRect(CGRect(x: self.balanceInfoView!.frame.origin.x, y: -self.balanceInfoView!.frame.origin.y, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
+            
+            let screenshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            print("finished")
+            
+            var blurImageView = UIImageView(image: screenshot)
+            
+            var darkBlue = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+            
+            var blurView = UIVisualEffectView(effect: darkBlue)
+            
+            if let bounds = self.balanceInfoView?.bounds {
+                blurView.frame = bounds
+            }
+            
+//            self.balanceInfoView?.addSubview(blurImageView)
+//            self.balanceInfoView?.addSubview(blurView)
+            self.balanceInfoView?.insertSubview(blurView, atIndex: 0)
+            
+        }
     }
     
     

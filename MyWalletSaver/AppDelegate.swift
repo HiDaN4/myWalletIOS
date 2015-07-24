@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         application.statusBarStyle = UIStatusBarStyle.LightContent
         
+        UINavigationBar.appearance().backgroundColor = UIColor(red: 204.0/255.0, green: 104.0/255.0, blue: 39.0/255.0, alpha: 1)
+        UINavigationBar.appearance().translucent = false
+        
         self.loadTextures()
         
         return true

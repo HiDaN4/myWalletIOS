@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0D43CA1B61891300103375 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D43C91B61891300103375 /* CustomNavigationBar.swift */; };
 		DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */; };
 		DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */; };
 		DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8516F91B5A59150043F8FC /* CExtensions.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA0D43C91B61891300103375 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA8516F91B5A59150043F8FC /* CExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CExtensions.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 		DAE3E4EB1B4EB1E00044C00E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DA0D43C91B61891300103375 /* CustomNavigationBar.swift */,
 				DA8516F91B5A59150043F8FC /* CExtensions.swift */,
 				DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */,
 				DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */,
@@ -284,6 +287,7 @@
 				DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */,
 				DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */,
 				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,
+				DA0D43CA1B61891300103375 /* CustomNavigationBar.swift in Sources */,
 				DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,

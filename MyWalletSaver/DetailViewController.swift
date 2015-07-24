@@ -11,9 +11,12 @@ import UIKit
 class DetailViewController: UIViewController {
     
     
+    @IBOutlet weak var titleLabel: UILabel?
+    
     @IBOutlet weak var mainLabel: UILabel?
     
     var textToShow = ""
+    var titleText = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +24,15 @@ class DetailViewController: UIViewController {
         self.mainLabel?.text = self.textToShow
 
         // Do any additional setup after loading the view.
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 204.0/255.0, green: 104.0/255.0, blue: 39.0/255.0, alpha: 1)
+        
+         self.titleLabel?.text = self.titleText
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+//        self.navigationController?.navigationBar.hidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +40,9 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
     /*
     // MARK: - Navigation

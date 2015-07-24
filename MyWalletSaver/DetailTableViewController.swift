@@ -8,7 +8,14 @@
 
 import UIKit
 
-class DetailTableViewController: UITableViewController {
+class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    @IBOutlet weak var tableView: UITableView?
+    
+    @IBOutlet weak var titleLabel: UILabel?
+    
+    var titleText = ""
     
     let reuseIdentifier = "Cell"
     
@@ -25,15 +32,22 @@ class DetailTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        if self.tableView.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            self.tableView.layoutMargins = UIEdgeInsetsZero
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
+            self.tableView?.layoutMargins = UIEdgeInsetsZero
         }
+        
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 204.0/255.0, green: 104.0/255.0, blue: 39.0/255.0, alpha: 1)
+        
+        self.titleLabel?.text = self.titleText
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+//        self.navigationController?.navigationBar.hidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,20 +57,20 @@ class DetailTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return self.dataToPresent.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
 
         cell.textLabel?.textColor = UIColor.whiteColor()
@@ -65,11 +79,15 @@ class DetailTableViewController: UITableViewController {
         cell.backgroundColor = UIColor.clearColor()
         
         cell.selectionStyle = UITableViewCellSelectionStyle.Gray
+        
+        let bview = UIView(frame: CGRect(origin: cell.frame.origin, size: cell.frame.size))
+        bview.backgroundColor = UIColor(r: 43, g: 70, b: 85, a: 1)
+        cell.selectedBackgroundView = bview
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let text = self.dataToPresent[indexPath.row]
         let lchar = Array(text).last!
         if let currentCurrency = holderDelegate?.currentCurrency {
@@ -78,10 +96,20 @@ class DetailTableViewController: UITableViewController {
                     "currency": String(lchar)
                 ]
                 holderDelegate?.setWalletValues(details)
+                var time: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+                dispatch_after(time, dispatch_get_main_queue(), { () -> Void in
+                    self.backButtonPressed(self)
+                })
+                
+            } else {
+                self.tableView?.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
     }
     
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
     /*
     // Override to support conditional editing of the table view.

@@ -159,7 +159,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         for operation in self.allOperations {
             let amount = operation.amount
             let symbol = operation.currency
-            if symbol != self.currencySymbolLabel?[0].text { continue }
+            if symbol != self.currencySymbolLabel?.first?.text { continue }
             
             if amount > 0 {
                 income += amount

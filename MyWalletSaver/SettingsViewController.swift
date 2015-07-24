@@ -152,6 +152,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.tableView?.deselectRowAtIndexPath(indexPath, animated: true)
+        
         let cellData = self.dataToPresent[indexPath.section][indexPath.row + 1]
         
         var vc: UIViewController?
@@ -162,6 +165,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     let currencies = ["Dollar $", "Euro €", "Pound £", "Ruble ₽"]
                     
+                    detailTableVC.titleText = "Choose Currency"
                     detailTableVC.dataToPresent = currencies
                     detailTableVC.holderDelegate = self.holderDelegate
                     
@@ -170,6 +174,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             case "Passcode":
                 if let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailVC") as? DetailViewController {
+                    
+                    detailVC.titleText = "Passcode"
                     detailVC.textToShow = "Passcode"
                     
                     vc = detailVC
@@ -177,27 +183,36 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             
             case "About":
                 if let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("detailVC") as? DetailViewController {
+                    detailVC.titleText = "About"
                     detailVC.textToShow = "Created By Independed Developer: Dmitry Sokolov\n\n Folow:\n\n @nazik78"
+                    
                     vc = detailVC
             }
             
             case "Delete All Data":
-            let alert = UIAlertController(title: "Warrning!", message: "Are you sure you want to delete all data?", preferredStyle: UIAlertControllerStyle.Alert)
-            let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
-                if let delegate = self.holderDelegate {
-                    delegate.setWalletValues(["deleteAll": "Yes"])
-                }
-                
-                
-            })
-            
-            let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil)
-            
-            
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            
-            self.presentViewController(alert, animated: true, completion: nil)
+                let title = "Warning!"
+                let message = "Are you sure you want to delete all data?"
+                if objc_getClass("UIAlertController") != nil {
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                    let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                        if let delegate = self.holderDelegate {
+                            delegate.setWalletValues(["deleteAll": "Yes"])
+                        }
+                        
+                        
+                    })
+                    
+                    let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil)
+                    
+                    
+                    alert.addAction(yesAction)
+                    alert.addAction(noAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "No", otherButtonTitles: "Yes")
+                    
+            }
         default:
             break
         }
