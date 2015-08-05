@@ -27,6 +27,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBOutlet weak var expenseButton: UIButton?
     @IBOutlet weak var incomeButton: UIButton?
     
+    @IBOutlet weak var swipeLabel: UILabel?
     
     @IBOutlet var categoryButtons: [CustomCirclularButton]?
     var currentCategory: CustomCirclularButton?
@@ -74,15 +75,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.inputField?.delegate = self
         
-//        self.refreshControl = UIRefreshControl()
-//        
-//        self.refreshControl.backgroundColor = UIColor.greenColor()
-//        
-//        self.refreshControl.addTarget(self, action: Selector("reloadTV"), forControlEvents: UIControlEvents.ValueChanged)
-//        
-//        self.tableView.addSubview(refreshControl)
-        
-//        self.tableView.registerClass(RecentOperationTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
@@ -95,11 +87,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.sourceSegmentedControl?.hidden = true
 
-//        self.tableView?.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
         
         self.tableView?.backgroundColor = UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1)
         
-        // Do any additional setup after loading the view, typically from a nib.
         
         UITabBar.appearance().barTintColor = self.view.backgroundColor
         UITabBar.appearance().tintColor = UIColor.whiteColor()
@@ -113,6 +103,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.balanceInfoView?.addGestureRecognizer(swipeRecognizer)
         
         self.setLabelsAlpha(0)
+        
         
     }
     
@@ -186,7 +177,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.operations = self.operations.filter {$0.timestamp != 0}
         
-       // self.tableView?.reloadData()
+//        self.tableView?.reloadData()
     }
     
     //MARK: - Table View Data Source
@@ -234,7 +225,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
         cell.setLabelColor(UIColor.whiteColor())
         
-        cell.textOnSwipe = "Remove"
+        cell.textOnSwipeLeft = "Remove"
         
         return cell
     }
@@ -437,15 +428,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 self.currentCategory?.strokeColor = pressedButton.strokeColor
                 self.currentCategory?.setNeedsDisplay()
                 
-//                if let buttons = self.categoryButtons {
-//                    for cbutton in buttons {
-//                        if cbutton != pressedButton {
-//                            cbutton.strokeColor = UIColor.whiteColor()
-//                            cbutton.setNeedsDisplay()
-//                        }
-//                    }
-//                }
-                
                 self.currentCategory = pressedButton
                 pressedButton.strokeColor = UIColor.greenColor()
                 pressedButton.setNeedsDisplay()
@@ -621,45 +603,43 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     func handleSwipe(sender: UISwipeGestureRecognizer?) {
         
+        var value: CGFloat = 0.0
         if self.balanceLabel?.alpha == 0.0 {
-            
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.setLabelsAlpha(1)
-            })
-        } else {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.setLabelsAlpha(0)
-            })
+            value = 1.0
         }
         
         
+        UIView.animateWithDuration(0.5) {
+            self.swipeLabel?.alpha = Bool(self.swipeLabel!.alpha) ? 0 : 1
+            self.setLabelsAlpha(value)
+        }
         return
-        if let swipe = sender {
-            
-            UIGraphicsBeginImageContextWithOptions(self.balanceInfoView!.bounds.size, true, 1)
-            
-            self.view.drawViewHierarchyInRect(CGRect(x: self.balanceInfoView!.frame.origin.x, y: -self.balanceInfoView!.frame.origin.y, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
-            
-            let screenshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-            
-            UIGraphicsEndImageContext()
-            print("finished")
-            
-            var blurImageView = UIImageView(image: screenshot)
-            
-            var darkBlue = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-            
-            var blurView = UIVisualEffectView(effect: darkBlue)
-            
-            if let bounds = self.balanceInfoView?.bounds {
-                blurView.frame = bounds
-            }
-            
+//        if let swipe = sender {
+//            
+//            UIGraphicsBeginImageContextWithOptions(self.balanceInfoView!.bounds.size, true, 1)
+//            
+//            self.view.drawViewHierarchyInRect(CGRect(x: self.balanceInfoView!.frame.origin.x, y: -self.balanceInfoView!.frame.origin.y, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
+//            
+//            let screenshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+//            
+//            UIGraphicsEndImageContext()
+//            print("finished")
+//            
+//            var blurImageView = UIImageView(image: screenshot)
+//            
+//            var darkBlue = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+//            
+//            var blurView = UIVisualEffectView(effect: darkBlue)
+//            
+//            if let bounds = self.balanceInfoView?.bounds {
+//                blurView.frame = bounds
+//            }
+//            
 //            self.balanceInfoView?.addSubview(blurImageView)
 //            self.balanceInfoView?.addSubview(blurView)
-            self.balanceInfoView?.insertSubview(blurView, atIndex: 0)
-            
-        }
+//            self.balanceInfoView?.insertSubview(blurView, atIndex: 0)
+//            
+//        }
     }
     
     

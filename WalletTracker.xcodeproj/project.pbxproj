@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA0D43CA1B61891300103375 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D43C91B61891300103375 /* CustomNavigationBar.swift */; };
+		DA2A17011B7228AB00352B0D /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A17001B7228AB00352B0D /* Stack.swift */; };
 		DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */; };
 		DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */; };
 		DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8516F91B5A59150043F8FC /* CExtensions.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		DA0D43C91B61891300103375 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		DA2A17001B7228AB00352B0D /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA8516F91B5A59150043F8FC /* CExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CExtensions.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		DAD71B911B37865E0047197A /* MyWalletSaver */ = {
 			isa = PBXGroup;
 			children = (
+				DA2A17001B7228AB00352B0D /* Stack.swift */,
 				DAD71B941B37865E0047197A /* AppDelegate.swift */,
 				DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */,
 				DAE3E4EB1B4EB1E00044C00E /* Views */,
@@ -284,6 +287,7 @@
 			files = (
 				DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */,
 				DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */,
+				DA2A17011B7228AB00352B0D /* Stack.swift in Sources */,
 				DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */,
 				DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */,
 				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,

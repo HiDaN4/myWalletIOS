@@ -11,7 +11,17 @@ import CoreData
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView?
+    
+    @IBOutlet var currencySymbolLabel: [UILabel]?
+    
+    @IBOutlet weak var rightArrowButton: CustomArrowButton?
+    
+    @IBOutlet weak var periodLabel: UILabel?
+    
+    @IBOutlet weak var totalExpenseLabel: UILabel?
+    @IBOutlet weak var totalIncomeLabel: UILabel?
+    
     
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
@@ -21,28 +31,24 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     let reuseIdentifier = "Cell"
     
     static let months = [1: "January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12: "December"]
-    
-    @IBOutlet weak var periodLabel: UILabel?
-    
-    @IBOutlet weak var totalExpenseLabel: UILabel?
-    @IBOutlet weak var totalIncomeLabel: UILabel?
+
     
     var totalExpense: Double = 0.0
     var totalIncome: Double = 0.0
     
-    var date: NSTimeInterval = 0.0
     
-    
-    @IBOutlet var currencySymbolLabel: [UILabel]?
-    
+    var viewingMonth: NSDate?
+    var stackOfMonths = Stack<(NSDate?, NSDate?)>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.viewingMonth = self.getStartOfMonth(date: NSDate())
         
-        self.tableView.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         
         
 //        self.edgesForExtendedLayout = UIRectEdge.None
@@ -66,34 +72,46 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.rightArrowButton?.hidden = true
+        
+        let day_month_interval = self.getCurrentDate()
+        
+        self.updatePeriodLabel(period: "1 \(day_month_interval.month) - \(day_month_interval.dayNumber) \(day_month_interval.month)")
+        
+        self.configureOperations(fromDate: self.viewingMonth)
+        self.updateAmountLabels()
+        
+        self.viewingMonth = NSDate()
+        
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let day_month_interval = self.getCurrentDate()
-        self.updatePeriodLabel(period: "1 \(day_month_interval.1) - \(day_month_interval.0) \(day_month_interval.1)")
+//        if self.stackOfMonths.isEmpty() {
+//            let todayDate = NSDate()
+//            let startOfThisMonth = self.getStartOfMonth(date: todayDate)
+//            
+//            self.stackOfMonths.push((startOfThisMonth, todayDate as NSDate?))
+//        }
         
-        self.configureOperations(fromDate: day_month_interval.2)
-        self.updateAmountLabels()
-        
-        self.tableView.reloadData()
+        println("Stack \(self.stackOfMonths.count())")
+        self.tableView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         self.allOperations.removeAll(keepCapacity: true)
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
     }
     
     
     // MARK: - Functions
     
-    func configureOperations(#fromDate: NSDate?) {
+    func configureOperations(#fromDate: NSDate?, toDate: NSDate? = nil) {
         
         self.allOperations = filter(self.allOperations) {!$0.fault}
         
@@ -114,6 +132,16 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else {
             predicate = firstPredicate
+        }
+        
+        if let upToDate = toDate {
+            let thPredicate = NSPredicate(format: "timestamp <= %@", upToDate)
+            
+            let newPredicate = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [predicate!, thPredicate])
+            
+            predicate = newPredicate
+            
+            self.allOperations.removeAll(keepCapacity: false)
         }
         
         
@@ -182,20 +210,100 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    
-    func getCurrentDate() -> (Int, String, NSDate?) {
+    func getCurrentDate() -> (dayNumber: Int, month: String) {
         
         
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.MonthCalendarUnit, fromDate: NSDate())
+        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitMonth, fromDate: NSDate())
         let dayNum = components.day
         let monthNum: Int = components.month
-        let startOfMonth = calendar.dateFromComponents(components)
+        components.day = 1
+        components.timeZone = calendar.timeZone
+        let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.CalendarUnitDay, value: 1, ofDate: NSDate(), options: nil)
         
-        return (dayNum, HistoryViewController.months[monthNum]!, startOfMonth)
+        
+        return (dayNum, HistoryViewController.months[monthNum]!)
         
     }
+    
+    
+    func getMonthName(#fromDate: NSDate?) -> (month: String, lastDay: Int) {
+        
+        if let date = fromDate {
+           
+            let calendar = NSCalendar.currentCalendar()
+            
+            let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitMonth, fromDate: date)
+            let monthNum: Int = components.month
+            let dayNum = components.day
+            return (HistoryViewController.months[monthNum]!, dayNum)
+            
+        }
+        
+        return ("", 0)
+    }
+    
+    
+    func getStartOfMonth(#date: NSDate) -> NSDate? {
+        
+        // get current calendar
+        let calendar = NSCalendar.currentCalendar()
+        
+        // get components with year and month
+        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitSecond, fromDate: date)
+        
+        components.timeZone = calendar.timeZone
+        components.day = 1
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+//        let newComponents = NSDateComponents()
+//        
+//        newComponents.year = components.year
+//        newComponents.month = components.month
+//        newComponents.day = 1
+//        newComponents.hour = 0
+//        newComponents.minute = 0
+//        newComponents.second = 0
+        
+        
+        // get date from components
+        var startOfMonth = calendar.dateFromComponents(components)
+        
+//        startOfMonth = startOfMonth?.dateByAddingTimeInterval(60*60*3)
+        
+        // return date with the beginning of this month
+        return startOfMonth
+        
+    }
+    
+    
+    func getPreviousMonth(#fromDate: NSDate) -> (startOfMonth: NSDate?, endOfMonth: NSDate?) {
+        
+        let calendar = NSCalendar.currentCalendar()
+        
+        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitSecond, fromDate: fromDate.dateByAddingTimeInterval(-1))
+        
+        components.timeZone = calendar.timeZone
+        
+        if let previousMonthDate = calendar.dateFromComponents(components) {
+            
+            let newComponents = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay, fromDate: previousMonthDate)
+            
+            newComponents.timeZone = calendar.timeZone
+            
+            newComponents.day = 1
+            
+            let startOfMonth = calendar.dateFromComponents(newComponents)
+            
+            return (startOfMonth, previousMonthDate)
+        }
+        
+        return (nil, nil)
+        
+    }
+    
     
     
     func updateAmountLabels() {
@@ -289,7 +397,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         cell.selectionStyle = .None
         
-        cell.textOnSwipe = "Remove"
+        cell.textOnSwipeLeft = "Remove"
 
         return cell
     }
@@ -373,6 +481,51 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return true
     }
     */
+    
+    
+    // MARK: - Button Actions
+    
+    @IBAction func leftArrowPressed(sender: AnyObject) {
+        
+        if self.rightArrowButton?.hidden == true { self.rightArrowButton?.hidden = false }
+        
+        let thism = self.getStartOfMonth(date: self.viewingMonth!)
+        
+        let prevm = self.getPreviousMonth(fromDate: thism!)
+        
+        let endm = self.viewingMonth
+        
+        self.stackOfMonths.push((thism, endm))
+        
+        self.viewingMonth = prevm.endOfMonth
+        
+        self.configureOperations(fromDate: prevm.startOfMonth, toDate: prevm.endOfMonth)
+        self.updateAmountLabels()
+        let month = self.getMonthName(fromDate: prevm.endOfMonth)
+        self.updatePeriodLabel(period: "1 \(month.month) - \(month.lastDay) \(month.month)")
+        
+        
+        self.tableView?.reloadData()
+    }
+    
+    @IBAction func rightArrowPressed(sender: AnyObject) {
+        let month = self.stackOfMonths.pop()
+
+        self.viewingMonth = month.1
+        self.configureOperations(fromDate: month.0, toDate: month.1)
+        self.updateAmountLabels()
+        
+        let monthDate = self.getMonthName(fromDate: month.1)
+        self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
+        
+        
+        if self.stackOfMonths.isEmpty() {
+            self.rightArrowButton?.hidden = true
+        }
+        
+        self.tableView?.reloadData()
+        
+    }
 
     /*
     // MARK: - Navigation
