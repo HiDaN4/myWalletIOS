@@ -104,7 +104,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.setLabelsAlpha(0)
         
-        
+        self.view.backgroundColor = kkbackgroundColor
     }
     
     
@@ -284,23 +284,23 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        return [deleteAction]
 //    }
     
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 1
-//    }
-//    
-//    
-//    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-//        
-//        header.contentView.backgroundColor = tableView.backgroundColor
-//        
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.5
+    }
+    
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        
+        header.contentView.backgroundColor = UIColor.whiteColor()
+        
 //        let line = UILabel(frame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y + header.frame.height, width: header.frame.width, height: 1))
 //        
 //        line.backgroundColor = UIColor.whiteColor()
 //        
 //        header.addSubview(line)
-//    }
-//    
+    }
+    
     
     
     
@@ -349,7 +349,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     @IBAction func rightButtonPressed(sender: AnyObject) {
         let settings = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsVC") as? SettingsViewController
-        
         
         
         if let vc = settings {
@@ -670,6 +669,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         }
     }
     
+    
     func deleteItem(item: Operation) {
         let operation = item
         
@@ -697,6 +697,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.deleteItemFromTable(operation)
         
     }
+    
+    
     
     func deleteAllItems() {
         for operation in self.operations {

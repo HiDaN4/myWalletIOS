@@ -47,6 +47,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         
+        self.view.backgroundColor = kkbackgroundColor
+        
     }
     
     override func viewWillAppear(animated: Bool) {

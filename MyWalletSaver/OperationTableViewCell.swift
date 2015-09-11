@@ -74,8 +74,8 @@ class DraggableTableViewCell : OperationTableViewCell {
     private var onLeftSwipeView: UIView?
     private var onRightSwipeView: UIView?
     
-    var labelOnSwipeLeft: UILabel?
-    var labelOnSwipeRight: UILabel?
+    private var labelOnSwipeLeft: UILabel?
+    private var labelOnSwipeRight: UILabel?
     
     
     var colorOnActiveFullSwipeLeft: UIColor?
@@ -119,11 +119,15 @@ class DraggableTableViewCell : OperationTableViewCell {
         addGestureRecognizer(recognizer)
     }
     
-    private func createCView() {
+    private func createCViews() {
         
+        // create views
         self.onLeftSwipeView = UIView(frame: CGRectMake(self.frame.origin.x + self.bounds.width, 0, 0, self.bounds.height))
+        
         self.onRightSwipeView = UIView(frame: CGRectMake(self.bounds.origin.x, 0, 0, self.bounds.height))
         
+        
+        // set color on left right
         if let color = self.colorOnInactiveSwipeLeft {
             self.onLeftSwipeView?.backgroundColor = color
         } else {
@@ -131,12 +135,12 @@ class DraggableTableViewCell : OperationTableViewCell {
             self.onLeftSwipeView?.backgroundColor = self.colorOnInactiveSwipeLeft
         }
         
-        
         if self.colorOnActiveFullSwipeLeft == nil {
             self.colorOnActiveFullSwipeLeft = UIColor(red: 249.0/255.0, green: 61.0/255.0, blue: 0, alpha: 1)
         }
         
         
+        // set color on swipe right
         if let color = self.colorOnInactiveSwipeRight {
             self.onRightSwipeView?.backgroundColor = color
         } else {
@@ -149,8 +153,8 @@ class DraggableTableViewCell : OperationTableViewCell {
         }
         
         
+        // setup label on left swipe
         self.labelOnSwipeLeft = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: self.onLeftSwipeView!.bounds.height))
-        
         
         self.labelOnSwipeLeft?.adjustsFontSizeToFitWidth = true
         self.labelOnSwipeLeft?.textColor = UIColor.whiteColor()
@@ -160,21 +164,20 @@ class DraggableTableViewCell : OperationTableViewCell {
         
         
         
+        // setup label on right swipe
         self.labelOnSwipeRight = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: self.onRightSwipeView!.bounds.height))
-        
         
         self.labelOnSwipeRight?.textColor = UIColor.whiteColor()
         self.labelOnSwipeRight?.adjustsFontSizeToFitWidth = true
         self.labelOnSwipeRight?.textAlignment = .Center
         self.labelOnSwipeRight?.font = UIFont(name: "Avenir", size: 15.0)
         self.labelOnSwipeRight?.text = self.textOnSwipeRight
-//        self.labelOnSwipeRight?.backgroundColor = UIColor.clearColor()
         
-//        self.superview?.addSubview(onDeleteView!)
+        // register left view and label
         self.addSubview(onLeftSwipeView!)
         self.onLeftSwipeView!.addSubview(self.labelOnSwipeLeft!)
         
-//        self.superview?.addSubview(onActionView!)
+        // register right view and label
         self.addSubview(onRightSwipeView!)
         self.onRightSwipeView?.addSubview(self.labelOnSwipeRight!)
         
@@ -186,27 +189,27 @@ class DraggableTableViewCell : OperationTableViewCell {
     
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         
+        // gesture began
         if recognizer.state == UIGestureRecognizerState.Began {
-            originalCenter = center
-            
+            originalCenter = center // set center of the cell
+            // create views
             if (self.onLeftSwipeView == nil || self.onRightSwipeView != nil) {
-                self.createCView()
+                self.createCViews()
             }
             
             
         }
         
-        
+        // gesture in proccess
         if recognizer.state == UIGestureRecognizerState.Changed {
             let translation = recognizer.translationInView(self)
             
+            // stop when the translation more than self.bounds.width / 3.0
             if abs(translation.x) < self.bounds.width / 3.0  {
                 center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
                 
                 // swipe left
                 if translation.x < 0 {
-                    println(frame.origin.x)
-                    println(frame.size.width)
                     self.deleteOnDragRelease = frame.origin.x < -frame.size.width / 4.0
                     
                     self.onLeftSwipeView?.frame.size.width = translation.x
@@ -221,13 +224,12 @@ class DraggableTableViewCell : OperationTableViewCell {
                     self.labelOnSwipeLeft?.frame.size.width = abs(self.onLeftSwipeView!.frame.width)
                     
                 } else {
+                    // swipe right
                     self.actionOnDragRelease = frame.origin.x > frame.size.width / 4.0
-                    println(frame.origin.x)
-                    println(frame.size.width)
                     
                     self.onRightSwipeView?.frame.size.width = translation.x
                     self.onRightSwipeView?.frame.origin.x = 0 - translation.x
-                    println(self.superview?.frame.origin.x)
+//                    println(self.superview?.frame.origin.x)
                     
                     if self.actionOnDragRelease {
                         self.onRightSwipeView?.backgroundColor = self.colorOnActiveFullSwipeRight
@@ -243,12 +245,18 @@ class DraggableTableViewCell : OperationTableViewCell {
         }
         
         
-        
+        // gesture ended
         if recognizer.state == UIGestureRecognizerState.Ended {
             
             let originalFrame = CGRect(x: 0, y: frame.origin.y, width: bounds.size.width, height: bounds.size.height)
             
-            if (!deleteOnDragRelease && !actionOnDragRelease) {
+            if actionOnDragRelease {
+                self.onActionRight()
+                actionOnDragRelease = false
+            }
+
+            // animate setting the cell to its initial position if not on delete
+            if (!deleteOnDragRelease) {
                 UIView.animateWithDuration(0.3) {
                     self.frame = originalFrame
                     self.onLeftSwipeView?.frame.size.width = 0
@@ -258,8 +266,6 @@ class DraggableTableViewCell : OperationTableViewCell {
             } else {
                 if deleteOnDragRelease {
                     self.onDeleteCell()
-                } else if actionOnDragRelease {
-                    self.onActionRight()
                 }
             }
         }
@@ -278,10 +284,7 @@ class DraggableTableViewCell : OperationTableViewCell {
     
     
     func onActionRight() {
-//        self.labelOnSwipeRight?.removeFromSuperview()
-//        self.labelOnSwipeRight = nil
-//        self.onRightSwipeView?.removeFromSuperview()
-//        self.onRightSwipeView = nil
+        println("action")
     }
     
     
@@ -293,7 +296,7 @@ class DraggableTableViewCell : OperationTableViewCell {
             // check for only horizontal gesture
             if fabs(translation.x) > fabs(translation.y)
                 // and check only for swipe to the right
-                 && translation.x < 0
+//                 && translation.x < 0
             {
                 return true
             }

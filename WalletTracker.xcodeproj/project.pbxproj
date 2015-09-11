@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA0D43CA1B61891300103375 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D43C91B61891300103375 /* CustomNavigationBar.swift */; };
 		DA2A17011B7228AB00352B0D /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A17001B7228AB00352B0D /* Stack.swift */; };
 		DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */; };
 		DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */; };
 		DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8516F91B5A59150043F8FC /* CExtensions.swift */; };
 		DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AA1B91B42EF3600B315C6 /* Holder.swift */; };
 		DA8AA1BC1B43287F00B315C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */; };
+		DAA154181B7E82C90097D1D9 /* kkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA154171B7E82C90097D1D9 /* kkConstants.swift */; };
 		DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */; };
 		DABB451E1B41BCD50045D0B5 /* OperationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */; };
 		DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B941B37865E0047197A /* AppDelegate.swift */; };
@@ -41,13 +41,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA0D43C91B61891300103375 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		DA2A17001B7228AB00352B0D /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA8516F91B5A59150043F8FC /* CExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CExtensions.swift; sourceTree = "<group>"; };
 		DA8AA1B91B42EF3600B315C6 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DAA154171B7E82C90097D1D9 /* kkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = kkConstants.swift; sourceTree = "<group>"; };
 		DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationTableViewCell.swift; sourceTree = "<group>"; };
 		DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationTableViewCell.xib; sourceTree = "<group>"; };
 		DAD71B8F1B37865E0047197A /* WalletTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +111,7 @@
 		DAD71B911B37865E0047197A /* MyWalletSaver */ = {
 			isa = PBXGroup;
 			children = (
+				DAA154171B7E82C90097D1D9 /* kkConstants.swift */,
 				DA2A17001B7228AB00352B0D /* Stack.swift */,
 				DAD71B941B37865E0047197A /* AppDelegate.swift */,
 				DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */,
@@ -153,7 +154,6 @@
 		DAE3E4EB1B4EB1E00044C00E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DA0D43C91B61891300103375 /* CustomNavigationBar.swift */,
 				DA8516F91B5A59150043F8FC /* CExtensions.swift */,
 				DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */,
 				DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */,
@@ -291,7 +291,6 @@
 				DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */,
 				DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */,
 				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,
-				DA0D43CA1B61891300103375 /* CustomNavigationBar.swift in Sources */,
 				DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
@@ -299,6 +298,7 @@
 				DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */,
 				DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */,
 				DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */,
+				DAA154181B7E82C90097D1D9 /* kkConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -84,6 +84,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.viewingMonth = NSDate()
         
+        self.view.backgroundColor = kkbackgroundColor
         
     }
     
@@ -348,14 +349,14 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 1
     }
     
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 25.0
-//    }
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.5
+    }
     
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         
-        header.contentView.backgroundColor = tableView.backgroundColor
+        header.contentView.backgroundColor = UIColor.whiteColor()
         
 //        let line = UILabel(frame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y + header.frame.height - 1, width: header.frame.width, height: 1))
 //        

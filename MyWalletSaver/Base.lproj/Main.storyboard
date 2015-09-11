@@ -145,7 +145,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Qei-E6-E5x" secondAttribute="centerX" constant="207" id="5NW-8d-rhc"/>
                                     <constraint firstItem="HF3-dq-guJ" firstAttribute="baseline" secondItem="qJu-RT-ZNB" secondAttribute="baseline" id="5yQ-gf-Ma3"/>
@@ -304,7 +304,7 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Lee-ev-qad" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leading" constant="14" id="2cu-jo-2mo"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="Lee-ev-qad" secondAttribute="bottom" constant="8" symbolic="YES" id="3gB-VB-qXk"/>
@@ -335,7 +335,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dim-MX-1q5">
                                 <rect key="frame" x="0.0" y="159" width="600" height="252"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="298" id="96Q-PQ-k2N"/>
                                     <constraint firstAttribute="height" constant="280" id="OBX-bn-xex"/>
@@ -351,7 +351,7 @@
                                 </variation>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Enr-Mi-1kR" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="83G-ih-sx2"/>
                             <constraint firstItem="dim-MX-1q5" firstAttribute="leading" secondItem="kDO-AV-8gM" secondAttribute="leading" id="AcK-Z7-fvw"/>
@@ -451,7 +451,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="IeU-JY-vYx">
                                 <rect key="frame" x="0.0" y="179" width="600" height="372"/>
-                                <color key="backgroundColor" white="0.23184634200000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="420" id="9GC-pS-qXX"/>
                                 </constraints>
@@ -542,7 +542,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.23184634200000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="6DH-A9-Bwp"/>
                                     <constraint firstItem="fCF-b6-1vM" firstAttribute="bottom" secondItem="W3p-Oh-CUP" secondAttribute="bottom" id="6uI-ch-X1r"/>
@@ -690,7 +690,7 @@
                                 <sections/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.23184634200000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GNv-0h-u1f" firstAttribute="trailing" secondItem="dKI-gL-5Oe" secondAttribute="trailing" id="2Tw-2A-yc7"/>
                             <constraint firstItem="GNv-0h-u1f" firstAttribute="bottom" secondItem="PZ5-B8-YJL" secondAttribute="top" id="Pjm-D2-XSF"/>
@@ -882,7 +882,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
