@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA2A17011B7228AB00352B0D /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2A17001B7228AB00352B0D /* Stack.swift */; };
+		DA5253451BAB8FD800C84014 /* FlipSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5253441BAB8FD800C84014 /* FlipSegue.swift */; };
 		DA7BF8871B5F86EA00F36398 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */; };
 		DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */; };
 		DA8516FA1B5A59150043F8FC /* CExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8516F91B5A59150043F8FC /* CExtensions.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		DA2A17001B7228AB00352B0D /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		DA5253441BAB8FD800C84014 /* FlipSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSegue.swift; sourceTree = "<group>"; };
 		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		DA7BF8881B5F96BA00F36398 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA8516F91B5A59150043F8FC /* CExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CExtensions.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		DAE3E4EB1B4EB1E00044C00E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DA5253441BAB8FD800C84014 /* FlipSegue.swift */,
 				DA8516F91B5A59150043F8FC /* CExtensions.swift */,
 				DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */,
 				DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */,
@@ -227,6 +230,7 @@
 		DAD71B871B37865E0047197A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Dmitry Sokolov";
 				TargetAttributes = {
@@ -292,6 +296,7 @@
 				DA7BF8891B5F96BA00F36398 /* DetailViewController.swift in Sources */,
 				DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */,
 				DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */,
+				DA5253451BAB8FD800C84014 /* FlipSegue.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
 				DAE3E4EA1B4EB1D60044C00E /* HistoryViewController.swift in Sources */,

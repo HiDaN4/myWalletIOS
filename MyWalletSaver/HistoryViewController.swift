@@ -91,13 +91,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if self.stackOfMonths.isEmpty() {
-//            let todayDate = NSDate()
-//            let startOfThisMonth = self.getStartOfMonth(date: todayDate)
-//            
-//            self.stackOfMonths.push((startOfThisMonth, todayDate as NSDate?))
-//        }
-        
         println("Stack \(self.stackOfMonths.count())")
         self.tableView?.reloadData()
     }
@@ -259,14 +252,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         components.hour = 0
         components.minute = 0
         components.second = 0
-//        let newComponents = NSDateComponents()
-//        
-//        newComponents.year = components.year
-//        newComponents.month = components.month
-//        newComponents.day = 1
-//        newComponents.hour = 0
-//        newComponents.minute = 0
-//        newComponents.second = 0
         
         
         // get date from components
@@ -329,7 +314,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func updatePeriodLabel(#period: String) {
         
-        self.periodLabel?.text = "Period: " + period
+        self.periodLabel?.text = period
     }
 
     // MARK: - Table view data source
@@ -390,11 +375,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.configure(String(format: format, amount), categoryImage: self.appDelegate.textures[operation.category], walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
+        
         cell.delegate = self
         cell.operation = operation
         
         cell.setCellColor(UIColor.clearColor())
-        cell.setLabelColor(UIColor.whiteColor())
+        cell.setLabelColor(kklabelsColor)
 
         cell.selectionStyle = .None
         

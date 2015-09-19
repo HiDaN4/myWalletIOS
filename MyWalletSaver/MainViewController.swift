@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate {
     
     //MARK: - Properties
@@ -69,11 +70,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             }
         }
         
-        
+        // set tableView
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
-        
-        self.inputField?.delegate = self
         
         
         self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
@@ -83,16 +82,17 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
             self.tableView?.layoutMargins = UIEdgeInsetsZero
         }
-
         
+        self.tableView?.backgroundColor = kktablebackgoundColor
+        
+        self.inputField?.delegate = self
+
         self.sourceSegmentedControl?.hidden = true
 
         
-        self.tableView?.backgroundColor = UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1)
         
-        
-        UITabBar.appearance().barTintColor = self.view.backgroundColor
-        UITabBar.appearance().tintColor = UIColor.whiteColor()
+//        UITabBar.appearance().barTintColor = self.view.backgroundColor
+//        UITabBar.appearance().tintColor = UIColor.whiteColor()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleDeleteItem:"), name: "DeleteItemFromTableNotification", object: nil)
         
@@ -105,6 +105,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.setLabelsAlpha(0)
         
         self.view.backgroundColor = kkbackgroundColor
+        
+        self.setLabelsColor(kklabelsColor)
     }
     
     
@@ -204,7 +206,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! DraggableOperationTableViewCell
+        let cell = self.tableView?.dequeueReusableCellWithIdentifier("Cell") as! OperationTableViewCell
         
         let index = indexPath.row
         let operation = self.operations[index]
@@ -217,15 +219,16 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         cell.configure(String(format: format, amount), categoryImage: self.appDelegate.textures[operation.category], walletName: operation.wallet.name, date: date)
         
-        cell.delegate = self
-        cell.operation = operation
+//        cell.delegate = self
+//        cell.operation = operation
         
         cell.selectionStyle = .None
-        
-        cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
+        cell.setCellColor(UIColor.clearColor())
+//        cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
+//        cell.setLabelColor(kklabelsColor)
         cell.setLabelColor(UIColor.whiteColor())
         
-        cell.textOnSwipeLeft = "Remove"
+//        cell.textOnSwipeLeft = "Remove"
         
         return cell
     }
@@ -581,6 +584,18 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
+    func setLabelsColor(newColor: UIColor) {
+        self.balanceLabel?.textColor = newColor
+        
+        if let labels = self.currencyLabels {
+            for clabel in labels {
+                clabel.textColor = newColor
+            }
+        }
+        
+        self.cashBalanceLabel?.textColor = newColor
+        self.cardsBalanceLabel?.textColor = newColor
+    }
     
     func setLabelsAlpha(alpha: CGFloat) {
         
@@ -595,6 +610,16 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.cashBalanceLabel?.alpha = alpha
         self.cardsBalanceLabel?.alpha = alpha
         
+    }
+    
+    // MRK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showSettings" {
+            let vc = segue.destinationViewController as! SettingsViewController
+            vc.holderDelegate = self
+            vc.currentSymbol = holders[0].currency_smbl
+        }
     }
     
     
