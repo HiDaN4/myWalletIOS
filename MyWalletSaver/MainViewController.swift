@@ -80,7 +80,11 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.tableView?.rowHeight = 55
         
         if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            self.tableView?.layoutMargins = UIEdgeInsetsZero
+            if #available(iOS 8.0, *) {
+                self.tableView?.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
         self.tableView?.backgroundColor = kktablebackgoundColor
@@ -115,7 +119,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         let request = NSFetchRequest(entityName: "Holder")
         
-        if let results = managedObjectContext.executeFetchRequest(request, error: nil) as? [Holder] {
+        if let results = (try? managedObjectContext.executeFetchRequest(request)) as? [Holder] {
             
             if results.count > 1 {
                 holders = results
@@ -125,12 +129,12 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 }
                 
                 for holder in holders {
-                    var items = holder.operations.allObjects as! [Operation]
+                    let items = holder.operations.allObjects as! [Operation]
                     
-                    operations.extend(items)
+                    operations.appendContentsOf(items)
                 }
                 if operations.count > 2 {
-                    operations.sort({ (operation1: Operation, operation2: Operation) -> Bool in
+                    operations.sortInPlace({ (operation1: Operation, operation2: Operation) -> Bool in
                         return operation1.timestamp > operation2.timestamp
                     })
                     
@@ -162,8 +166,11 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 
                 holders.append(cards_hold)
                 
-                var error: NSError?
-                managedObjectContext.save(&error)
+                do {
+                    try managedObjectContext.save()
+                } catch let error as NSError {
+                    print("\(error.localizedDescription)")
+                }
             }
         }
         
@@ -199,7 +206,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     // MARK: - Table View Delegate
     
     func reloadTV() {
-        println("Reload")
+        print("Reload")
         
         self.refreshControl.endRefreshing()
     }
@@ -324,18 +331,18 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     //MARK: - Buttons
     
     @IBAction func incomeButtonPressed(sender: AnyObject) {
-        println("Income pressed")
+        print("Income pressed")
         if self.checkInput() {
-            createRecordInCoreData((inputField!.text as NSString).doubleValue)
+            createRecordInCoreData((inputField!.text! as NSString).doubleValue)
             inputField!.text = ""
         }
     }
     
     
     @IBAction func expenseButtonPressed(sender: AnyObject) {
-        println("Expense pressed")
+        print("Expense pressed")
         if self.checkInput() {
-            createRecordInCoreData(0 - (inputField!.text as NSString).doubleValue)
+            createRecordInCoreData(0 - (inputField!.text! as NSString).doubleValue)
             inputField!.text = ""
         }
     }
@@ -370,7 +377,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         let sender = sender as! UITextField
         
-        println("\(sender.frame.height)")
+        print("\(sender.frame.height)")
         
         self.sourceSegmentedControl?.hidden = false
         
@@ -385,7 +392,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         }
         
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.layer.frame.offset(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
+            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
             
         })
         
@@ -409,7 +416,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         let sender = sender as! UISegmentedControl
         
         let value = sender.selectedSegmentIndex
-        println("\(value)")
+        print("\(value)")
         switch value {
         case 0:
             break
@@ -445,7 +452,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         let empty = NSCharacterSet.whitespaceAndNewlineCharacterSet()
         let ddigits = NSCharacterSet(charactersInString: "1234567890.")
-        let text = self.inputField!.text
+        let text = self.inputField!.text!
         if text.stringByTrimmingCharactersInSet(empty) == "" || text.stringByTrimmingCharactersInSet(ddigits) != "" || text == "0" {
             self.inputField!.text = "0"
             return false
@@ -509,9 +516,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         newItem.currency = current_wallet.currency_smbl
         
-        println("Control: \(self.sourceSegmentedControl!.selectedSegmentIndex)")
+        print("Control: \(self.sourceSegmentedControl!.selectedSegmentIndex)")
         
-        var operations_ = current_wallet.operations.mutableCopy() as! NSMutableSet
+        let operations_ = current_wallet.operations.mutableCopy() as! NSMutableSet
         operations_.addObject(newItem)
         
         var category = ""
@@ -545,9 +552,11 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             self.operations.removeLast()
         }
         
-        var error: NSError?
-        
-        managedObjectContext.save(&error)
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
         
         self.updateBalanceForAllHolders()
         
@@ -564,7 +573,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.sourceSegmentedControl?.hidden = true
         UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.view.layer.frame.offset(dx: 0, dy: CGFloat(30*6 + 20))
+            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(30*6 + 20))
         })
         
         
@@ -574,7 +583,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     
-    func changeAppearanceOfCategoryButtons(#hidden: Bool) {
+    func changeAppearanceOfCategoryButtons(hidden hidden: Bool) {
         
         if let buttons = self.categoryButtons {
             for button in buttons {
@@ -681,14 +690,17 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                     wallet.totalIncome = 0
                 }
                 
-                managedObjectContext.save(nil)
+                do {
+                    try managedObjectContext.save()
+                } catch _ {
+                }
                 
                 self.updateCurrencyLabels(newCurrency)
                 self.updateBalanceForAllHolders()
                 
             } // end if let newCurrency
             
-            if let delete = dict["deleteAll"] {
+            if let _ = dict["deleteAll"] {
                 self.deleteAllItems()
             }
         }
@@ -712,9 +724,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         managedObjectContext.deleteObject(operation)
         
         managedObjectContext.processPendingChanges()
-        var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print("Error saving Core Data after deleting relation: \(error.localizedDescription)")
         }
         
         self.updateBalanceForAllHolders()
@@ -738,9 +751,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             holder.totalExpense = 0.0
         }
         
-        var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Error saving Core Data after deleting all records: \(error?.localizedDescription)")
+        do {
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            print("Error saving Core Data after deleting all records: \(error.localizedDescription)")
         }
         
         self.updateBalanceForAllHolders()

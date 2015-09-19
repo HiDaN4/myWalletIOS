@@ -13,8 +13,8 @@ import UIKit
 class FlipSegue: UIStoryboardSegue {
     
     override func perform() {
-        let source = self.sourceViewController as! UIViewController
-        let destination = self.destinationViewController as! UIViewController
+        let source = self.sourceViewController 
+        let destination = self.destinationViewController 
         
         source.navigationController?.pushViewController(destination, animated: false)
         

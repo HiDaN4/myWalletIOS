@@ -45,7 +45,11 @@ class OperationTableViewCell: UITableViewCell {
         self.categoryImageView?.image = categoryImage
         
         if self.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            self.layoutMargins = UIEdgeInsetsZero
+            if #available(iOS 8.0, *) {
+                self.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
     }
@@ -108,13 +112,13 @@ class DraggableTableViewCell : OperationTableViewCell {
         self.registerGesture()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     
     private func registerGesture() {
-        var recognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+        let recognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
         recognizer.delegate = self
         addGestureRecognizer(recognizer)
     }
@@ -284,7 +288,7 @@ class DraggableTableViewCell : OperationTableViewCell {
     
     
     func onActionRight() {
-        println("action")
+        print("action")
     }
     
     

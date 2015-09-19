@@ -36,7 +36,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView?.dataSource = self
         
         if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            self.tableView?.layoutMargins = UIEdgeInsetsZero
+            if #available(iOS 8.0, *) {
+                self.tableView?.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
 //        self.navigationController?.navigationBar.barTintColor = UIColor(red: 204.0/255.0, green: 104.0/255.0, blue: 39.0/255.0, alpha: 1)
@@ -69,7 +73,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) 
 
         cell.textLabel?.textColor = UIColor.whiteColor()
         cell.textLabel?.text = self.dataToPresent[indexPath.row]
@@ -87,14 +91,14 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let text = self.dataToPresent[indexPath.row]
-        let lchar = Array(text).last!
+        let lchar = Array(text.characters).last!
         if let currentCurrency = holderDelegate?.currentCurrency {
             if Character(currentCurrency) != lchar {
                 let details = [
                     "currency": String(lchar)
                 ]
                 holderDelegate?.setWalletValues(details)
-                var time: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+                let time: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
                 dispatch_after(time, dispatch_get_main_queue(), { () -> Void in
                     self.backButtonPressed(self)
                 })

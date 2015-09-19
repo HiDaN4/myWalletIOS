@@ -56,7 +56,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        self.automaticallyAdjustsScrollViewInsets = false
 //        self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            self.tableView?.layoutMargins = UIEdgeInsetsZero
+            if #available(iOS 8.0, *) {
+                self.tableView?.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
 //        self.tableView.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
@@ -91,7 +95,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        println("Stack \(self.stackOfMonths.count())")
+        print("Stack \(self.stackOfMonths.count())")
         self.tableView?.reloadData()
     }
 
@@ -105,9 +109,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Functions
     
-    func configureOperations(#fromDate: NSDate?, toDate: NSDate? = nil) {
+    func configureOperations(fromDate fromDate: NSDate?, toDate: NSDate? = nil) {
         
-        self.allOperations = filter(self.allOperations) {!$0.fault}
+        self.allOperations = self.allOperations.filter {!$0.fault}
         
         let request = NSFetchRequest(entityName: "Operation")
         
@@ -141,13 +145,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         request.predicate = predicate
         
-        var error: NSError?
-        if let results = managedObjectContext.executeFetchRequest(request, error: &error) as? [Operation] {
+        if let results = (try? managedObjectContext.executeFetchRequest(request)) as? [Operation] {
             
             if results.count > 0 {
                 
                 if self.allOperations.count == 0 {
-                    self.allOperations.extend(results)
+                    self.allOperations.appendContentsOf(results)
                 } else {
                 
                     for var count = results.count - 1; count >= 0; --count {
@@ -168,11 +171,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
         } else {
-            let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-            let doneButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-            alert.addAction(doneButton)
-            
-            self.presentViewController(alert, animated: true, completion: nil)
+            if #available(iOS 8.0, *) {
+                let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let doneButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+                
+                alert.addAction(doneButton)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            } else {
+                // Fallback on earlier versions
+            }
             
         }
         
@@ -198,7 +207,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    func addAmount(#amount: Double, inout toVariable: Double) {
+    func addAmount(amount amount: Double, inout toVariable: Double) {
         toVariable += amount
     }
     
@@ -209,12 +218,16 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitMonth, fromDate: NSDate())
+        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Day, NSCalendarUnit.Month], fromDate: NSDate())
         let dayNum = components.day
         let monthNum: Int = components.month
         components.day = 1
         components.timeZone = calendar.timeZone
-        let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.CalendarUnitDay, value: 1, ofDate: NSDate(), options: nil)
+        if #available(iOS 8.0, *) {
+            let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.Day, value: 1, ofDate: NSDate(), options: [])
+        } else {
+            // Fallback on earlier versions
+        }
         
         
         return (dayNum, HistoryViewController.months[monthNum]!)
@@ -222,13 +235,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func getMonthName(#fromDate: NSDate?) -> (month: String, lastDay: Int) {
+    func getMonthName(fromDate fromDate: NSDate?) -> (month: String, lastDay: Int) {
         
         if let date = fromDate {
            
             let calendar = NSCalendar.currentCalendar()
             
-            let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitMonth, fromDate: date)
+            let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Day, NSCalendarUnit.Month], fromDate: date)
             let monthNum: Int = components.month
             let dayNum = components.day
             return (HistoryViewController.months[monthNum]!, dayNum)
@@ -239,13 +252,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func getStartOfMonth(#date: NSDate) -> NSDate? {
+    func getStartOfMonth(date date: NSDate) -> NSDate? {
         
         // get current calendar
         let calendar = NSCalendar.currentCalendar()
         
         // get components with year and month
-        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitSecond, fromDate: date)
+        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: date)
         
         components.timeZone = calendar.timeZone
         components.day = 1
@@ -255,7 +268,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         // get date from components
-        var startOfMonth = calendar.dateFromComponents(components)
+        let startOfMonth = calendar.dateFromComponents(components)
         
 //        startOfMonth = startOfMonth?.dateByAddingTimeInterval(60*60*3)
         
@@ -265,17 +278,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func getPreviousMonth(#fromDate: NSDate) -> (startOfMonth: NSDate?, endOfMonth: NSDate?) {
+    func getPreviousMonth(fromDate fromDate: NSDate) -> (startOfMonth: NSDate?, endOfMonth: NSDate?) {
         
         let calendar = NSCalendar.currentCalendar()
         
-        let components = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitSecond, fromDate: fromDate.dateByAddingTimeInterval(-1))
+        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: fromDate.dateByAddingTimeInterval(-1))
         
         components.timeZone = calendar.timeZone
         
         if let previousMonthDate = calendar.dateFromComponents(components) {
             
-            let newComponents = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay, fromDate: previousMonthDate)
+            let newComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: previousMonthDate)
             
             newComponents.timeZone = calendar.timeZone
             
@@ -312,7 +325,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    func updatePeriodLabel(#period: String) {
+    func updatePeriodLabel(period period: String) {
         
         self.periodLabel?.text = period
     }
@@ -362,7 +375,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! DraggableOperationTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! OperationTableViewCell
         
         let row = indexPath.row
         let operation = self.allOperations[row]
@@ -376,15 +389,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.configure(String(format: format, amount), categoryImage: self.appDelegate.textures[operation.category], walletName: "\(operation.wallet.name)", date: NSDate(timeIntervalSinceReferenceDate: operation.timestamp))
         
         
-        cell.delegate = self
-        cell.operation = operation
+//        cell.delegate = self
+//        cell.operation = operation
         
         cell.setCellColor(UIColor.clearColor())
         cell.setLabelColor(kklabelsColor)
 
         cell.selectionStyle = .None
         
-        cell.textOnSwipeLeft = "Remove"
+//        cell.textOnSwipeLeft = "Remove"
 
         return cell
     }
@@ -410,8 +423,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         managedObjectContext.processPendingChanges()
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Error saving Core Data after deleting relation: \(error?.localizedDescription)")
         }
         
         

@@ -129,13 +129,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor(r: 43, g: 70, b: 85, a: 1)
         
-        header.textLabel.textColor = UIColor.whiteColor()
+        header.textLabel?.textColor = UIColor.whiteColor()
         
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
         
         let section = indexPath.section
         let row = indexPath.row
@@ -194,9 +194,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case "Delete All Data":
                 let title = "Warning!"
                 let message = "Are you sure you want to delete all data?"
-                if objc_getClass("UIAlertController") != nil {
+                if #available(iOS 8.0, *) {
                     let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                    let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) -> Void in
+                    
+                    let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
                         if let delegate = self.holderDelegate {
                             delegate.setWalletValues(["deleteAll": "Yes"])
                         }
@@ -206,15 +207,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil)
                     
-                    
                     alert.addAction(yesAction)
                     alert.addAction(noAction)
                     
                     self.presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "No", otherButtonTitles: "Yes")
                     
-            }
+                } else {
+                    // Fallback on earlier versions
+                }
+                    
         default:
             break
         }
