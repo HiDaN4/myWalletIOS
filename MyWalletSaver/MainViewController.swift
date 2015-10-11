@@ -12,8 +12,25 @@ import CoreData
 
 class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate {
     
-    //MARK: - Properties
+    // MARK: - Properties
+    
+    // Constraints
+    @IBOutlet weak var leftCategoryButtonLeadingConstraint: NSLayoutConstraint?
+    var rightCategoryButtonLeadingConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var topSpacerConstraint: NSLayoutConstraint?
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var trailingSpaceLeftButtonConstraint: NSLayoutConstraint?
+    @IBOutlet weak var trailingSpaceTextFieldConstraint: NSLayoutConstraint?
+    
+    private var isFooterExpanded: Bool = false
+    
+    // Views
     @IBOutlet weak var balanceInfoView: UIView?
+    @IBOutlet weak var footerView: UIView?
 
     @IBOutlet weak var balanceLabel: UILabel?
     @IBOutlet var currencyLabels: [UILabel]?
@@ -31,8 +48,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBOutlet weak var swipeLabel: UILabel?
     
     @IBOutlet var categoryButtons: [CustomCirclularButton]?
-    var currentCategory: CustomCirclularButton?
     
+    
+    var currentCategory: CustomCirclularButton?
     var currentCurrency: String {
         get {
             if let clabelText = self.currencyLabels?.first?.text {
@@ -59,11 +77,21 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.topSpacerConstraint?.constant = 40
+        self.footerHeightConstraint?.constant = 100
+        
         self.configureWallets()
         
         if let buttons = self.categoryButtons {
+            
+            let lastButton = buttons.last!
+            self.rightCategoryButtonLeadingConstraint = NSLayoutConstraint(item: lastButton, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.footerView!, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: -15)
+            self.rightCategoryButtonLeadingConstraint?.priority = UILayoutPriority.init(100)
+            self.footerView?.addConstraint(self.rightCategoryButtonLeadingConstraint!)
+            
             var i = 500
-            self.currentCategory = buttons[0]
+            self.currentCategory = buttons.first!
+            self.currentCategory?.strokeColor = UIColor.greenColor()
             for button in buttons {
                 button.tag = i++
                 button.addTarget(self, action: Selector("categoryButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -111,8 +139,22 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.view.backgroundColor = kkbackgroundColor
         
         self.setLabelsColor(kklabelsColor)
+        
+        self.changeAppearanceOfCategoryButtons(hidden: true)
+        
+        self.registerForNotifications()
     }
     
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
+    func registerForNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
     
     
     func configureWallets() {
@@ -374,7 +416,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         touch.numberOfTouchesRequired = 1
         
         self.tableView?.addGestureRecognizer(touch)
-        
+        return
         let sender = sender as! UITextField
         
         print("\(sender.frame.height)")
@@ -382,6 +424,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.sourceSegmentedControl?.hidden = false
         
         changeAppearanceOfCategoryButtons(hidden: false)
+        
         
         if let buttons = self.categoryButtons {
             var i: CGFloat = 0
@@ -391,20 +434,34 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             }
         }
         
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
-            
-        })
-        
-        UIView.animateWithDuration(0.5) {
-            if let buttons = self.categoryButtons {
-                var i: CGFloat = 0
-                for button in buttons {
-                    button.frame.origin.x = 10 + i
-                    i += 8 + button.frame.width
-                }
-            }
+        if #available(iOS 8.0, *) {
+            self.leftCategoryButtonLeadingConstraint?.active = true
+            self.rightCategoryButtonLeadingConstraint?.active = false
+//            self.trailingSpaceTextFieldConstraint?.active = false
+        } else {
+            // Fallback on earlier versions
         }
+        
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+////            self.trailingSpaceTextFieldConstraint?.priority = 250
+////            self.trailingSpaceLeftButtonConstraint?.priority = 750
+//            self.topSpacerConstraint?.constant = 68
+//            self.footerHeightConstraint?.constant = 140
+//            self.bottomConstraint?.constant = CGFloat(-sender.frame.height*5)
+//            self.view.layoutIfNeeded()
+////            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
+//            
+//        })
+        
+//        UIView.animateWithDuration(0.5) {
+//            if let buttons = self.categoryButtons {
+//                var i: CGFloat = 0
+//                for button in buttons {
+//                    button.frame.origin.x = 10 + i
+//                    i += 8 + button.frame.width
+//                }
+//            }
+//        }
         
         
     }
@@ -437,6 +494,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 self.currentCategory?.strokeColor = pressedButton.strokeColor
                 self.currentCategory?.setNeedsDisplay()
                 
+                self.currentCategory?.titleLabel
                 self.currentCategory = pressedButton
                 pressedButton.strokeColor = UIColor.greenColor()
                 pressedButton.setNeedsDisplay()
@@ -566,23 +624,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     
     
-    func tapped() {
-        self.tableView?.gestureRecognizers?.removeLast()
-        
-        changeAppearanceOfCategoryButtons(hidden: true)
-        
-        self.sourceSegmentedControl?.hidden = true
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(30*6 + 20))
-        })
-        
-        
-        self.inputField?.resignFirstResponder()
-    }
-    
-    
-    
-    
     func changeAppearanceOfCategoryButtons(hidden hidden: Bool) {
         
         if let buttons = self.categoryButtons {
@@ -621,15 +662,78 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
-    // MRK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showSettings" {
-            let vc = segue.destinationViewController as! SettingsViewController
-            vc.holderDelegate = self
-            vc.currentSymbol = holders[0].currency_smbl
+    private func animateFooterViewAndSubviews(up up: Bool, var height: CGFloat?) {
+        
+        if height == nil { height = 0.0 }
+        
+        if up {
+            isFooterExpanded = true
+            self.sourceSegmentedControl?.hidden = false
+            
+            changeAppearanceOfCategoryButtons(hidden: false)
+            
+            
+            if let buttons = self.categoryButtons {
+                var i: CGFloat = 0
+                for button in buttons {
+                    button.frame.origin.x = 0 - button.frame.width - i
+                    i += 8 + button.frame.width
+                }
+            }
+//            self.leftCategoryButtonLeadingConstraint?.active = true
+//            self.rightCategoryButtonLeadingConstraint?.active = false
+            self.leftCategoryButtonLeadingConstraint?.priority = 750
+            self.rightCategoryButtonLeadingConstraint?.priority = 500
+            
+            // self.trailingSpaceTextFieldConstraint?.priority = 250
+            // self.trailingSpaceLeftButtonConstraint?.priority = 750
+            self.topSpacerConstraint?.constant = 68
+            self.footerHeightConstraint?.constant = 140
+            self.bottomConstraint?.constant = CGFloat(-height!+kkTabBarHeight)
+            
+        } else {
+            isFooterExpanded = false
+//            self.leftCategoryButtonLeadingConstraint?.active = false
+//            self.rightCategoryButtonLeadingConstraint?.active = true
+            self.leftCategoryButtonLeadingConstraint?.priority = 600
+            self.rightCategoryButtonLeadingConstraint?.priority = 750
+            self.sourceSegmentedControl?.hidden = true
+            // self.trailingSpaceTextFieldConstraint?.priority = 750
+            // self.trailingSpaceLeftButtonConstraint?.priority = 250
+            // self.trailingSpaceLeftButtonConstraint?.constant = 20
+            self.footerHeightConstraint?.constant = 100
+            self.topSpacerConstraint?.constant = 40
+            self.bottomConstraint?.constant = 0
+            
+            self.inputField?.resignFirstResponder()
         }
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+
     }
+    
+    // MARK: - Handling NSNotifications
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let kbsize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.animateFooterViewAndSubviews(up: true, height: kbsize.height)
+            })
+            
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.animateFooterViewAndSubviews(up: false, height: nil)
+        }
+//        NSOperationQueue.mainQueue().addOperationWithBlock() {_ in print("hello")}
+    }
+    
+    
     
     
     // MARK: - Gesture Handling
@@ -646,33 +750,69 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             self.swipeLabel?.alpha = Bool(self.swipeLabel!.alpha) ? 0 : 1
             self.setLabelsAlpha(value)
         }
+        
+    }
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // always call super method
+        defer {
+            super.touchesBegan(touches, withEvent: event)
+        }
+        
+        
+        // catch a touch outside of the footer and perform required animations
+        if self.isFooterExpanded == false { return }
+        if let touch = touches.first {
+            let location = touch.locationInView(nil)
+            if !CGRectContainsPoint(self.footerView!.frame, location) {
+                print("not in footer")
+                NSOperationQueue.mainQueue().addOperationWithBlock() { self.animateFooterViewAndSubviews(up: false, height: nil) }
+            } else {
+                print("in footer")
+            }
+        }
+    }
+    
+    func tapped() {
+        self.tableView?.gestureRecognizers?.removeLast()
+        dispatch_async(dispatch_get_main_queue()) {self.animateFooterViewAndSubviews(up: false, height: nil)}
         return
-//        if let swipe = sender {
-//            
-//            UIGraphicsBeginImageContextWithOptions(self.balanceInfoView!.bounds.size, true, 1)
-//            
-//            self.view.drawViewHierarchyInRect(CGRect(x: self.balanceInfoView!.frame.origin.x, y: -self.balanceInfoView!.frame.origin.y, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
-//            
-//            let screenshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-//            
-//            UIGraphicsEndImageContext()
-//            print("finished")
-//            
-//            var blurImageView = UIImageView(image: screenshot)
-//            
-//            var darkBlue = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-//            
-//            var blurView = UIVisualEffectView(effect: darkBlue)
-//            
-//            if let bounds = self.balanceInfoView?.bounds {
-//                blurView.frame = bounds
-//            }
-//            
-//            self.balanceInfoView?.addSubview(blurImageView)
-//            self.balanceInfoView?.addSubview(blurView)
-//            self.balanceInfoView?.insertSubview(blurView, atIndex: 0)
-//            
-//        }
+        
+        if #available(iOS 8.0, *) {
+            self.leftCategoryButtonLeadingConstraint?.active = false
+            self.rightCategoryButtonLeadingConstraint?.active = true
+            //            self.trailingSpaceTextFieldConstraint?.constant = 0 - 30
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+        self.sourceSegmentedControl?.hidden = true
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            //            self.trailingSpaceTextFieldConstraint?.priority = 750
+            //            self.trailingSpaceLeftButtonConstraint?.priority = 250
+            //            self.trailingSpaceLeftButtonConstraint?.constant = 20
+            self.footerHeightConstraint?.constant = 100
+            self.topSpacerConstraint?.constant = 40
+            self.bottomConstraint?.constant = 0
+            self.view.layoutIfNeeded()
+            
+        })
+        
+        self.inputField?.resignFirstResponder()
+    }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showSettings" {
+            let vc = segue.destinationViewController as! SettingsViewController
+            vc.holderDelegate = self
+            vc.currentSymbol = holders[0].currency_smbl
+        }
     }
     
     

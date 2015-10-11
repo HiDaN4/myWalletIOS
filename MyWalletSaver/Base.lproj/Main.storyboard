@@ -50,6 +50,7 @@
                                     <constraint firstAttribute="trailing" secondItem="eR5-YZ-B4y" secondAttribute="trailing" constant="8" id="AKd-3r-FOx"/>
                                     <constraint firstAttribute="height" constant="120" id="N1s-wz-L6e"/>
                                     <constraint firstAttribute="bottom" secondItem="eR5-YZ-B4y" secondAttribute="bottom" constant="4" id="PS8-Pe-Ehy"/>
+                                    <constraint firstAttribute="height" constant="44" id="cBO-3C-73C"/>
                                     <constraint firstAttribute="height" constant="66" id="jgA-It-ade"/>
                                     <constraint firstAttribute="bottom" secondItem="u7v-tU-44F" secondAttribute="bottom" constant="10" id="jnz-yn-r0T"/>
                                     <constraint firstAttribute="centerX" secondItem="u7v-tU-44F" secondAttribute="centerX" id="xxS-qs-Ij6"/>
@@ -169,6 +170,7 @@
                                     <constraint firstItem="HF3-dq-guJ" firstAttribute="baseline" secondItem="9Kh-f6-jEn" secondAttribute="baseline" id="8rZ-Mh-4X9"/>
                                     <constraint firstItem="wz7-MB-aAP" firstAttribute="leading" secondItem="yWv-bt-9XT" secondAttribute="trailing" constant="-4" id="Bn1-bU-Rav"/>
                                     <constraint firstAttribute="bottom" secondItem="9Kh-f6-jEn" secondAttribute="bottom" constant="31" id="FXY-36-CvF"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="95" id="Feo-Bt-cjg"/>
                                     <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="9Kh-f6-jEn" secondAttribute="trailing" priority="750" constant="204" id="GIg-cK-INA"/>
                                     <constraint firstItem="9Kh-f6-jEn" firstAttribute="centerX" secondItem="kDO-AV-8gM" secondAttribute="centerX" constant="60" id="HFT-U3-7gl"/>
                                     <constraint firstAttribute="centerX" secondItem="Qei-E6-E5x" secondAttribute="centerX" constant="32.5" id="Mwz-PP-SY6"/>
@@ -224,6 +226,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="298" id="96Q-PQ-k2N"/>
+                                    <constraint firstAttribute="height" priority="750" constant="252" id="Hig-En-kbh"/>
                                     <constraint firstAttribute="height" constant="280" id="OBX-bn-xex"/>
                                     <constraint firstAttribute="height" constant="298" id="at4-5w-eSK"/>
                                 </constraints>
@@ -237,7 +240,7 @@
                                 </variation>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQq-AB-yJ9" userLabel="footer">
-                                <rect key="frame" x="0.0" y="412" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="411" width="600" height="140"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o2x-Vb-VZh">
                                         <rect key="frame" x="8" y="68" width="405" height="30"/>
@@ -251,26 +254,6 @@
                                             <action selector="didPressField:" destination="9pv-A4-QxB" eventType="editingDidBegin" id="fB1-B4-tn0"/>
                                         </connections>
                                     </textField>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cXB-cB-Thp">
-                                        <rect key="frame" x="8" y="106" width="405" height="29"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="5QR-Dz-Soj"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Cash"/>
-                                            <segment title="Card"/>
-                                        </segments>
-                                        <color key="tintColor" red="0.12156862745098039" green="0.74901960784313726" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="5QR-Dz-Soj"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="sourceChosen:" destination="9pv-A4-QxB" eventType="valueChanged" id="MAk-K5-Ol4"/>
-                                        </connections>
-                                    </segmentedControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6w-Aj-ltE" customClass="CustomPushButton" customModule="WalletTracker" customModuleProvider="target">
                                         <rect key="frame" x="443" y="62" width="60" height="60"/>
                                         <animations/>
@@ -319,9 +302,13 @@
                                             <action selector="expenseButtonPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="6Wl-QN-JJ2"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-ev-qad" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lee-ev-qad" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
                                         <rect key="frame" x="14" y="5" width="55" height="55"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="aw9-v4-I9K"/>
+                                            <constraint firstAttribute="width" constant="55" id="kSp-VW-Fu7"/>
+                                        </constraints>
                                         <state key="normal" image="foodCategoryButton">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -331,7 +318,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eG2-5e-2Q9" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eG2-5e-2Q9" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
                                         <rect key="frame" x="77" y="5" width="55" height="55"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -341,39 +328,72 @@
                                         <state key="normal" image="entertainmentCategoryButton">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="ZVa-xe-D8S"/>
+                                            </mask>
+                                        </variation>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzr-dC-jxD" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzr-dC-jxD" customClass="CustomCirclularButton" customModule="WalletTracker" customModuleProvider="target">
                                         <rect key="frame" x="140" y="5" width="55" height="55"/>
                                         <animations/>
                                         <state key="normal" image="generalCategoryButton">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cXB-cB-Thp">
+                                        <rect key="frame" x="8" y="106" width="405" height="29"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="5QR-Dz-Soj"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Cash"/>
+                                            <segment title="Card"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.12156862745098039" green="0.74901960784313726" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="5QR-Dz-Soj"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="sourceChosen:" destination="9pv-A4-QxB" eventType="valueChanged" id="MAk-K5-Ol4"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Lee-ev-qad" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leading" constant="14" id="2cu-jo-2mo"/>
+                                    <constraint firstItem="Lee-ev-qad" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leading" priority="750" constant="14" id="2cu-jo-2mo"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="Lee-ev-qad" secondAttribute="bottom" constant="8" symbolic="YES" id="3gB-VB-qXk"/>
-                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="leading" secondItem="Lee-ev-qad" secondAttribute="trailing" constant="8" symbolic="YES" id="55a-Z7-pq3"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="leading" secondItem="Lee-ev-qad" secondAttribute="trailing" constant="8" id="55a-Z7-pq3"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="5y0-4c-dxY"/>
                                     <constraint firstItem="rzr-dC-jxD" firstAttribute="bottom" secondItem="eG2-5e-2Q9" secondAttribute="bottom" id="D6m-k0-pUI"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="68" id="EQz-gq-Qqd"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="top" secondItem="eG2-5e-2Q9" secondAttribute="bottom" constant="8" symbolic="YES" id="Gu8-Vd-o4P"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="leading" secondItem="R6w-Aj-ltE" secondAttribute="trailing" constant="17" id="IT8-4h-csp"/>
+                                    <constraint firstItem="rzr-dC-jxD" firstAttribute="height" secondItem="eG2-5e-2Q9" secondAttribute="height" id="Ih2-4g-HT2"/>
                                     <constraint firstItem="eG2-5e-2Q9" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="5" id="Nel-7b-wu3"/>
+                                    <constraint firstAttribute="trailing" secondItem="o2x-Vb-VZh" secondAttribute="trailing" constant="187" id="OMu-4G-etd"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="R6w-Aj-ltE" secondAttribute="top" id="Qt3-jx-XB7"/>
                                     <constraint firstItem="SYN-SF-oap" firstAttribute="baseline" secondItem="R6w-Aj-ltE" secondAttribute="baseline" id="Srj-GZ-y6y"/>
                                     <constraint firstAttribute="height" constant="140" id="UaX-z4-ouP"/>
-                                    <constraint firstItem="SYN-SF-oap" firstAttribute="top" secondItem="OQq-AB-yJ9" secondAttribute="top" constant="62" id="VS7-Vj-RBP"/>
                                     <constraint firstAttribute="height" constant="107" id="VwG-2P-7zQ"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="width" secondItem="o2x-Vb-VZh" secondAttribute="width" id="a0a-6H-Sjm"/>
-                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="leading" relation="lessThanOrEqual" secondItem="o2x-Vb-VZh" secondAttribute="trailing" constant="30" id="cuL-Hf-o2g"/>
+                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="leading" secondItem="o2x-Vb-VZh" secondAttribute="trailing" constant="30" id="cuL-Hf-o2g"/>
                                     <constraint firstItem="o2x-Vb-VZh" firstAttribute="leading" secondItem="OQq-AB-yJ9" secondAttribute="leadingMargin" id="ff0-Lk-5no"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="bottom" secondItem="Lee-ev-qad" secondAttribute="bottom" id="gN5-PM-p7E"/>
+                                    <constraint firstItem="R6w-Aj-ltE" firstAttribute="top" secondItem="o2x-Vb-VZh" secondAttribute="bottom" constant="-36" id="ghG-JB-QWT"/>
                                     <constraint firstAttribute="trailing" secondItem="SYN-SF-oap" secondAttribute="trailing" constant="20" id="j6q-Bc-xwI"/>
                                     <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="o2x-Vb-VZh" secondAttribute="baseline" constant="-11" id="jSf-z6-lxK"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="top" secondItem="Lee-ev-qad" secondAttribute="top" id="jo1-h8-Of5"/>
                                     <constraint firstItem="R6w-Aj-ltE" firstAttribute="baseline" secondItem="SYN-SF-oap" secondAttribute="bottom" constant="-24.5" id="qAg-7b-vkR"/>
                                     <constraint firstItem="rzr-dC-jxD" firstAttribute="top" secondItem="eG2-5e-2Q9" secondAttribute="top" id="rQB-pr-7FD"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="width" secondItem="Lee-ev-qad" secondAttribute="width" id="syX-Ce-AaN"/>
+                                    <constraint firstAttribute="trailing" secondItem="SYN-SF-oap" secondAttribute="trailing" priority="749" constant="20" id="uha-ST-thz"/>
+                                    <constraint firstItem="eG2-5e-2Q9" firstAttribute="height" secondItem="Lee-ev-qad" secondAttribute="height" id="vvv-2D-YAj"/>
+                                    <constraint firstAttribute="trailing" secondItem="o2x-Vb-VZh" secondAttribute="trailing" priority="250" constant="8" id="w0c-pR-fd8"/>
+                                    <constraint firstItem="rzr-dC-jxD" firstAttribute="width" secondItem="eG2-5e-2Q9" secondAttribute="width" id="w5t-fA-yrI"/>
                                     <constraint firstItem="rzr-dC-jxD" firstAttribute="leading" secondItem="eG2-5e-2Q9" secondAttribute="trailing" constant="8" id="wVa-tJ-8vj"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="trailing" secondItem="o2x-Vb-VZh" secondAttribute="trailing" id="xgc-nj-KkO"/>
                                     <constraint firstItem="cXB-cB-Thp" firstAttribute="top" secondItem="o2x-Vb-VZh" secondAttribute="bottom" constant="8" symbolic="YES" id="yom-Aw-aDm"/>
@@ -381,7 +401,15 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="VwG-2P-7zQ"/>
+                                        <exclude reference="Gu8-Vd-o4P"/>
+                                        <exclude reference="OMu-4G-etd"/>
+                                        <exclude reference="Nel-7b-wu3"/>
+                                        <exclude reference="syX-Ce-AaN"/>
+                                        <exclude reference="vvv-2D-YAj"/>
+                                        <exclude reference="Ih2-4g-HT2"/>
+                                        <exclude reference="w5t-fA-yrI"/>
                                         <exclude reference="qAg-7b-vkR"/>
+                                        <exclude reference="j6q-Bc-xwI"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -409,9 +437,9 @@
                             <constraint firstAttribute="bottom" secondItem="kDO-AV-8gM" secondAttribute="bottom" constant="436" id="fdx-j2-YJJ"/>
                             <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" constant="1" id="g3F-fR-1gW"/>
                             <constraint firstItem="dim-MX-1q5" firstAttribute="trailing" secondItem="kDO-AV-8gM" secondAttribute="trailing" id="i01-tK-zPE"/>
-                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" constant="1" id="jG5-hq-fCw"/>
+                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="top" secondItem="dim-MX-1q5" secondAttribute="bottom" id="jG5-hq-fCw"/>
                             <constraint firstItem="OQq-AB-yJ9" firstAttribute="trailing" secondItem="dim-MX-1q5" secondAttribute="trailing" id="jNM-kK-vtu"/>
-                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" constant="1" id="lCL-WT-dHK"/>
+                            <constraint firstItem="OQq-AB-yJ9" firstAttribute="bottom" secondItem="4ug-Mw-9AY" secondAttribute="top" id="lCL-WT-dHK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Enr-Mi-1kR" secondAttribute="trailing" constant="-16" id="rG1-St-NLR"/>
                             <constraint firstItem="dim-MX-1q5" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="159" id="x3z-LP-P3k"/>
                             <constraint firstItem="kDO-AV-8gM" firstAttribute="top" secondItem="Enr-Mi-1kR" secondAttribute="bottom" id="xjH-5z-mTv"/>
@@ -420,11 +448,13 @@
                             <mask key="constraints">
                                 <exclude reference="83G-ih-sx2"/>
                                 <exclude reference="rG1-St-NLR"/>
+                                <exclude reference="Eoa-dF-q9p"/>
                                 <exclude reference="VLd-Fb-KZw"/>
                                 <exclude reference="fdx-j2-YJJ"/>
                                 <exclude reference="Mdb-9O-yQG"/>
                                 <exclude reference="TQr-mo-4ch"/>
                                 <exclude reference="Z9k-Ry-8cp"/>
+                                <exclude reference="x3z-LP-P3k"/>
                                 <exclude reference="LpP-jN-qVX"/>
                                 <exclude reference="fCN-qo-m7o"/>
                                 <exclude reference="g3F-fR-1gW"/>
@@ -436,14 +466,21 @@
                     <connections>
                         <outlet property="balanceInfoView" destination="kDO-AV-8gM" id="EHe-ob-X9e"/>
                         <outlet property="balanceLabel" destination="wz7-MB-aAP" id="SAZ-4t-9ia"/>
+                        <outlet property="bottomConstraint" destination="lCL-WT-dHK" id="uIe-36-UiC"/>
                         <outlet property="cardsBalanceLabel" destination="qJu-RT-ZNB" id="Syy-mj-fjz"/>
                         <outlet property="cashBalanceLabel" destination="poh-oj-f7W" id="uGn-ez-WYu"/>
                         <outlet property="expenseButton" destination="SYN-SF-oap" id="ndH-oR-nN4"/>
+                        <outlet property="footerHeightConstraint" destination="UaX-z4-ouP" id="QMI-uq-R0g"/>
+                        <outlet property="footerView" destination="OQq-AB-yJ9" id="yFw-Pu-KbA"/>
                         <outlet property="incomeButton" destination="R6w-Aj-ltE" id="fzX-te-RK6"/>
                         <outlet property="inputField" destination="o2x-Vb-VZh" id="YYH-3q-9bJ"/>
+                        <outlet property="leftCategoryButtonLeadingConstraint" destination="2cu-jo-2mo" id="bf2-pL-W6F"/>
                         <outlet property="sourceSegmentedControl" destination="cXB-cB-Thp" id="cMk-hS-Eu8"/>
                         <outlet property="swipeLabel" destination="e0F-Bv-Tyg" id="4eh-e3-pHt"/>
                         <outlet property="tableView" destination="dim-MX-1q5" id="kBO-ac-sk4"/>
+                        <outlet property="topSpacerConstraint" destination="EQz-gq-Qqd" id="Z1d-E6-4EJ"/>
+                        <outlet property="trailingSpaceLeftButtonConstraint" destination="uha-ST-thz" id="nsp-57-vEF"/>
+                        <outlet property="trailingSpaceTextFieldConstraint" destination="w0c-pR-fd8" id="8gh-YL-8Gk"/>
                         <outletCollection property="currencyLabels" destination="yWv-bt-9XT" collectionClass="NSMutableArray" id="IrY-Ue-Jcd"/>
                         <outletCollection property="currencyLabels" destination="Hm2-Xx-NJu" collectionClass="NSMutableArray" id="xXv-DI-laU"/>
                         <outletCollection property="currencyLabels" destination="HF3-dq-guJ" collectionClass="NSMutableArray" id="Rhg-f2-OQD"/>
