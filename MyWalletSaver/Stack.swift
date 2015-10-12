@@ -12,23 +12,26 @@ import Foundation
 struct Stack<T> {
     private var items_ = [T]()
     
+    var count: Int {
+        get {
+            return self.items_.count
+        }
+    }
+    
     mutating func push(item: T) {
         self.items_.append(item)
     }
     
-    mutating func pop() -> T {
-        return self.items_.removeLast()
+    mutating func pop() -> T? {
+        return self.isEmpty() ? nil: self.items_.removeLast()
     }
     
     func isEmpty() -> Bool {
         return self.items_.isEmpty
     }
     
-    func count() -> Int {
-        return self.items_.count
-    }
     
     func getTop() -> T? {
-        return self.items_.isEmpty ? nil : self.items_[self.items_.count - 1]
+        return self.isEmpty() ? nil : self.items_[self.items_.count - 1]
     }
 }

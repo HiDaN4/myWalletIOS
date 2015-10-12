@@ -95,7 +95,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("Stack \(self.stackOfMonths.count())")
+        print("Stack \(self.stackOfMonths.count)")
         self.tableView?.reloadData()
     }
 
@@ -223,11 +223,11 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let monthNum: Int = components.month
         components.day = 1
         components.timeZone = calendar.timeZone
-        if #available(iOS 8.0, *) {
-            let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.Day, value: 1, ofDate: NSDate(), options: [])
-        } else {
-            // Fallback on earlier versions
-        }
+//        if #available(iOS 8.0, *) {
+//            let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.Day, value: 1, ofDate: NSDate(), options: [])
+//        } else {
+//            // Fallback on earlier versions
+//        }
         
         
         return (dayNum, HistoryViewController.months[monthNum]!)
@@ -512,18 +512,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func rightArrowPressed(sender: AnyObject) {
-        let month = self.stackOfMonths.pop()
-
-        self.viewingMonth = month.1
-        self.configureOperations(fromDate: month.0, toDate: month.1)
-        self.updateAmountLabels()
+        if let month = self.stackOfMonths.pop() {
+            self.viewingMonth = month.1
+            self.configureOperations(fromDate: month.0, toDate: month.1)
+            self.updateAmountLabels()
         
-        let monthDate = self.getMonthName(fromDate: month.1)
-        self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
-        
-        
-        if self.stackOfMonths.isEmpty() {
-            self.rightArrowButton?.hidden = true
+            let monthDate = self.getMonthName(fromDate: month.1)
+            self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
+            
+            
+            if self.stackOfMonths.isEmpty() {
+                self.rightArrowButton?.hidden = true
+            }
         }
         
         self.tableView?.reloadData()

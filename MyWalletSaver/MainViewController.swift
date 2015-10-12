@@ -77,6 +77,19 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        
+        self.registerForNotifications()
+    }
+    
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    
+    func setupView() {
+        
         self.topSpacerConstraint?.constant = 40
         self.footerHeightConstraint?.constant = 100
         
@@ -102,58 +115,48 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         
-        
         self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
         self.tableView?.rowHeight = 55
         
-        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            if #available(iOS 8.0, *) {
-                self.tableView?.layoutMargins = UIEdgeInsetsZero
-            } else {
-                // Fallback on earlier versions
-            }
+        // set separator inset to 0 (no left inset)
+        if #available(iOS 8.0, *) {
+            self.tableView?.layoutMargins = UIEdgeInsetsZero
+        } else {
+            // Fallback on earlier versions
+            self.tableView?.separatorInset = UIEdgeInsetsZero
         }
         
         self.tableView?.backgroundColor = kktablebackgoundColor
         
+        // set delegates
         self.inputField?.delegate = self
-
+        
         self.sourceSegmentedControl?.hidden = true
-
         
-        
-//        UITabBar.appearance().barTintColor = self.view.backgroundColor
-//        UITabBar.appearance().tintColor = UIColor.whiteColor()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleDeleteItem:"), name: "DeleteItemFromTableNotification", object: nil)
-        
+        // set swipe recognizer for showing/hiding user sensative info
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         
         swipeRecognizer.direction = UISwipeGestureRecognizerDirection.Down
         
         self.balanceInfoView?.addGestureRecognizer(swipeRecognizer)
         
-        self.setLabelsAlpha(0)
-        
+        // custom
         self.view.backgroundColor = kkbackgroundColor
-        
+        self.setLabelsAlpha(0)
         self.setLabelsColor(kklabelsColor)
-        
         self.changeAppearanceOfCategoryButtons(hidden: true)
         
-        self.registerForNotifications()
-    }
-    
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     
     func registerForNotifications() {
+        // Keyboard Notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+        // Custom notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleDeleteItem:"), name: "DeleteItemFromTableNotification", object: nil)
     }
     
     
@@ -402,7 +405,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     @IBAction func rightButtonPressed(sender: AnyObject) {
         let settings = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsVC") as? SettingsViewController
         
-        
         if let vc = settings {
             vc.holderDelegate = self
             vc.currentSymbol = holders[0].currency_smbl
@@ -411,36 +413,38 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         }
     }
     
+    
+    
     @IBAction func didPressField(sender: AnyObject) {
         let touch = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         touch.numberOfTouchesRequired = 1
         
         self.tableView?.addGestureRecognizer(touch)
-        return
-        let sender = sender as! UITextField
-        
-        print("\(sender.frame.height)")
-        
-        self.sourceSegmentedControl?.hidden = false
-        
-        changeAppearanceOfCategoryButtons(hidden: false)
-        
-        
-        if let buttons = self.categoryButtons {
-            var i: CGFloat = 0
-            for button in buttons {
-                button.frame.origin.x = 0 - button.frame.width - i
-                i += 8 + button.frame.width
-            }
-        }
-        
-        if #available(iOS 8.0, *) {
-            self.leftCategoryButtonLeadingConstraint?.active = true
-            self.rightCategoryButtonLeadingConstraint?.active = false
-//            self.trailingSpaceTextFieldConstraint?.active = false
-        } else {
-            // Fallback on earlier versions
-        }
+//        return
+//        let sender = sender as! UITextField
+//        
+//        print("\(sender.frame.height)")
+//        
+//        self.sourceSegmentedControl?.hidden = false
+//        
+//        changeAppearanceOfCategoryButtons(hidden: false)
+//        
+//        
+//        if let buttons = self.categoryButtons {
+//            var i: CGFloat = 0
+//            for button in buttons {
+//                button.frame.origin.x = 0 - button.frame.width - i
+//                i += 8 + button.frame.width
+//            }
+//        }
+//        
+//        if #available(iOS 8.0, *) {
+//            self.leftCategoryButtonLeadingConstraint?.active = true
+//            self.rightCategoryButtonLeadingConstraint?.active = false
+////            self.trailingSpaceTextFieldConstraint?.active = false
+//        } else {
+//            // Fallback on earlier versions
+//        }
         
 //        UIView.animateWithDuration(0.3, animations: { () -> Void in
 ////            self.trailingSpaceTextFieldConstraint?.priority = 250
@@ -634,6 +638,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
+    
     func setLabelsColor(newColor: UIColor) {
         self.balanceLabel?.textColor = newColor
         
@@ -646,6 +651,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         self.cashBalanceLabel?.textColor = newColor
         self.cardsBalanceLabel?.textColor = newColor
     }
+    
     
     func setLabelsAlpha(alpha: CGFloat) {
         
@@ -703,7 +709,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             // self.trailingSpaceLeftButtonConstraint?.constant = 20
             self.footerHeightConstraint?.constant = 100
             self.topSpacerConstraint?.constant = 40
-            self.bottomConstraint?.constant = 0
+            self.bottomConstraint?.constant = height!
             
             self.inputField?.resignFirstResponder()
         }
@@ -721,7 +727,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.animateFooterViewAndSubviews(up: true, height: kbsize.height)
             })
-            
         }
         
     }
@@ -741,10 +746,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     func handleSwipe(sender: UISwipeGestureRecognizer?) {
         
         var value: CGFloat = 0.0
+        
         if self.balanceLabel?.alpha == 0.0 {
             value = 1.0
         }
-        
         
         UIView.animateWithDuration(0.5) {
             self.swipeLabel?.alpha = Bool(self.swipeLabel!.alpha) ? 0 : 1
@@ -766,42 +771,40 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         if let touch = touches.first {
             let location = touch.locationInView(nil)
             if !CGRectContainsPoint(self.footerView!.frame, location) {
-                print("not in footer")
                 NSOperationQueue.mainQueue().addOperationWithBlock() { self.animateFooterViewAndSubviews(up: false, height: nil) }
-            } else {
-                print("in footer")
             }
         }
     }
     
+    
     func tapped() {
         self.tableView?.gestureRecognizers?.removeLast()
         dispatch_async(dispatch_get_main_queue()) {self.animateFooterViewAndSubviews(up: false, height: nil)}
-        return
-        
-        if #available(iOS 8.0, *) {
-            self.leftCategoryButtonLeadingConstraint?.active = false
-            self.rightCategoryButtonLeadingConstraint?.active = true
-            //            self.trailingSpaceTextFieldConstraint?.constant = 0 - 30
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        
-        self.sourceSegmentedControl?.hidden = true
-        
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            //            self.trailingSpaceTextFieldConstraint?.priority = 750
-            //            self.trailingSpaceLeftButtonConstraint?.priority = 250
-            //            self.trailingSpaceLeftButtonConstraint?.constant = 20
-            self.footerHeightConstraint?.constant = 100
-            self.topSpacerConstraint?.constant = 40
-            self.bottomConstraint?.constant = 0
-            self.view.layoutIfNeeded()
-            
-        })
-        
-        self.inputField?.resignFirstResponder()
+//        return
+//        
+//        if #available(iOS 8.0, *) {
+//            self.leftCategoryButtonLeadingConstraint?.active = false
+//            self.rightCategoryButtonLeadingConstraint?.active = true
+//            //            self.trailingSpaceTextFieldConstraint?.constant = 0 - 30
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        
+//        
+//        self.sourceSegmentedControl?.hidden = true
+//        
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+//            //            self.trailingSpaceTextFieldConstraint?.priority = 750
+//            //            self.trailingSpaceLeftButtonConstraint?.priority = 250
+//            //            self.trailingSpaceLeftButtonConstraint?.constant = 20
+//            self.footerHeightConstraint?.constant = 100
+//            self.topSpacerConstraint?.constant = 40
+//            self.bottomConstraint?.constant = 0
+//            self.view.layoutIfNeeded()
+//            
+//        })
+//        
+//        self.inputField?.resignFirstResponder()
     }
     
     
@@ -840,7 +843,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
                 
             } // end if let newCurrency
             
-            if let _ = dict["deleteAll"] {
+            if dict["deleteAll"] != nil {
                 self.deleteAllItems()
             }
         }
