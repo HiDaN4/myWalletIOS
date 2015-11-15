@@ -515,7 +515,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJa-a6-dIm">
-                                        <rect key="frame" x="8" y="5.5" width="68" height="33"/>
+                                        <rect key="frame" x="8" y="5" width="68" height="33"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                         <state key="normal" title="By Month">
@@ -525,11 +525,25 @@
                                             <action selector="changePeriodButtonPressed:" destination="AYG-Hr-zBm" eventType="touchUpInside" id="8fH-lb-fQW"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJu-UF-FCW">
+                                        <rect key="frame" x="558" y="4" width="34" height="35"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="19"/>
+                                        <state key="normal" title="Last">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="changePeriodButtonPressed:" destination="AYG-Hr-zBm" eventType="touchUpInside" id="53d-5T-kfs"/>
+                                            <action selector="showLastPressed:" destination="AYG-Hr-zBm" eventType="touchUpInside" id="Heo-Xm-KFw"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="rJu-UF-FCW" firstAttribute="centerY" secondItem="0xg-1q-c2e" secondAttribute="centerY" id="2Qk-IJ-00D"/>
                                     <constraint firstAttribute="height" constant="44" id="O3z-87-VX7"/>
+                                    <constraint firstAttribute="trailing" secondItem="rJu-UF-FCW" secondAttribute="trailing" constant="8" id="Ors-Ym-IuE"/>
                                     <constraint firstAttribute="centerX" secondItem="0xg-1q-c2e" secondAttribute="centerX" id="fPz-ln-wSB"/>
                                     <constraint firstItem="eJa-a6-dIm" firstAttribute="centerY" secondItem="0xg-1q-c2e" secondAttribute="centerY" id="gu5-l8-td0"/>
                                     <constraint firstAttribute="centerY" secondItem="0xg-1q-c2e" secondAttribute="centerY" id="p8M-88-L1M"/>
@@ -702,6 +716,7 @@
                         <outlet property="changePeriodButton" destination="eJa-a6-dIm" id="toG-iP-7UD"/>
                         <outlet property="periodLabel" destination="KGp-kQ-w8V" id="eWh-69-b2R"/>
                         <outlet property="rightArrowButton" destination="mOB-18-EBc" id="g9f-BQ-bPX"/>
+                        <outlet property="showLastButton" destination="rJu-UF-FCW" id="uG8-eK-mVZ"/>
                         <outlet property="tableView" destination="IeU-JY-vYx" id="uXt-fr-bRW"/>
                         <outlet property="totalExpenseLabel" destination="fCF-b6-1vM" id="WMu-ji-E55"/>
                         <outlet property="totalIncomeLabel" destination="Aif-mq-1TL" id="cAI-dZ-9bZ"/>

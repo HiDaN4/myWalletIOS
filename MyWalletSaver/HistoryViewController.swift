@@ -25,6 +25,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var totalIncomeLabel: UILabel?
     
     @IBOutlet weak var changePeriodButton: UIButton?
+    @IBOutlet weak var showLastButton: UIButton?
     
     
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -39,6 +40,17 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var viewingMonth: NSDate?
     var stackOfPeriods = Stack<(NSDate?, NSDate?)>()
+    
+    
+    var isInPast = false
+    
+    enum ShowingBy {
+        case day
+        case week
+        case month
+    }
+    
+    var showingBy = ShowingBy.month
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +60,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.viewingMonth = DateCalendarManager.getStartOfMonth(date: NSDate())
         
         self.configureTable()
+        
+        self.showLastButton?.hidden = true
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -365,23 +379,62 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func leftArrowPressed(sender: AnyObject) {
         
+        isInPast = true
+        
+        self.changePeriodButton?.hidden = true
+        self.showLastButton?.hidden = false
+        
         if self.rightArrowButton?.hidden == true { self.rightArrowButton?.hidden = false }
         
-        let thism = DateCalendarManager.getStartOfMonth(date: self.viewingMonth!)
+        self.handleGoBackHistory()
         
-        let prevm = DateCalendarManager.getPreviousMonth(fromDate: thism!)
+    }
+    
+    
+    func handleGoBackHistory() {
         
-        let endm = self.viewingMonth
-        
-        self.stackOfPeriods.push((thism, endm))
-        
-        self.viewingMonth = prevm.endOfMonth
-        
-        self.configureOperations(fromDate: prevm.startOfMonth, toDate: prevm.endOfMonth)
-        self.updateAmountLabels()
-        let month = DateCalendarManager.getMonthName(fromDate: prevm.endOfMonth)
-        self.updatePeriodLabel(period: "1 \(month.month) - \(month.lastDay) \(month.month)")
-        
+        switch (self.showingBy) {
+        case .month:
+            
+            let thism = DateCalendarManager.getStartOfMonth(date: self.viewingMonth!)
+            
+            let prevm = DateCalendarManager.getPreviousMonth(fromDate: thism!)
+            
+            let endm = self.viewingMonth
+            
+            self.stackOfPeriods.push((thism, endm))
+            
+            self.viewingMonth = prevm.endOfMonth
+            
+            self.configureOperations(fromDate: prevm.startOfMonth, toDate: prevm.endOfMonth)
+            self.updateAmountLabels()
+            let month = DateCalendarManager.getMonthName(fromDate: prevm.endOfMonth)
+            self.updatePeriodLabel(period: "1 \(month.month) - \(month.lastDay) \(month.month)")
+            
+        case .week: break
+            
+        case .day:
+            
+            let this = self.viewingMonth!
+            
+            let prev = DateCalendarManager.getBeginningDayOf(this)
+            
+            let prevDay = DateCalendarManager.getPreviousDayFrom(prev)
+            
+            self.stackOfPeriods.push((this, prev))
+            
+            self.configureOperations(fromDate: prevDay, toDate: this)
+            
+//            self.viewingMonth = prev
+            self.viewingMonth = DateCalendarManager.getEndOfDayOf(DateCalendarManager.getPreviousDayFrom(this))
+            
+            self.updateAmountLabels()
+            
+            let comps = DateCalendarManager.getComponentsFrom(date: prevDay)
+            
+            self.updatePeriodLabel(period: "\(comps.day) \(DateCalendarManager.months[comps.month]!)")
+            
+        }
         
         self.tableView?.reloadData()
     }
@@ -391,22 +444,58 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBAction func rightArrowPressed(sender: AnyObject) {
-        if let month = self.stackOfPeriods.pop() {
-            self.viewingMonth = month.1
-            self.configureOperations(fromDate: month.0, toDate: month.1)
-            self.updateAmountLabels()
         
-            let monthDate = DateCalendarManager.getMonthName(fromDate: month.1)
-            self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
+        self.handleGoForwardHistory()
+        
+        if self.stackOfPeriods.isEmpty() {
+            self.rightArrowButton?.hidden = true
+            self.isInPast = false
+        }
+        
+        if self.isInPast {
+            self.changePeriodButton?.hidden = true
+            self.showLastButton?.hidden = false
+        } else {
+            self.changePeriodButton?.hidden = false
+            self.showLastButton?.hidden = true
+        }
+        
+        
+    }
+    
+    
+    func handleGoForwardHistory() {
+        
+        switch (self.showingBy) {
+        case .month:
+            
+            if let month = self.stackOfPeriods.pop() {
+                self.viewingMonth = month.1
+                self.configureOperations(fromDate: month.0, toDate: month.1)
+                
+                let monthDate = DateCalendarManager.getMonthName(fromDate: month.1)
+                self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
+                
+            }
+
             
             
-            if self.stackOfPeriods.isEmpty() {
-                self.rightArrowButton?.hidden = true
+        case .week: break
+            
+            
+        case .day:
+            if let day = self.stackOfPeriods.pop() {
+                self.viewingMonth = day.0
+                self.configureOperations(fromDate: day.1, toDate: day.0)
+                
+                let comps = DateCalendarManager.getComponentsFrom(date: day.0!)
+                
+                self.updatePeriodLabel(period: "\(comps.day) \(DateCalendarManager.months[comps.month]!)")
             }
         }
         
+        self.updateAmountLabels()
         self.tableView?.reloadData()
-        
     }
     
     
@@ -416,20 +505,71 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func changePeriodButtonPressed(sender: UIButton) {
         
         switch (sender.titleLabel!.text!) {
-            case "By Month":
-                sender.setTitle("By Week", forState: UIControlState.Normal)
+//            case "By Month":
+//                sender.setTitle("By Week", forState: UIControlState.Normal)
+//            
             
-            case "By Week":
+            case "By Month":
+                self.showingBy = .day
                 sender.setTitle("By Day", forState: .Normal)
+                let date = NSDate()
+                let period = DateCalendarManager.getDayPeriod(date)
+                
+                let comps = DateCalendarManager.getComponentsFrom(date: date)
+                
+                self.updatePeriodLabel(period: "\(comps.day) \(DateCalendarManager.months[comps.month]!)")
+                
+                self.allOperations.removeAll()
+                self.configureOperations(fromDate: period.begin, toDate: period.end)
+                self.updateAmountLabels()
+                self.tableView?.reloadData()
+            
             
             
             case "By Day":
+                self.showingBy = .month
                 sender.setTitle("By Month", forState: .Normal)
+            
+                self.viewingMonth = DateCalendarManager.getStartOfMonth(date: NSDate())
+
+                
+                let day_month_interval = DateCalendarManager.getCurrentDate()
+                
+                self.updatePeriodLabel(period: "1 \(day_month_interval.month) - \(day_month_interval.dayNumber) \(day_month_interval.month)")
+                
+                self.allOperations.removeAll()
+                self.configureOperations(fromDate: self.viewingMonth)
+                self.updateAmountLabels()
+                self.tableView?.reloadData()
+                
+                self.viewingMonth = NSDate()
+            
+            
+            
             
         default: break
         }
         
     }
+    
+    
+    
+    @IBAction func showLastPressed(sender: AnyObject) {
+        
+        while (self.stackOfPeriods.count > 1) {
+            self.stackOfPeriods.pop()
+        }
+        
+        self.handleGoForwardHistory()
+        
+        self.showLastButton?.hidden = true
+        self.rightArrowButton?.hidden = true
+        self.changePeriodButton?.hidden = false
+        
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
