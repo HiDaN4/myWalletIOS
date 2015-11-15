@@ -179,7 +179,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             if let symbols = self.currencySymbolLabel {
-                let lastCurrency = self.allOperations.first?.currency
+                var lastCurrency = self.allOperations.first?.currency
+                if lastCurrency == nil { lastCurrency = "$" }
                 if lastCurrency != symbols[0].text {
                     for symbol in symbols {
                         symbol.text = lastCurrency
