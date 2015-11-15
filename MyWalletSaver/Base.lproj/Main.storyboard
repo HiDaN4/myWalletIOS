@@ -648,6 +648,12 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="LeftDirection" value="NO"/>
                                         </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="W2u-Is-9yt"/>
+                                                <exclude reference="ytH-tM-LDq"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="rightArrowPressed:" destination="AYG-Hr-zBm" eventType="touchUpInside" id="2vy-Vr-hJS"/>
                                         </connections>
@@ -658,12 +664,15 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="6DH-A9-Bwp"/>
                                     <constraint firstItem="fCF-b6-1vM" firstAttribute="bottom" secondItem="W3p-Oh-CUP" secondAttribute="bottom" id="6uI-ch-X1r"/>
+                                    <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="width" secondItem="mOB-18-EBc" secondAttribute="width" id="CLV-c9-8Pp"/>
                                     <constraint firstAttribute="centerX" secondItem="KGp-kQ-w8V" secondAttribute="centerX" id="Ccf-Nw-qOB"/>
                                     <constraint firstItem="Aif-mq-1TL" firstAttribute="leading" secondItem="2pM-A6-9rF" secondAttribute="trailing" constant="2" id="Db4-15-Kxs"/>
                                     <constraint firstItem="W5U-qL-bcd" firstAttribute="top" secondItem="KGp-kQ-w8V" secondAttribute="bottom" constant="18.5" id="DbE-7p-ITc"/>
                                     <constraint firstItem="rxK-Pj-ywg" firstAttribute="bottom" secondItem="W3p-Oh-CUP" secondAttribute="bottom" constant="-1.5" id="HOI-NE-6ys"/>
                                     <constraint firstItem="mOB-18-EBc" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" constant="1.75" id="LMv-YE-1LO"/>
+                                    <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="centerY" secondItem="mOB-18-EBc" secondAttribute="centerY" id="MZo-6e-Jn9"/>
                                     <constraint firstItem="fCF-b6-1vM" firstAttribute="leading" secondItem="W3p-Oh-CUP" secondAttribute="trailing" constant="2" id="Or5-td-psP"/>
+                                    <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="height" secondItem="mOB-18-EBc" secondAttribute="height" id="TMu-lo-f8n"/>
                                     <constraint firstItem="mOB-18-EBc" firstAttribute="leading" secondItem="KGp-kQ-w8V" secondAttribute="trailing" constant="8" id="XaO-Xd-B5P"/>
                                     <constraint firstItem="rxK-Pj-ywg" firstAttribute="leading" secondItem="mEK-2o-Xfz" secondAttribute="leading" constant="8" id="Zzy-EE-AO3"/>
                                     <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" constant="0.75" id="ccR-Xq-LQI"/>
