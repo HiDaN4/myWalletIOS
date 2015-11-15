@@ -617,7 +617,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7Z-uJ-ioJ" customClass="CustomArrowButton" customModule="WalletTracker" customModuleProvider="target">
-                                        <rect key="frame" x="167" y="7" width="25" height="25"/>
+                                        <rect key="frame" x="167" y="6" width="25" height="25"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="QfO-mr-cor"/>
@@ -634,7 +634,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOB-18-EBc" customClass="CustomArrowButton" customModule="WalletTracker" customModuleProvider="target">
-                                        <rect key="frame" x="408" y="7" width="25" height="25"/>
+                                        <rect key="frame" x="408" y="6" width="25" height="25"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="2is-eM-Sgg"/>
@@ -650,7 +650,9 @@
                                         </userDefinedRuntimeAttributes>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="2is-eM-Sgg"/>
                                                 <exclude reference="W2u-Is-9yt"/>
+                                                <exclude reference="mc3-fb-sWP"/>
                                                 <exclude reference="ytH-tM-LDq"/>
                                             </mask>
                                         </variation>
@@ -672,12 +674,15 @@
                                     <constraint firstItem="mOB-18-EBc" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" constant="1.75" id="LMv-YE-1LO"/>
                                     <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="centerY" secondItem="mOB-18-EBc" secondAttribute="centerY" id="MZo-6e-Jn9"/>
                                     <constraint firstItem="fCF-b6-1vM" firstAttribute="leading" secondItem="W3p-Oh-CUP" secondAttribute="trailing" constant="2" id="Or5-td-psP"/>
+                                    <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" id="Sfi-RU-tV6"/>
                                     <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="height" secondItem="mOB-18-EBc" secondAttribute="height" id="TMu-lo-f8n"/>
+                                    <constraint firstItem="mOB-18-EBc" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" id="VqH-Yf-G0I"/>
                                     <constraint firstItem="mOB-18-EBc" firstAttribute="leading" secondItem="KGp-kQ-w8V" secondAttribute="trailing" constant="8" id="XaO-Xd-B5P"/>
                                     <constraint firstItem="rxK-Pj-ywg" firstAttribute="leading" secondItem="mEK-2o-Xfz" secondAttribute="leading" constant="8" id="Zzy-EE-AO3"/>
                                     <constraint firstItem="q7Z-uJ-ioJ" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" constant="0.75" id="ccR-Xq-LQI"/>
                                     <constraint firstItem="2pM-A6-9rF" firstAttribute="bottom" secondItem="W5U-qL-bcd" secondAttribute="bottom" id="g2o-Vc-HJF"/>
                                     <constraint firstItem="rxK-Pj-ywg" firstAttribute="top" secondItem="W5U-qL-bcd" secondAttribute="bottom" constant="8" id="iX4-lN-Rof"/>
+                                    <constraint firstItem="mOB-18-EBc" firstAttribute="centerY" secondItem="KGp-kQ-w8V" secondAttribute="centerY" id="izr-Bx-dbR"/>
                                     <constraint firstItem="KGp-kQ-w8V" firstAttribute="top" secondItem="mEK-2o-Xfz" secondAttribute="top" constant="8" id="jgp-ai-7Ea"/>
                                     <constraint firstItem="2pM-A6-9rF" firstAttribute="leading" secondItem="W5U-qL-bcd" secondAttribute="trailing" constant="17" id="kBS-ZH-VzQ"/>
                                     <constraint firstItem="W3p-Oh-CUP" firstAttribute="leading" secondItem="rxK-Pj-ywg" secondAttribute="trailing" constant="8" id="m26-5A-N4h"/>
@@ -685,6 +690,14 @@
                                     <constraint firstItem="W5U-qL-bcd" firstAttribute="leading" secondItem="mEK-2o-Xfz" secondAttribute="leading" constant="8" id="pfa-LJ-GqX"/>
                                     <constraint firstItem="2pM-A6-9rF" firstAttribute="bottom" secondItem="Aif-mq-1TL" secondAttribute="bottom" id="tOo-TU-rg1"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MZo-6e-Jn9"/>
+                                        <exclude reference="ccR-Xq-LQI"/>
+                                        <exclude reference="LMv-YE-1LO"/>
+                                        <exclude reference="VqH-Yf-G0I"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <animations/>
