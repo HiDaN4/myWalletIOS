@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, HolderDelegate, OperationTableViewCellDelegate, KeyboardObserverDelegate {
     
     // MARK: - Properties
     
@@ -69,8 +69,11 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     var current_holder: Holder!
     
     var operations = [Operation]()
+    var sections = [NSDate]()
     
     var refreshControl: UIRefreshControl!
+    
+    var keyboardObserver: KeyboardObserver!
     
     //MARK: - Functions
     
@@ -79,12 +82,50 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         self.setupView()
         
-        self.registerForNotifications()
+//        self.registerForNotifications()
+        self.prepareSections()
+        self.keyboardObserver = KeyboardObserver(delegate: self, eventTypes: [.WillShow, .WillHide])
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.keyboardObserver.beginObservingEvents()
+        
+        self.updateBalanceForAllHolders()
+        
+        self.operations = self.operations.filter {$0.timestamp != 0}
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.keyboardObserver.endObservingEvents()
     }
     
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    deinit {
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    }
+    
+    
+    func prepareSections() {
+        let calendar = NSCalendar.currentCalendar()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
+        dateFormatter.timeZone = calendar.timeZone
+        for item in self.operations {
+            let date = NSDate(timeIntervalSinceReferenceDate: item.timestamp)
+            
+            
+            
+            let timestamp = dateFormatter.stringFromDate(date)
+            let index = timestamp.characters.indexOf(",")
+            let newString = timestamp.substringToIndex(index!)
+            print(newString)
+            self.sections.append(date)
+        }
     }
     
     
@@ -224,16 +265,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.updateBalanceForAllHolders()
-        
-        self.operations = self.operations.filter {$0.timestamp != 0}
-        
-//        self.tableView?.reloadData()
-    }
-    
     //MARK: - Table View Data Source
     
     
@@ -276,8 +307,6 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
         cell.selectionStyle = .None
         cell.setCellColor(UIColor.clearColor())
-//        cell.setCellColor(UIColor(red: 25.0/255.0, green: 165.0/255.0, blue: 180.0/255.0, alpha: 1))
-//        cell.setLabelColor(kklabelsColor)
         cell.setLabelColor(UIColor.whiteColor())
         
 //        cell.textOnSwipeLeft = "Remove"
@@ -285,9 +314,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         return cell
     }
     
-//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        return true
-//    }
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
     
 //    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -320,18 +349,74 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        }
 //    }
     
+    @available(iOS 8.0, *)
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+//            var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Share") { (action: UITableViewRowAction, indexPath: NSIndexPath!) -> Void in
+//                
+//                print("\(action.style.rawValue)")
+//    
+//            }
+//            
+//            shareAction.backgroundColor = UIColor.blueColor()
+            
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (action: UITableViewRowAction, indexPath: NSIndexPath!) -> Void in
+            
+            self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+//                tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+//                self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
+            }
+            
+        return [deleteAction]
+        
+
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let operation = self.operations[indexPath.row]
+            self.deleteItem(operation)
+//            tableView.beginUpdates()
+//            let operation = self.operations[indexPath.row]
+//
+//            if operation.amount > 0 {
+//                operation.wallet.totalIncome -= operation.amount
+//            } else {
+//                operation.wallet.totalExpense -= operation.amount
+//            }
+//
+//            managedObjectContext.deleteObject(operation)
+//
+//            managedObjectContext.processPendingChanges()
+//            do {
+//                try managedObjectContext.save()
+//            } catch {
+//                print("error saving update")
+//            }
+//
+//            self.updateBalanceForAllHolders()
+//
+//            self.operations.removeAtIndex(indexPath.row)
+//            
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            
+//            tableView.endUpdates()
+            
+        }
+
+    }
     
 //    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-    
+//    
 //        var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Share") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
 //            
-//            println("\(action.style.rawValue)")
+//            print("\(action.style.rawValue)")
 //            
 //        }
 //        
 //        shareAction.backgroundColor = UIColor.blueColor()
 //        
-//        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+//        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (action: UITableViewRowAction, indexPath: NSIndexPath!) -> Void in
 //            
 //            self.tableView(tableView, commitEditingStyle: UITableViewCellEditingStyle.Delete, forRowAtIndexPath: indexPath)
 //        }
@@ -356,6 +441,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
 //        header.addSubview(line)
     }
     
+//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "sss"
+//    }
+    
     
     
     
@@ -377,7 +466,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     @IBAction func incomeButtonPressed(sender: AnyObject) {
         print("Income pressed")
-        if self.checkInput() {
+        if self.validInput() {
             createRecordInCoreData((inputField!.text! as NSString).doubleValue)
             inputField!.text = ""
         }
@@ -386,7 +475,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     @IBAction func expenseButtonPressed(sender: AnyObject) {
         print("Expense pressed")
-        if self.checkInput() {
+        if self.validInput() {
             createRecordInCoreData(0 - (inputField!.text! as NSString).doubleValue)
             inputField!.text = ""
         }
@@ -419,55 +508,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         let touch = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         touch.numberOfTouchesRequired = 1
         
-        self.tableView?.addGestureRecognizer(touch)
-//        return
-//        let sender = sender as! UITextField
-//        
-//        print("\(sender.frame.height)")
-//        
-//        self.sourceSegmentedControl?.hidden = false
-//        
-//        changeAppearanceOfCategoryButtons(hidden: false)
-//        
-//        
-//        if let buttons = self.categoryButtons {
-//            var i: CGFloat = 0
-//            for button in buttons {
-//                button.frame.origin.x = 0 - button.frame.width - i
-//                i += 8 + button.frame.width
-//            }
-//        }
-//        
-//        if #available(iOS 8.0, *) {
-//            self.leftCategoryButtonLeadingConstraint?.active = true
-//            self.rightCategoryButtonLeadingConstraint?.active = false
-////            self.trailingSpaceTextFieldConstraint?.active = false
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-////            self.trailingSpaceTextFieldConstraint?.priority = 250
-////            self.trailingSpaceLeftButtonConstraint?.priority = 750
-//            self.topSpacerConstraint?.constant = 68
-//            self.footerHeightConstraint?.constant = 140
-//            self.bottomConstraint?.constant = CGFloat(-sender.frame.height*5)
-//            self.view.layoutIfNeeded()
-////            self.view.layer.frame.offsetInPlace(dx: 0, dy: CGFloat(-sender.frame.height*6 - 20))
-//            
-//        })
-        
-//        UIView.animateWithDuration(0.5) {
-//            if let buttons = self.categoryButtons {
-//                var i: CGFloat = 0
-//                for button in buttons {
-//                    button.frame.origin.x = 10 + i
-//                    i += 8 + button.frame.width
-//                }
-//            }
-//        }
-        
-        
+        self.tableView?.addGestureRecognizer(touch)        
     }
     
     
@@ -510,7 +551,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     //MARK: - Helper functions
     
     
-    func checkInput() -> Bool {
+    func validInput() -> Bool {
         
         let empty = NSCharacterSet.whitespaceAndNewlineCharacterSet()
         let ddigits = NSCharacterSet(charactersInString: "1234567890.")
@@ -668,7 +709,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         
     }
     
-    private func animateFooterViewAndSubviews(up up: Bool, var height: CGFloat?) {
+    private func animateFooterViewAndSubviews(up up: Bool, var height: CGFloat?, duration: NSTimeInterval) {
         
         if height == nil { height = 0.0 }
         
@@ -711,10 +752,10 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
             self.topSpacerConstraint?.constant = 40
             self.bottomConstraint?.constant = height!
             
-            self.inputField?.resignFirstResponder()
+            
         }
         
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        UIView.animateWithDuration(duration, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
 
@@ -722,18 +763,36 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     // MARK: - Handling NSNotifications
     
+    func keyboardObserverDidReceiveKeyboardEvent(event: KeyboardEvent) {
+        switch event.type {
+        case .WillShow:
+            guard self.isFooterExpanded == false else { return }
+            if let kbsize = event.keyboardFrame?.size, dur = event.keyboardAnimationDuration {
+                self.animateFooterViewAndSubviews(up: true, height: kbsize.height, duration: dur)
+            }
+        case .WillHide:
+            let dur = event.keyboardAnimationDuration
+            self.animateFooterViewAndSubviews(up: false, height: nil, duration: dur != nil ? dur! : 0.3)
+        default: break
+        }
+    }
+    
     func keyboardWillShow(notification: NSNotification) {
-        if let kbsize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+        guard self.isFooterExpanded == false else { return }
+        if let kbsize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue(), let dur = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.animateFooterViewAndSubviews(up: true, height: kbsize.height)
+                self.animateFooterViewAndSubviews(up: true, height: kbsize.height, duration: NSTimeInterval(dur.doubleValue))
             })
         }
         
     }
     
     func keyboardWillHide(notification: NSNotification) {
+        let dur = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+        
+        
         dispatch_async(dispatch_get_main_queue()) {
-            self.animateFooterViewAndSubviews(up: false, height: nil)
+            self.animateFooterViewAndSubviews(up: false, height: nil, duration: NSTimeInterval(dur != nil ? dur! : 0.3))
         }
 //        NSOperationQueue.mainQueue().addOperationWithBlock() {_ in print("hello")}
     }
@@ -771,7 +830,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
         if let touch = touches.first {
             let location = touch.locationInView(nil)
             if !CGRectContainsPoint(self.footerView!.frame, location) {
-                NSOperationQueue.mainQueue().addOperationWithBlock() { self.animateFooterViewAndSubviews(up: false, height: nil) }
+                self.inputField?.resignFirstResponder()
             }
         }
     }
@@ -779,32 +838,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, UITableViewDele
     
     func tapped() {
         self.tableView?.gestureRecognizers?.removeLast()
-        dispatch_async(dispatch_get_main_queue()) {self.animateFooterViewAndSubviews(up: false, height: nil)}
-//        return
-//        
-//        if #available(iOS 8.0, *) {
-//            self.leftCategoryButtonLeadingConstraint?.active = false
-//            self.rightCategoryButtonLeadingConstraint?.active = true
-//            //            self.trailingSpaceTextFieldConstraint?.constant = 0 - 30
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        
-//        
-//        self.sourceSegmentedControl?.hidden = true
-//        
-//        UIView.animateWithDuration(0.3, animations: { () -> Void in
-//            //            self.trailingSpaceTextFieldConstraint?.priority = 750
-//            //            self.trailingSpaceLeftButtonConstraint?.priority = 250
-//            //            self.trailingSpaceLeftButtonConstraint?.constant = 20
-//            self.footerHeightConstraint?.constant = 100
-//            self.topSpacerConstraint?.constant = 40
-//            self.bottomConstraint?.constant = 0
-//            self.view.layoutIfNeeded()
-//            
-//        })
-//        
-//        self.inputField?.resignFirstResponder()
+        self.inputField?.resignFirstResponder()
     }
     
     

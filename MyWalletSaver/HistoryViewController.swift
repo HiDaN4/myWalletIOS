@@ -11,6 +11,8 @@ import CoreData
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet var currencySymbolLabel: [UILabel]?
@@ -22,56 +24,31 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var totalExpenseLabel: UILabel?
     @IBOutlet weak var totalIncomeLabel: UILabel?
     
+    @IBOutlet weak var changePeriodButton: UIButton?
+    
     
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
     
     var allOperations: [Operation] = [Operation]()
     
-    let reuseIdentifier = "Cell"
-    
-    static let months = [1: "January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12: "December"]
-
+    private let reuseIdentifier = "Cell"
     
     var totalExpense: Double = 0.0
     var totalIncome: Double = 0.0
     
-    
     var viewingMonth: NSDate?
-    var stackOfMonths = Stack<(NSDate?, NSDate?)>()
+    var stackOfPeriods = Stack<(NSDate?, NSDate?)>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewingMonth = self.getStartOfMonth(date: NSDate())
+        self.view.backgroundColor = kkbackgroundColor
         
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
+        self.viewingMonth = DateCalendarManager.getStartOfMonth(date: NSDate())
         
-        self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        self.configureTable()
         
-        
-//        self.edgesForExtendedLayout = UIRectEdge.None
-//        self.extendedLayoutIncludesOpaqueBars = false
-//        self.automaticallyAdjustsScrollViewInsets = false
-//        self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
-            if #available(iOS 8.0, *) {
-                self.tableView?.layoutMargins = UIEdgeInsetsZero
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-        
-//        self.tableView.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
-        
-//        self.tableView.rowHeight = 55
-        
-//        if self.tableView.respondsToSelector(Selector("setLayoutMargins:")) == true {
-//            self.tableView.layoutMargins = UIEdgeInsetsZero
-//        }
-        
-//        configureOperations()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -79,7 +56,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.rightArrowButton?.hidden = true
         
-        let day_month_interval = self.getCurrentDate()
+        let day_month_interval = DateCalendarManager.getCurrentDate()
         
         self.updatePeriodLabel(period: "1 \(day_month_interval.month) - \(day_month_interval.dayNumber) \(day_month_interval.month)")
         
@@ -88,14 +65,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.viewingMonth = NSDate()
         
-        self.view.backgroundColor = kkbackgroundColor
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("Stack \(self.stackOfMonths.count)")
         self.tableView?.reloadData()
     }
 
@@ -108,6 +83,35 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     // MARK: - Functions
+    
+    
+    func configureTable() {
+        
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        self.tableView?.registerNib(UINib(nibName: "OperationTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+        
+//        self.edgesForExtendedLayout = UIRectEdge.None
+//        self.extendedLayoutIncludesOpaqueBars = false
+//        self.automaticallyAdjustsScrollViewInsets = false
+//        self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        
+        if self.tableView?.respondsToSelector(Selector("setLayoutMargins:")) == true {
+            if #available(iOS 8.0, *) {
+                self.tableView?.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
+//        self.tableView?.backgroundColor = UIColor(red: 246.0/255.0, green: 246.0/255.0, blue: 246.0/255.0, alpha: 1)
+//
+//        self.tableView?.rowHeight = 55
+
+        
+    }
     
     func configureOperations(fromDate fromDate: NSDate?, toDate: NSDate? = nil) {
         
@@ -181,6 +185,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 // Fallback on earlier versions
+                let alert = UIAlertView(title: "Error", message: "Error", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
             }
             
         }
@@ -213,98 +219,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    func getCurrentDate() -> (dayNumber: Int, month: String) {
-        
-        
-        let calendar = NSCalendar.currentCalendar()
-        
-        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Day, NSCalendarUnit.Month], fromDate: NSDate())
-        let dayNum = components.day
-        let monthNum: Int = components.month
-        components.day = 1
-        components.timeZone = calendar.timeZone
-//        if #available(iOS 8.0, *) {
-//            let startOfMonth = calendar.dateBySettingUnit(NSCalendarUnit.Day, value: 1, ofDate: NSDate(), options: [])
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
-        
-        return (dayNum, HistoryViewController.months[monthNum]!)
-        
-    }
-    
-    
-    func getMonthName(fromDate fromDate: NSDate?) -> (month: String, lastDay: Int) {
-        
-        if let date = fromDate {
-           
-            let calendar = NSCalendar.currentCalendar()
-            
-            let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Day, NSCalendarUnit.Month], fromDate: date)
-            let monthNum: Int = components.month
-            let dayNum = components.day
-            return (HistoryViewController.months[monthNum]!, dayNum)
-            
-        }
-        
-        return ("", 0)
-    }
-    
-    
-    func getStartOfMonth(date date: NSDate) -> NSDate? {
-        
-        // get current calendar
-        let calendar = NSCalendar.currentCalendar()
-        
-        // get components with year and month
-        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: date)
-        
-        components.timeZone = calendar.timeZone
-        components.day = 1
-        components.hour = 0
-        components.minute = 0
-        components.second = 0
-        
-        
-        // get date from components
-        let startOfMonth = calendar.dateFromComponents(components)
-        
-//        startOfMonth = startOfMonth?.dateByAddingTimeInterval(60*60*3)
-        
-        // return date with the beginning of this month
-        return startOfMonth
-        
-    }
-    
-    
-    func getPreviousMonth(fromDate fromDate: NSDate) -> (startOfMonth: NSDate?, endOfMonth: NSDate?) {
-        
-        let calendar = NSCalendar.currentCalendar()
-        
-        let components = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second], fromDate: fromDate.dateByAddingTimeInterval(-1))
-        
-        components.timeZone = calendar.timeZone
-        
-        if let previousMonthDate = calendar.dateFromComponents(components) {
-            
-            let newComponents = calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: previousMonthDate)
-            
-            newComponents.timeZone = calendar.timeZone
-            
-            newComponents.day = 1
-            
-            let startOfMonth = calendar.dateFromComponents(newComponents)
-            
-            return (startOfMonth, previousMonthDate)
-        }
-        
-        return (nil, nil)
-        
-    }
-    
-    
-    
     func updateAmountLabels() {
         var value: Double = 0
         var fraction: String = ""
@@ -329,6 +243,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.periodLabel?.text = period
     }
+    
+    
 
     // MARK: - Table view data source
     
@@ -356,16 +272,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         header.contentView.backgroundColor = UIColor.whiteColor()
         
-//        let line = UILabel(frame: CGRect(x: header.frame.origin.x, y: header.frame.origin.y + header.frame.height - 1, width: header.frame.width, height: 1))
-//        
-//        line.backgroundColor = UIColor.whiteColor()
-//        
-//        header.addSubview(line)
     }
     
-//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return " " + getCurrentMonth()
-//    }
     
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -401,6 +309,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         return cell
     }
+    
+    
+    
     
     func deleteItem(item: Operation) {
         let operation = item
@@ -448,42 +359,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.updateAmountLabels()
         
     }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     
     // MARK: - Button Actions
@@ -492,36 +367,40 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if self.rightArrowButton?.hidden == true { self.rightArrowButton?.hidden = false }
         
-        let thism = self.getStartOfMonth(date: self.viewingMonth!)
+        let thism = DateCalendarManager.getStartOfMonth(date: self.viewingMonth!)
         
-        let prevm = self.getPreviousMonth(fromDate: thism!)
+        let prevm = DateCalendarManager.getPreviousMonth(fromDate: thism!)
         
         let endm = self.viewingMonth
         
-        self.stackOfMonths.push((thism, endm))
+        self.stackOfPeriods.push((thism, endm))
         
         self.viewingMonth = prevm.endOfMonth
         
         self.configureOperations(fromDate: prevm.startOfMonth, toDate: prevm.endOfMonth)
         self.updateAmountLabels()
-        let month = self.getMonthName(fromDate: prevm.endOfMonth)
+        let month = DateCalendarManager.getMonthName(fromDate: prevm.endOfMonth)
         self.updatePeriodLabel(period: "1 \(month.month) - \(month.lastDay) \(month.month)")
         
         
         self.tableView?.reloadData()
     }
     
+    
+    
+    
+    
     @IBAction func rightArrowPressed(sender: AnyObject) {
-        if let month = self.stackOfMonths.pop() {
+        if let month = self.stackOfPeriods.pop() {
             self.viewingMonth = month.1
             self.configureOperations(fromDate: month.0, toDate: month.1)
             self.updateAmountLabels()
         
-            let monthDate = self.getMonthName(fromDate: month.1)
+            let monthDate = DateCalendarManager.getMonthName(fromDate: month.1)
             self.updatePeriodLabel(period: "1 \(monthDate.month) - \(monthDate.lastDay) \(monthDate.month)")
             
             
-            if self.stackOfMonths.isEmpty() {
+            if self.stackOfPeriods.isEmpty() {
                 self.rightArrowButton?.hidden = true
             }
         }
@@ -529,7 +408,28 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView?.reloadData()
         
     }
+    
+    
+    
 
+    
+    @IBAction func changePeriodButtonPressed(sender: UIButton) {
+        
+        switch (sender.titleLabel!.text!) {
+            case "By Month":
+                sender.setTitle("By Week", forState: UIControlState.Normal)
+            
+            case "By Week":
+                sender.setTitle("By Day", forState: .Normal)
+            
+            
+            case "By Day":
+                sender.setTitle("By Month", forState: .Normal)
+            
+        default: break
+        }
+        
+    }
     /*
     // MARK: - Navigation
 

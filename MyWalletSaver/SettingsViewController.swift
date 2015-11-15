@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol HolderDelegate {
+protocol HolderDelegate: class {
     var currentCurrency: String {get}
     func setWalletValues(details: [String: String]?)
 }

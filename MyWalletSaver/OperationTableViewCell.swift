@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol OperationTableViewCellDelegate {
+protocol OperationTableViewCellDelegate: class {
     func deleteItem(item: Operation)
 }
 

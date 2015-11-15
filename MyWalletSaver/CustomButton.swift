@@ -29,7 +29,7 @@ class CustomCirclularButton: UIButton {
         self.strokeColor.setStroke()
         
         // line width
-        path.lineWidth = 1.0
+        path.lineWidth = 0.5
         
         // draw
         path.stroke()

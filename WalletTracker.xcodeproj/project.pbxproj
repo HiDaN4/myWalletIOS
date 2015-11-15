@@ -15,6 +15,7 @@
 		DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8AA1B91B42EF3600B315C6 /* Holder.swift */; };
 		DA8AA1BC1B43287F00B315C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */; };
 		DAA154181B7E82C90097D1D9 /* kkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA154171B7E82C90097D1D9 /* kkConstants.swift */; };
+		DAA91D031BD4889C00EFFAB6 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA91D021BD4889C00EFFAB6 /* KeyboardObserver.swift */; };
 		DABB451D1B41BCD50045D0B5 /* OperationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */; };
 		DABB451E1B41BCD50045D0B5 /* OperationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */; };
 		DAD71B951B37865E0047197A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD71B941B37865E0047197A /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		DAD71BBA1B37EC130047197A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD71BB91B37EC130047197A /* CoreData.framework */; };
 		DAE3E4EA1B4EB1D60044C00E /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */; };
 		DAEAB97E1B51B24C008C3EC7 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */; };
+		DAF95A7A1BF8044400FB9817 /* DateCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF95A791BF8044400FB9817 /* DateCalendarManager.swift */; };
 		DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */; };
 		DAFAD9C81B3BC23300AE8D3B /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAD9C71B3BC23300AE8D3B /* Operation.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA063B221BDAFF1B0061B9B9 /* WalletTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WalletTracker.entitlements; sourceTree = "<group>"; };
 		DA2A17001B7228AB00352B0D /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		DA5253441BAB8FD800C84014 /* FlipSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlipSegue.swift; sourceTree = "<group>"; };
 		DA7BF8861B5F86EA00F36398 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		DA8AA1B91B42EF3600B315C6 /* Holder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Holder.swift; sourceTree = "<group>"; };
 		DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DAA154171B7E82C90097D1D9 /* kkConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = kkConstants.swift; sourceTree = "<group>"; };
+		DAA91D021BD4889C00EFFAB6 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		DABB451B1B41BCD50045D0B5 /* OperationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationTableViewCell.swift; sourceTree = "<group>"; };
 		DABB451C1B41BCD50045D0B5 /* OperationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OperationTableViewCell.xib; sourceTree = "<group>"; };
 		DAD71B8F1B37865E0047197A /* WalletTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalletTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +70,7 @@
 		DAD71BB91B37EC130047197A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DAE3E4E91B4EB1D60044C00E /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		DAEAB97D1B51B24C008C3EC7 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		DAF95A791BF8044400FB9817 /* DateCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCalendarManager.swift; sourceTree = "<group>"; };
 		DAFAD9C51B3BA27700AE8D3B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAFAD9C71B3BC23300AE8D3B /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = ../Operation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,9 +95,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAA91D011BD4887D00EFFAB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAF95A791BF8044400FB9817 /* DateCalendarManager.swift */,
+				DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */,
+				DA2A17001B7228AB00352B0D /* Stack.swift */,
+				DAA91D021BD4889C00EFFAB6 /* KeyboardObserver.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		DAD71B861B37865E0047197A = {
 			isa = PBXGroup;
 			children = (
+				DA063B221BDAFF1B0061B9B9 /* WalletTracker.entitlements */,
 				DA8AA1BB1B43287F00B315C6 /* QuartzCore.framework */,
 				DAD71BB91B37EC130047197A /* CoreData.framework */,
 				DAD71B911B37865E0047197A /* MyWalletSaver */,
@@ -114,9 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				DAA154171B7E82C90097D1D9 /* kkConstants.swift */,
-				DA2A17001B7228AB00352B0D /* Stack.swift */,
 				DAD71B941B37865E0047197A /* AppDelegate.swift */,
-				DAFAD9CB1B3BC24200AE8D3B /* Core Data Models */,
+				DAA91D011BD4887D00EFFAB6 /* Model */,
 				DAE3E4EB1B4EB1E00044C00E /* Views */,
 				DAFAD9CC1B3BC25700AE8D3B /* ViewControllers */,
 				DAD71B9A1B37865E0047197A /* Main.storyboard */,
@@ -232,12 +248,23 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dmitry Sokolov";
 				TargetAttributes = {
 					DAD71B8E1B37865E0047197A = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = YFURRB9247;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+							com.apple.WAC = {
+								enabled = 0;
+							};
+						};
 					};
 					DAD71BA51B37865E0047197A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -300,6 +327,8 @@
 				DA5253451BAB8FD800C84014 /* FlipSegue.swift in Sources */,
 				DAD71B971B37865E0047197A /* MainViewController.swift in Sources */,
 				DAD71BB81B3789540047197A /* CoreDataWallet.xcdatamodeld in Sources */,
+				DAA91D031BD4889C00EFFAB6 /* KeyboardObserver.swift in Sources */,
+				DAF95A7A1BF8044400FB9817 /* DateCalendarManager.swift in Sources */,
 				DAE3E4EA1B4EB1D60044C00E /* HistoryViewController.swift in Sources */,
 				DA8AA1BA1B42EF3600B315C6 /* Holder.swift in Sources */,
 				DAFAD9C61B3BA27700AE8D3B /* SettingsViewController.swift in Sources */,
@@ -367,6 +396,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -432,10 +462,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MyWalletSaver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sokolov.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = WalletTracker;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -444,10 +477,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MyWalletSaver/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sokolov.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = WalletTracker;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -465,6 +501,7 @@
 				);
 				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sokolov.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = WalletTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
 			};
@@ -480,6 +517,7 @@
 				);
 				INFOPLIST_FILE = MyWalletSaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sokolov.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = WalletTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyWalletSaver.app/MyWalletSaver";
 			};

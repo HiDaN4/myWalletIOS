@@ -10,7 +10,6 @@ import UIKit
 
 class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet weak var titleLabel: UILabel?
